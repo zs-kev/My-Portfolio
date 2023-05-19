@@ -1,9 +1,9 @@
 import Image from 'next/image';
 
-export default function Home() {
+export default function Contact() {
   return (
     <>
-      <h1>Kevin Simon</h1>
+      <h1>Get in Touch</h1>
     </>
   );
 }
