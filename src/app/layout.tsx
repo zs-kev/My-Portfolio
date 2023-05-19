@@ -1,10 +1,20 @@
 import { Header } from '@/components/header';
 import './globals.css';
-import { Inter } from 'next/font/google';
 import { Footer } from '@/components/footer';
 import { Providers } from './providers';
+import {
+  sansProRegular,
+  sansProMedium,
+  sansProSemiBold,
+  sansProBold,
+  sansProExtraBold,
+  sansProMediumItalic,
+  butlerMedium,
+  butlerBold,
+  butlerBlack,
+} from '../styles/fonts';
 
-const inter = Inter({ subsets: ['latin'] });
+const fonts = `${sansProRegular.variable} ${sansProMedium.variable} ${sansProSemiBold.variable} ${sansProBold.variable} ${sansProExtraBold.variable} ${sansProMediumItalic.variable} ${butlerMedium.variable} ${butlerBold.variable} ${butlerBlack.variable}`;
 
 export const metadata = {
   title: 'Kevin Simon',
@@ -18,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={fonts}>
         <Providers>
           <Header />
           <main>{children}</main>
