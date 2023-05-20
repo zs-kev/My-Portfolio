@@ -29,4 +29,7 @@ module.exports = {
   },
   plugins: [],
   darkMode: 'class',
+  screens: {
+    lg: '1024px',
+  },
 };

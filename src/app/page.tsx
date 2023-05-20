@@ -1,3 +1,4 @@
+import { PortfolioSelectedWork } from '@/components/portfolioSelected';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -15,17 +16,18 @@ export default function Home() {
           <h2 className="bg-gradient-to-b from-pumpkin to-pink inline-block text-transparent bg-clip-text text-[12.5rem] absolute bottom-[50%] translate-y-[50%] left-[50%] translate-x-[10%] z-[1]">
             Simon
           </h2>
-          <div className="max-w-md absolute bottom-[50%] translate-y-[250%] left-[50%] translate-x-[80%]">
-            <p className="text-gray font-sansProBold">
-              I am an aspiring full-stack developer based in South
-              Africa. With a growing expertise in front-end and
-              back-end technologies, I&apos;m passionate about
-              creating dynamic and engaging web applications.
-            </p>
+          <div className="absolute bottom-[50%] translate-y-[250%] left-[50%] translate-x-[110%]">
+            <div className="max-w-sm  ">
+              <p className="text-gray font-sansProBold text-xl">
+                I am an aspiring full-stack developer based in South
+                Africa. With a growing expertise in front-end and
+                back-end technologies.
+              </p>
+            </div>
           </div>
           <Link
             href={'#about-home'}
-            className="uppercase tracking-[0.2em] text-xs font-sansProBold w-36 h-36 dark:bg-white bg-black dark:text-black rounded-full bottom-[50%] translate-y-[300%] left-[50%] -translate-x-[400%] absolute flex justify-center items-center"
+            className="uppercase tracking-[0.2em] text-xs font-sansProBold w-36 h-36 dark:bg-white bg-black dark:text-black text-white rounded-full bottom-[20%] left-[50%] -translate-x-[425%] absolute flex justify-center items-center"
           >
             <span>Let&apos;s Meet</span>
           </Link>
@@ -66,6 +68,7 @@ export default function Home() {
           </p>
         </div>
       </section>
+      <PortfolioSelectedWork />
     </>
   );
 }
