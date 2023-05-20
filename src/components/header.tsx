@@ -72,14 +72,14 @@ export const ThemeChanger = () => {
           Light
         </p>
         <div
-          className={`border-solid border-2 border-gray rounded-[50%] w-3 h-3 relative transition ease-in-out duration-300 z-20 ${
+          className={`border-solid border-2 border-gray rounded-[50%] w-3 h-3 relative transition ease-in-out duration-300 z-50 ${
             themeClass === 'dark'
               ? 'translate-x-full bg-gray'
               : 'translate-x-[-90%] bg-white'
           }`}
         ></div>
         <div
-          className={`absolute bg-gray w-4 h-0.5 rounded-xl -right-0.5 z-10 ${
+          className={`absolute bg-gray w-4 h-0.5 rounded-xl -right-0.5 z-40 ${
             themeClass === 'dark'
               ? 'translate-x-[-425%]'
               : 'translate-x-[-340%]'
@@ -95,7 +95,7 @@ export const ThemeChanger = () => {
 
 export const Header = () => {
   return (
-    <header className="fixed pt-16 px-16 flex justify-between w-full items-center">
+    <header className="fixed pt-16 px-16 flex justify-between w-full items-center z-50">
       <p className="text-3xl">
         kevin<span className="text-gray">.</span>
       </p>
