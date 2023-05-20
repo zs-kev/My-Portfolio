@@ -37,7 +37,7 @@ export default function Home() {
               width="0"
               height="0"
               sizes="100vw"
-              className="w-full h-[85vh]"
+              className="w-auto max-w-none h-[85vh]"
             />
           </div>
         </div>
