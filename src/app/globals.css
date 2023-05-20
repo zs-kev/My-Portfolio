@@ -21,6 +21,19 @@ body {
   font-family: var(--font-sansProMedium);
 }
 
-h1 {
+h1,
+h2 {
   font-family: var(--font-butlerBlack);
+}
+
+p,
+a {
+  font-size: 1rem;
+}
+
+.font-sansProExtraBold {
+  font-family: var(--font-sansProExtraBold);
+}
+.font-sansProBold {
+  font-family: var(--font-sansProBold);
 }
