@@ -26,7 +26,13 @@ module.exports = {
       pumpkin: '#FF6A00',
       red: '#F42F48',
     },
+    letterSpacing: {
+      widest: '.2em',
+    },
   },
   plugins: [],
   darkMode: 'class',
+  screens: {
+    lg: '1024px',
+  },
 };
