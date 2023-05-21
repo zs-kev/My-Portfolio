@@ -68,7 +68,9 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <PortfolioSelectedWork />
+      <section>
+        <PortfolioSelectedWork />
+      </section>
     </>
   );
 }

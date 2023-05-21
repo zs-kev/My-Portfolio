@@ -22,7 +22,7 @@ export const Navigation = () => {
         <Link
           key={page}
           href={path}
-          className={`mx-5 tracking-[0.2em] text-xs ${
+          className={`mx-5 tracking-widest text-xs ${
             currentRoute === path && 'dark:text-white text-black'
           }`}
         >
@@ -68,7 +68,7 @@ export const ThemeChanger = () => {
         onClick={handleClick}
         className="flex items-center cursor-pointer relative focus:outline-none text-gray"
       >
-        <p className="mr-5 tracking-[0.2em] text-xs uppercase">
+        <p className="mr-5 tracking-widest text-xs uppercase">
           Light
         </p>
         <div
@@ -85,9 +85,7 @@ export const ThemeChanger = () => {
               : 'translate-x-[-340%]'
           }`}
         ></div>
-        <p className="ml-5 tracking-[0.2em] text-xs uppercase">
-          Dark
-        </p>
+        <p className="ml-5 tracking-widest text-xs uppercase">Dark</p>
       </button>
     </div>
   );

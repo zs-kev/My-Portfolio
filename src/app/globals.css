@@ -37,3 +37,15 @@ a {
 .font-sansProBold {
   font-family: var(--font-sansProBold);
 }
+.font-sansProMediumItalic {
+  font-family: var(--font-sansProMediumItalic);
+}
+.font-butlerMedium {
+  font-family: var(--font-butlerMedium);
+}
+.font-butlerBold {
+  font-family: var(--font-butlerBold);
+}
+.font-butlerBlack {
+  font-family: var(--font-butlerBlack);
+}
