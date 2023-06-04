@@ -1,24 +1,24 @@
-import { Header } from '@/components/header';
-import './globals.css';
-import { Footer } from '@/components/footer';
-import { Providers } from './providers';
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { Providers } from "../lib/providers/ThemeProvider/providers";
 import {
-  sansProRegular,
-  sansProMedium,
-  sansProSemiBold,
+  butlerBlack,
+  butlerBold,
+  butlerMedium,
   sansProBold,
   sansProExtraBold,
+  sansProMedium,
   sansProMediumItalic,
-  butlerMedium,
-  butlerBold,
-  butlerBlack,
-} from '../styles/fonts';
+  sansProRegular,
+  sansProSemiBold,
+} from "../styles/fonts";
+import "./globals.css";
 
 const fonts = `${sansProRegular.variable} ${sansProMedium.variable} ${sansProSemiBold.variable} ${sansProBold.variable} ${sansProExtraBold.variable} ${sansProMediumItalic.variable} ${butlerMedium.variable} ${butlerBold.variable} ${butlerBlack.variable}`;
 
 export const metadata = {
-  title: 'Kevin Simon',
-  description: 'My Portfolio Website',
+  title: "Kevin Simon",
+  description: "My Portfolio Website",
 };
 
 export default function RootLayout({

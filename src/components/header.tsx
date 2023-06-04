@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { LightDarkLoader } from './contentLoader';
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { LightDarkLoader } from "./contentLoader";
 
 const pagesArr: { page: string; path: string }[] = [
-  { page: 'Home', path: '/' },
-  { page: 'About', path: '/about' },
-  { page: 'Portfolio', path: '/portfolio' },
-  { page: 'Contact', path: '/contact' },
+  { page: "Home", path: "/" },
+  { page: "About", path: "/about" },
+  { page: "Portfolio", path: "/portfolio" },
+  { page: "Contact", path: "/contact" },
 ];
 
 export const Navigation = () => {
@@ -23,7 +23,7 @@ export const Navigation = () => {
           key={page}
           href={path}
           className={`mx-5 tracking-widest text-xs ${
-            currentRoute === path && 'dark:text-white text-black'
+            currentRoute === path && "dark:text-white text-black"
           }`}
         >
           {page}
@@ -49,16 +49,16 @@ export const ThemeChanger = () => {
     );
   }
 
-  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const currentTheme = theme === "system" ? systemTheme : theme;
   let themeClass = currentTheme;
 
   const handleClick = () => {
-    if (currentTheme === 'dark') {
-      setTheme('light');
-      themeClass = 'light';
+    if (currentTheme === "dark") {
+      setTheme("light");
+      themeClass = "light";
     } else {
-      setTheme('dark');
-      themeClass = 'dark';
+      setTheme("dark");
+      themeClass = "dark";
     }
   };
 
@@ -68,21 +68,19 @@ export const ThemeChanger = () => {
         onClick={handleClick}
         className="flex items-center cursor-pointer relative focus:outline-none text-gray"
       >
-        <p className="mr-5 tracking-widest text-xs uppercase">
-          Light
-        </p>
+        <p className="mr-5 tracking-widest text-xs uppercase">Light</p>
         <div
           className={`border-solid border-2 border-gray rounded-[50%] w-3 h-3 relative transition ease-in-out duration-300 z-50 ${
-            themeClass === 'dark'
-              ? 'translate-x-full bg-gray'
-              : 'translate-x-[-90%] bg-white'
+            themeClass === "dark"
+              ? "translate-x-full bg-gray"
+              : "translate-x-[-90%] bg-white"
           }`}
         ></div>
         <div
           className={`absolute bg-gray w-4 h-0.5 rounded-xl -right-0.5 z-40 ${
-            themeClass === 'dark'
-              ? 'translate-x-[-425%]'
-              : 'translate-x-[-340%]'
+            themeClass === "dark"
+              ? "translate-x-[-425%]"
+              : "translate-x-[-340%]"
           }`}
         ></div>
         <p className="ml-5 tracking-widest text-xs uppercase">Dark</p>
