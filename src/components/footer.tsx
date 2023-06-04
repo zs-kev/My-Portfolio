@@ -1,8 +1,4 @@
-type FooterProps = {
-  children: React.ReactNode;
-};
-
-export default function Footer({ children }: FooterProps) {
+export default function Footer() {
   return (
     <p>
       Kevin<span>.</span>

@@ -1,4 +1,4 @@
-import { Footer } from "@/components/footer";
+import Footer from "@/components/footer";
 import { Header } from "@/components/header";
 import { Providers } from "../lib/providers/ThemeProvider/providers";
 import {
