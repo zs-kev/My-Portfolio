@@ -59,26 +59,19 @@ h6 {
   --red: #f42f48;
 
   --black-white: var(--black);
-}
 
-/* Custom Fonts */
-.font-sansProExtraBold {
-  font-family: var(--font-sansProExtraBold);
-}
-.font-sansProBold {
-  font-family: var(--font-sansProBold);
-}
-.font-sansProMediumItalic {
-  font-family: var(--font-sansProMediumItalic);
-}
-.font-butlerMedium {
-  font-family: var(--font-butlerMedium);
-}
-.font-butlerBold {
-  font-family: var(--font-butlerBold);
-}
-.font-butlerBlack {
-  font-family: var(--font-butlerBlack);
+  /* 
+  FONTS:
+  var(--font-sansProExtraBold);
+  var(--font-sansProBold);
+  var(--font-sansProSemiBold);
+  var(--font-sansProMedium);
+  var(--font-sansProRegular);
+  var(--font-sansProMediumItalic);
+  var(--font-butlerMedium);
+  var(--font-butlerBold);
+  var(--font-butlerBlack); 
+  */
 }
 
 [data-theme="dark"] {

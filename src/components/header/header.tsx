@@ -3,7 +3,9 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { LightDarkLoader } from "../contentLoader";
-import { Navigation } from "./navigation/Navigation";
+import Logo from "../logo/Logo";
+import styles from "./Header.module.css";
+import Navigation from "./navigation/Navigation";
 
 export const ThemeChanger = () => {
   const [mounted, setMounted] = useState(false);
@@ -63,10 +65,8 @@ export const ThemeChanger = () => {
 
 export const Header = () => {
   return (
-    <header className="fixed pt-16 px-16 flex justify-between w-full items-center z-50">
-      <p className="text-3xl">
-        kevin<span className="text-gray">.</span>
-      </p>
+    <header className={styles.header}>
+      <Logo copywrite={false} />
       <Navigation />
       <ThemeChanger />
     </header>

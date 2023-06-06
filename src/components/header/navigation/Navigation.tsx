@@ -9,7 +9,9 @@ const pagesArr: { page: string; path: string }[] = [
   { page: "Contact", path: "/contact" },
 ];
 
-export const Navigation = () => {
+export interface NavigationProps {}
+
+const Navigation: React.FC<NavigationProps> = () => {
   const currentRoute = usePathname();
 
   return (
@@ -28,3 +30,5 @@ export const Navigation = () => {
     </nav>
   );
 };
+
+export default Navigation;

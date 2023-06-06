@@ -1,5 +1,5 @@
 import Footer from "@/components/footer";
-import { Header } from "@/components/header/header";
+import { Header } from "@/components/header/Header";
 import { Providers } from "../lib/providers/ThemeProvider/providers";
 import {
   butlerBlack,
