@@ -1,37 +1,9 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LightDarkLoader } from "./contentLoader";
-
-const pagesArr: { page: string; path: string }[] = [
-  { page: "Home", path: "/" },
-  { page: "About", path: "/about" },
-  { page: "Portfolio", path: "/portfolio" },
-  { page: "Contact", path: "/contact" },
-];
-
-export const Navigation = () => {
-  const currentRoute = usePathname();
-
-  return (
-    <nav className="text-gray uppercase">
-      {pagesArr.map(({ page, path }) => (
-        <Link
-          key={page}
-          href={path}
-          className={`mx-5 tracking-widest text-xs ${
-            currentRoute === path && "dark:text-white text-black"
-          }`}
-        >
-          {page}
-        </Link>
-      ))}
-    </nav>
-  );
-};
+import { LightDarkLoader } from "../contentLoader";
+import { Navigation } from "./navigation/Navigation";
 
 export const ThemeChanger = () => {
   const [mounted, setMounted] = useState(false);
