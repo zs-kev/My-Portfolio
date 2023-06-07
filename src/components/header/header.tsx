@@ -5,7 +5,9 @@ import styles from "./Header.module.css";
 import Navigation from "./navigation/Navigation";
 import ThemeToggle from "./themeToggle/ThemeToggle";
 
-export const Header = () => {
+export interface HeaderProps {}
+
+const Header: React.FC<HeaderProps> = () => {
   return (
     <header className={styles.header}>
       <Logo copywrite={false} />
@@ -14,3 +16,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;
