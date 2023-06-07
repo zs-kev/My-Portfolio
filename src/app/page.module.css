@@ -1,0 +1,143 @@
+/* Hero Section Start */
+.heroSection {
+  position: relative;
+  height: 100vh;
+}
+
+.gridContainer {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  column-gap: 8%;
+}
+
+.hello {
+  font-family: var(--font-sansProExtraBold);
+  font-size: 2.5rem;
+  color: var(--gray);
+  letter-spacing: -0.05em;
+  margin-left: 10.75rem;
+  margin-top: 6rem;
+}
+
+.h1 {
+  grid-row-start: 2;
+  z-index: 4;
+}
+
+.h2 {
+  grid-row-start: 2;
+  z-index: 2;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  grid-row-start: 3;
+}
+
+.flexContainer div {
+  max-width: 18rem;
+}
+
+.flexContainer p {
+  color: var(--gray);
+  font-family: var(--font-sansProBold);
+  position: relative;
+  left: 15%;
+  font-size: 1.125rem;
+}
+
+.buttonContainer {
+  position: relative;
+  grid-row-start: 3;
+  grid-column-start: 1;
+}
+
+.buttonContainer a {
+  color: var(--white-black);
+  background: var(--black-white);
+  text-transform: uppercase;
+  font-family: var(--font-sansProBold);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px;
+  width: 8.25rem;
+  height: 8.25rem;
+  left: 2rem;
+  top: 8rem;
+}
+
+.imageContainer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.image {
+  width: auto;
+  max-width: none;
+  height: 85vh;
+}
+
+.backgroundBlur {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15rem;
+  height: 18rem;
+  background: var(--black-white);
+  z-index: 0;
+  border-radius: 99999px;
+  filter: blur(250px);
+  bottom: 15rem;
+}
+/* Hero Section End */
+
+/* About Section Start */
+.aboutSection {
+  padding: 6.125rem 0;
+  background: var(--seasalt-night);
+}
+
+.aboutWrapper {
+  margin: auto;
+}
+
+.aboutContainer {
+  max-width: 45.438rem;
+  margin: 0 0 0 auto;
+}
+
+.aboutContainer p {
+  font-size: 1.75rem;
+  font-family: var(--font-sansProExtraBold);
+}
+
+.aboutContainer p:last-of-type {
+  margin: 1.563rem 0 3.625rem 0;
+}
+
+.aboutFlexContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.aboutContainer img {
+  height: 100%;
+  width: 10.125rem;
+}
+
+.aboutContainer a {
+  text-transform: uppercase;
+  font-family: var(--font-sansProBold);
+  color: var(--black-white);
+}
+/* About Section End */

@@ -1,21 +1,88 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
+:root {
+  --transparent: transparent;
+  --white: #ffffff;
+  --black: #000000;
+  --gray: #9192a4;
+  --seasalt: #fafafa;
+  --night: #232323;
+  --pink: #ee0979;
+  --pumpkin: #ff6a00;
+  --red: #f42f48;
 
+  --black-white: var(--black);
+  --white-black: var(--white);
+  --seasalt-night: var(--seasalt);
+
+  /* 
+  FONTS:
+  var(--font-sansProExtraBold);
+  var(--font-sansProBold);
+  var(--font-sansProSemiBold);
+  var(--font-sansProMedium);
+  var(--font-sansProRegular);
+  var(--font-sansProMediumItalic);
+  var(--font-butlerMedium);
+  var(--font-butlerBold);
+  var(--font-butlerBlack); 
+  */
+}
+
+[data-theme="dark"] {
+  --black-white: var(--white);
+  --white-black: var(--black);
+  --seasalt-night: var(--night);
+}
+
+/* Custom global styles */
 html,
 body {
   font-family: var(--font-sansProMedium);
@@ -31,21 +98,35 @@ a {
   font-size: 1rem;
 }
 
-.font-sansProExtraBold {
-  font-family: var(--font-sansProExtraBold);
+a {
+  text-decoration: none;
 }
-.font-sansProBold {
-  font-family: var(--font-sansProBold);
+
+.headingSpecial {
+  display: inline-block;
+  position: relative;
+  font-size: 12.5rem;
+  line-height: 1;
+  background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.font-sansProMediumItalic {
-  font-family: var(--font-sansProMediumItalic);
+
+.maxWidth {
+  max-width: 73.125rem;
 }
-.font-butlerMedium {
-  font-family: var(--font-butlerMedium);
+
+.two-trans {
+  -webkit-transition: ease-in-out 0.2s;
+  -moz-transition: ease-in-out 0.2s;
+  -o-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
 }
-.font-butlerBold {
-  font-family: var(--font-butlerBold);
-}
-.font-butlerBlack {
-  font-family: var(--font-butlerBlack);
+
+.three-trans {
+  -webkit-transition: ease-in-out 0.3s;
+  -moz-transition: ease-in-out 0.3s;
+  -o-transition: ease-in-out 0.3s;
+  transition: ease-in-out 0.3s;
 }

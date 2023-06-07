@@ -1,0 +1,22 @@
+.nav {
+  color: var(--gray);
+  text-transform: uppercase;
+}
+
+.navLink {
+  margin: 0 1.875rem;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+.navLink:hover {
+  background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.active {
+  color: var(--black-white);
+}
