@@ -11,22 +11,10 @@
 }
 
 .navLink:hover {
-  color: rgb(238, 9, 121);
-  color: -moz-linear-gradient(
-    180deg,
-    rgba(238, 9, 121, 1) 0%,
-    rgba(255, 106, 0, 1) 100%
-  );
-  color: -webkit-linear-gradient(
-    180deg,
-    rgba(238, 9, 121, 1) 0%,
-    rgba(255, 106, 0, 1) 100%
-  );
-  color: linear-gradient(
-    180deg,
-    rgba(238, 9, 121, 1) 0%,
-    rgba(255, 106, 0, 1) 100%
-  );
+  background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .active {

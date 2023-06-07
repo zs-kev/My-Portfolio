@@ -59,6 +59,7 @@ h6 {
   --red: #f42f48;
 
   --black-white: var(--black);
+  --white-black: var(--white);
 
   /* 
   FONTS:
@@ -76,6 +77,7 @@ h6 {
 
 [data-theme="dark"] {
   --black-white: var(--white);
+  --white-black: var(--black);
 }
 
 /* Custom global styles */
@@ -96,6 +98,17 @@ a {
 
 a {
   text-decoration: none;
+}
+
+.headingSpecial {
+  display: inline-block;
+  position: relative;
+  font-size: 12.5rem;
+  line-height: 1;
+  background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .two-trans {
