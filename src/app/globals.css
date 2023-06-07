@@ -113,6 +113,10 @@ a {
   -webkit-text-fill-color: transparent;
 }
 
+.maxWidth {
+  max-width: 73.125rem;
+}
+
 .two-trans {
   -webkit-transition: ease-in-out 0.2s;
   -moz-transition: ease-in-out 0.2s;

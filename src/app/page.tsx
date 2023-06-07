@@ -1,4 +1,4 @@
-import { PortfolioSelectedWork } from "@/components/portfolioSelected";
+import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
@@ -39,7 +39,7 @@ export default function Home() {
         <div className={styles.backgroundBlur}></div>
       </section>
       <section id="about-home" className={styles.aboutSection}>
-        <div className={styles.aboutWrapper}>
+        <div className={`${styles.aboutWrapper} maxWidth`}>
           <div className={styles.aboutContainer}>
             <p>
               I am a self-taught web developer based in vibrant Johannesburg,
@@ -71,9 +71,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section>
-        <PortfolioSelectedWork />
-      </section>
+      <PortfolioSelected />
     </>
   );
 }
