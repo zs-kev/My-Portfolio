@@ -1,4 +1,6 @@
-import ContentLoader from 'react-content-loader';
+"use client";
+
+import ContentLoader from "react-content-loader";
 
 export const LightDarkLoader = () => (
   <ContentLoader
