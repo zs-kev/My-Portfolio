@@ -11,9 +11,12 @@ const Header: React.FC<HeaderProps> = () => {
   return (
     <header className={styles.header}>
       <Logo copywrite={false} />
-
-      <Navigation />
-      <ThemeToggle />
+      <div className={styles.navWrapper}>
+        <Navigation />
+      </div>
+      <div className={styles.toggleWrapper}>
+        <ThemeToggle />
+      </div>
 
       <div className={styles.hamburger}>
         <div className={styles.topLine}></div>
