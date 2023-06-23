@@ -1,4 +1,9 @@
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
+import DownArrow from "@/lib/assets/icons/DownArrow";
+import FrontendMentor from "@/lib/assets/icons/FrontendMentor";
+import Github from "@/lib/assets/icons/Github";
+import Insta from "@/lib/assets/icons/Instagram";
+import Linkedin from "@/lib/assets/icons/Linkedin";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
@@ -6,6 +11,8 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <>
+      {/* --------- Hero Section --------- */}
+
       <section className={styles.heroSection}>
         <div className={styles.gridContainer}>
           <p className={styles.hello}>Hello, I am</p>
@@ -22,6 +29,7 @@ export default function Home() {
           <div className={styles.buttonContainer}>
             <Link href={"#about-home"}>
               <span>Let&apos;s Meet</span>
+              <DownArrow />
             </Link>
           </div>
           <div className={styles.imageContainer}>
@@ -37,7 +45,25 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.backgroundBlur}></div>
+
+        <div className={styles.leftBar}>
+          <a href="">
+            <Linkedin />
+          </a>
+          <a href="">
+            <Github />
+          </a>
+          <a href="">
+            <FrontendMentor />
+          </a>
+          <a href="">
+            <Insta />
+          </a>
+        </div>
       </section>
+
+      {/* --------- About Me Section --------- */}
+
       <section id="about-home" className={styles.aboutSection}>
         <div className={`${styles.aboutWrapper} maxWidth`}>
           <div className={styles.aboutContainer}>
@@ -71,6 +97,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* --------- Portfolio Selected Works Section --------- */}
+
       <PortfolioSelected />
     </>
   );

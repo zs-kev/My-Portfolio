@@ -61,14 +61,16 @@
   text-transform: uppercase;
   font-family: var(--font-sansProBold);
   font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   position: absolute;
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   justify-content: center;
   align-items: center;
   border-radius: 9999px;
-  width: 8.25rem;
-  height: 8.25rem;
+  width: 8.3125rem;
+  height: 8.3125rem;
   left: 2rem;
   top: 8rem;
 }
@@ -91,13 +93,27 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 15rem;
-  height: 18rem;
+  width: 15.4375rem;
+  height: 16.6875rem;
   background: var(--black-white);
   z-index: 0;
-  border-radius: 99999px;
+  border-radius: 267px;
   filter: blur(250px);
   bottom: 15rem;
+}
+
+.leftBar {
+  position: absolute;
+  bottom: 2.75rem;
+  left: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.leftBar a:hover svg path {
+  fill: url("#iconHover");
 }
 /* Hero Section End */
 

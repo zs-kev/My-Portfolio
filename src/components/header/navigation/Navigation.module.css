@@ -1,13 +1,14 @@
 .nav {
-  color: var(--gray);
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.875rem;
 }
 
 .navLink {
-  margin: 0 1.875rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   font-size: 0.75rem;
   color: var(--gray);
+  text-transform: uppercase;
 }
 
 .navLink:hover {
