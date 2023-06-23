@@ -93,6 +93,11 @@ h2 {
   font-family: var(--font-butlerBlack);
 }
 
+h2 {
+  font-size: 6rem;
+  letter-spacing: -0.15rem;
+}
+
 h4 {
   font-size: 1.5rem;
   font-family: var(--font-sansProMedium);
@@ -124,6 +129,13 @@ a {
 
 .maxWidth {
   max-width: 73.125rem;
+}
+
+.sectionContainer {
+  max-width: 73.125rem;
+  margin: 0 auto;
+  padding-top: 6.125rem;
+  padding-bottom: 6.125rem;
 }
 
 .two-trans {

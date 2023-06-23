@@ -1,3 +1,4 @@
+import TechStack from "@/components/about/techStack/TechStack";
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
 import DownArrow from "@/lib/assets/icons/DownArrow";
@@ -82,7 +83,7 @@ export default function Home() {
       {/* --------- About Me Section --------- */}
 
       <section id="about-home" className={styles.aboutSection}>
-        <div className={`${styles.aboutWrapper} maxWidth`}>
+        <div className="sectionContainer">
           <div className={styles.aboutContainer}>
             <p>
               I am a self-taught web developer based in vibrant Johannesburg,
@@ -108,6 +109,22 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* --------- My Skills Section --------- */}
+      <section className={`${styles.skills} sectionContainer`}>
+        <div>
+          <h2>My Skills</h2>
+          <ul className={styles.list}>
+            <li>User Interface Design</li>
+            <li>Responsive Design</li>
+            <li>Front-End Website Development</li>
+            <li>Back-End Website Development</li>
+            <li>Full-Stack Development</li>
+            <li>Search Engine Optimisation</li>
+          </ul>
+        </div>
+        <TechStack />
       </section>
 
       {/* --------- Portfolio Selected Works Section --------- */}

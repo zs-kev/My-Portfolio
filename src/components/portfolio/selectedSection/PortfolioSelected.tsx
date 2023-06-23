@@ -6,7 +6,7 @@ export interface PortfolioSelectedProps {}
 
 const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
   return (
-    <section className={`${styles.section} maxWidth`}>
+    <section className="sectionContainer">
       <div>
         <div className={styles.container}>
           <div className={styles.firstItem}>
