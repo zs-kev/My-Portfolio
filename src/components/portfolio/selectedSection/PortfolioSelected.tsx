@@ -1,3 +1,4 @@
+import ButtonUnderline from "@/components/button/ButtonUnderLine";
 import Image from "next/image";
 import styles from "./PortfolioSelected.module.css";
 
@@ -64,12 +65,9 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
             <div className={styles.logoItem}></div>
           </div>
           <div className={styles.eightItem}>
-            <div className="see-all">
-              <a href="#">
-                See all Projects
-                <div></div>
-              </a>
-            </div>
+            <ButtonUnderline link={"/portfolio"}>
+              See all projects
+            </ButtonUnderline>
           </div>
         </div>
       </div>

@@ -1,11 +1,6 @@
 .section {
-  /* max-w-6xl py-24 m-auto */
   margin: auto;
   margin: 6.125rem auto;
-}
-
-.section div:first-of-type {
-  width: 100%;
 }
 
 .container {
