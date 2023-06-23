@@ -119,12 +119,7 @@
 
 /* About Section Start */
 .aboutSection {
-  padding: 6.125rem 0;
   background: var(--seasalt-night);
-}
-
-.aboutWrapper {
-  margin: auto;
 }
 
 .aboutContainer {
@@ -158,3 +153,24 @@
   color: var(--black-white);
 }
 /* About Section End */
+
+/* Skills Section Start */
+.skills {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list {
+  color: var(--gray);
+
+  list-style-type: none;
+  margin: 2.75rem 0 0;
+  padding: 0;
+}
+
+.list li {
+  font-size: 1.125rem;
+  line-height: 2rem;
+}
+/* Skills Section End */
