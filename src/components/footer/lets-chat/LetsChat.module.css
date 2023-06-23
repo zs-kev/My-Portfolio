@@ -1,0 +1,10 @@
+.container {
+  max-width: 16rem;
+}
+
+.container p {
+  font-size: 1.125rem;
+  line-height: 1.6875rem;
+  color: var(--gray);
+  margin: 1.25rem 0 2.25rem;
+}

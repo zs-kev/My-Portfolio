@@ -1,4 +1,4 @@
-import ButtonUnderline from "@/components/button/ButtonUnderLine";
+import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
 import DownArrow from "@/lib/assets/icons/DownArrow";
 import FrontendMentor from "@/lib/assets/icons/FrontendMentor";
@@ -48,16 +48,32 @@ export default function Home() {
         <div className={styles.backgroundBlur}></div>
 
         <div className={styles.leftBar}>
-          <a href="">
+          <a
+            href="https://www.linkedin.com/in/kevin-simon-dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Linkedin />
           </a>
-          <a href="">
+          <a
+            href="https://github.com/zs-kev"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Github />
           </a>
-          <a href="">
+          <a
+            href="https://www.frontendmentor.io/profile/zs-kev"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FrontendMentor />
           </a>
-          <a href="">
+          <a
+            href="https://instagram.com/kevin_coffeecycles"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Insta />
           </a>
         </div>
