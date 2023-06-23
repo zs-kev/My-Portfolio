@@ -22,7 +22,7 @@ const Navigation: React.FC<NavigationProps> = () => {
         <Link
           key={page}
           href={path}
-          className={`${styles.navLink} two-trans ${
+          className={`${styles.navLink} ${
             currentRoute === path && styles.active
           }`}
         >

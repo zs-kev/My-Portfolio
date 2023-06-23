@@ -93,6 +93,11 @@ h2 {
   font-family: var(--font-butlerBlack);
 }
 
+h4 {
+  font-size: 1.5rem;
+  font-family: var(--font-sansProMedium);
+}
+
 p,
 a {
   font-size: 1rem;
@@ -100,6 +105,9 @@ a {
 
 a {
   text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
 }
 
 .headingSpecial {

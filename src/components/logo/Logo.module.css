@@ -13,4 +13,5 @@
   color: var(--gray);
   font-family: var(--font-sansProRegular);
   font-size: 0.75rem;
+  line-height: 1.875rem;
 }

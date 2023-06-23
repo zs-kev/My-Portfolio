@@ -1,0 +1,15 @@
+.container {
+  display: inline-flex;
+  gap: 2.25rem;
+}
+
+.container a {
+  color: var(--black-white);
+}
+
+.container a:hover {
+  background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

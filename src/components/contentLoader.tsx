@@ -6,7 +6,7 @@ export const LightDarkLoader = () => (
   <ContentLoader
     speed={2}
     width={122}
-    height={34}
+    height={26}
     viewBox="0 0 122 34"
     backgroundColor="#C6C6CC"
     foregroundColor="#A8A9BA"

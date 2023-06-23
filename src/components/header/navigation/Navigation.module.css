@@ -5,10 +5,7 @@
 }
 
 .navLink {
-  letter-spacing: 0.15em;
-  font-size: 0.75rem;
   color: var(--gray);
-  text-transform: uppercase;
 }
 
 .navLink:hover {
