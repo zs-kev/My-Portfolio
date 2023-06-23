@@ -1,3 +1,4 @@
+import ButtonUnderline from "@/components/button/ButtonUnderLine";
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
 import DownArrow from "@/lib/assets/icons/DownArrow";
 import FrontendMentor from "@/lib/assets/icons/FrontendMentor";
@@ -87,12 +88,7 @@ export default function Home() {
                 width="0"
                 height="0"
               />
-              <div className="see-all">
-                <a href="#">
-                  About Me
-                  <div></div>
-                </a>
-              </div>
+              <ButtonUnderline link={"/about"}>About Me</ButtonUnderline>
             </div>
           </div>
         </div>

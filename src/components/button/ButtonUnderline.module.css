@@ -1,0 +1,20 @@
+.link {
+  font-size: 0.75rem;
+  letter-spacing: 0.15rem;
+  line-height: 1.6875rem;
+  padding-bottom: 0.13rem;
+  text-transform: uppercase;
+  display: inline-block;
+  color: var(--black-white);
+  font-family: var(--font-sansProBold);
+}
+
+.underline {
+  width: 1.87513rem;
+  height: 0.125rem;
+  background: -webkit-linear-gradient(270deg, #ee0979 0%, #ff6a00 100%);
+}
+
+.link:hover .underline {
+  width: 100%;
+}

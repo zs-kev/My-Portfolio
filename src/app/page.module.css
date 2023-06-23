@@ -128,12 +128,13 @@
 }
 
 .aboutContainer {
-  max-width: 45.438rem;
+  max-width: 45.4375rem;
   margin: 0 0 0 auto;
 }
 
 .aboutContainer p {
   font-size: 1.75rem;
+  line-height: 2.125rem;
   font-family: var(--font-sansProExtraBold);
 }
 
