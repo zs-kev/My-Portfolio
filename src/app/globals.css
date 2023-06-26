@@ -103,14 +103,8 @@ h4 {
   font-family: var(--font-sansProMedium);
 }
 
-p,
-a {
-  font-size: 1rem;
-}
-
 a {
   text-decoration: none;
-  font-size: 0.75rem;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
 }
@@ -119,7 +113,7 @@ a {
   display: inline-block;
   position: relative;
   font-size: 12.5rem;
-  letter-spacing: -0.625rem;
+  letter-spacing: -10px;
   line-height: 1;
   background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
   background-clip: text;
@@ -134,8 +128,8 @@ a {
 .sectionContainer {
   max-width: 73.125rem;
   margin: 0 auto;
-  padding-top: 6.125rem;
-  padding-bottom: 6.125rem;
+  padding-top: 98px;
+  padding-bottom: 98px;
 }
 
 .two-trans {

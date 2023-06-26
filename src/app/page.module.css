@@ -13,9 +13,9 @@
 
 .hello {
   font-family: var(--font-sansProExtraBold);
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   color: var(--gray);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.05rem;
   margin-left: 10.75rem;
   margin-top: 6rem;
 }
@@ -46,7 +46,7 @@
   font-family: var(--font-sansProBold);
   position: relative;
   left: 15%;
-  font-size: 1.125rem;
+  font-size: 1.375rem;
 }
 
 .buttonContainer {
@@ -61,18 +61,18 @@
   text-transform: uppercase;
   font-family: var(--font-sansProBold);
   font-size: 0.75rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.15rem;
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
   justify-content: center;
   align-items: center;
   border-radius: 9999px;
   width: 8.3125rem;
   height: 8.3125rem;
-  left: 2rem;
-  top: 8rem;
+  left: 32px;
+  top: 128px;
 }
 
 .imageContainer {
@@ -93,23 +93,23 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 15.4375rem;
-  height: 16.6875rem;
+  width: 246px;
+  height: 268px;
   background: var(--black-white);
   z-index: 0;
   border-radius: 267px;
   filter: blur(250px);
-  bottom: 15rem;
+  bottom: 240px;
 }
 
 .leftBar {
   position: absolute;
-  bottom: 2.75rem;
-  left: 3.5rem;
+  bottom: 44px;
+  left: 56px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: 20px;
 }
 
 .leftBar a:hover svg path {
@@ -129,7 +129,7 @@
 
 .aboutContainer p {
   font-size: 1.75rem;
-  line-height: 2.125rem;
+  line-height: 1.5;
   font-family: var(--font-sansProExtraBold);
 }
 
@@ -171,6 +171,6 @@
 
 .list li {
   font-size: 1.125rem;
-  line-height: 2rem;
+  line-height: 1.85;
 }
 /* Skills Section End */

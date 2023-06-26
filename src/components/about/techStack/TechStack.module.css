@@ -3,8 +3,8 @@
   grid-template-columns: repeat(3, 2fr);
   align-items: center;
   justify-items: center;
-  column-gap: 8.5rem;
-  row-gap: 3.15rem;
+  column-gap: 136px;
+  row-gap: 50.4px;
   max-width: 30rem;
 }
 
