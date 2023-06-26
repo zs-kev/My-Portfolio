@@ -1,5 +1,6 @@
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./PortfolioSelected.module.css";
 
 export interface PortfolioSelectedProps {}
@@ -11,14 +12,14 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
         <div className={styles.container}>
           <div className={styles.firstItem}>
             <div className={styles.introText}>
-              <p>Selected Projects</p>
+              <h2>Selected Projects</h2>
               <p>
                 I do everything with my core values of honesty, hard work, and
                 trust.
               </p>
             </div>
           </div>
-          <div className={styles.secondItem}>
+          <Link className={styles.secondItem} href={""}>
             <div className={styles.logoItem}>
               <Image
                 src="/assets/images/logos/axio-logo-white.svg"
@@ -29,11 +30,11 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
               />
               {/* <div className="bg-[#3E3E3E] absolute w-full h-full -translate-x-full"></div> */}
             </div>
-          </div>
-          <div className={styles.thirdItem}>
+          </Link>
+          <Link className={styles.thirdItem} href={""}>
             <div className={styles.logoItem}></div>
-          </div>
-          <div className={styles.fourthItem}>
+          </Link>
+          <Link className={styles.fourthItem} href={""}>
             <div className={styles.logoItem}>
               <Image
                 src="/assets/images/logos/huddle-logo-white.svg"
@@ -44,7 +45,7 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
               />
               <div className="third-cover"></div>
             </div>
-          </div>
+          </Link>
           <div className={styles.fifthItem}>
             <div className={styles.testimonial}>
               <h3>What they saying</h3>
@@ -58,12 +59,12 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
               </p>
             </div>
           </div>
-          <div className={styles.sixthItem}>
+          <Link className={styles.sixthItem} href={""}>
             <div className={styles.logoItem}></div>
-          </div>
-          <div className={styles.seventhItem}>
+          </Link>
+          <Link className={styles.seventhItem} href={""}>
             <div className={styles.logoItem}></div>
-          </div>
+          </Link>
           <div className={styles.eightItem}>
             <ButtonUnderline link={"/portfolio"}>
               See all projects

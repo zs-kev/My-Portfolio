@@ -9,17 +9,16 @@
 }
 
 .button p {
-  letter-spacing: 0.15em;
+  letter-spacing: 0.15rem;
   text-transform: uppercase;
-  font-size: 0.75rem;
 }
 
 .button p:first-child {
-  margin-right: 1.25rem;
+  margin-right: 20px;
 }
 
 .button p:last-child {
-  margin-left: 1.25rem;
+  margin-left: 20px;
 }
 
 .circle {
@@ -53,14 +52,14 @@
 }
 
 .lineDark {
-  transform: translateX(-453%);
+  transform: translateX(-530%);
 }
 
 .lineLight {
-  transform: translateX(-390%);
+  transform: translateX(-465%);
 }
 
-@media (width < 924px) {
+@media (width < 57.75rem) {
   .button {
     margin: 0 auto;
   }

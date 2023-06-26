@@ -19,7 +19,7 @@
   color: var(--black-white);
 }
 
-@media (width < 924px) {
+@media (width < 57.75rem) {
   .nav {
     display: grid;
     grid-template-columns: 1fr;
