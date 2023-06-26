@@ -49,14 +49,14 @@ h6 {
 
 :root {
   --transparent: transparent;
-  --white: #ffffff;
-  --black: #000000;
-  --gray: #9192a4;
-  --seasalt: #fafafa;
-  --night: #232323;
-  --pink: #ee0979;
-  --pumpkin: #ff6a00;
-  --red: #f42f48;
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
+  --gray: hsl(237, 9%, 61%);
+  --seasalt: hsl(0, 0%, 98%);
+  --night: hsl(0, 0%, 14%);
+  --pink: hsl(331, 93%, 48%);
+  --pumpkin: hsl(25, 100%, 50%);
+  --red: hsl(352, 90%, 57%);
 
   --black-white: var(--black);
   --white-black: var(--white);
