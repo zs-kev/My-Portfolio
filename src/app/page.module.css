@@ -13,7 +13,7 @@
 
 .hello {
   font-family: var(--font-sansProExtraBold);
-  font-size: 2.75rem;
+  font-size: 2.5rem;
   color: var(--gray);
   letter-spacing: -0.05rem;
   margin-left: 10.75rem;
@@ -30,29 +30,30 @@
   z-index: 2;
 }
 
-.flexContainer {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+.textContainer {
   grid-row-start: 3;
+  position: relative;
+  z-index: 4;
 }
 
-.flexContainer div {
+.textContainer div {
   max-width: 18rem;
+  margin-left: auto;
 }
 
-.flexContainer p {
+.textContainer p {
   color: var(--gray);
   font-family: var(--font-sansProBold);
   position: relative;
   left: 15%;
-  font-size: 1.375rem;
+  font-size: 1.25rem;
 }
 
 .buttonContainer {
   position: relative;
   grid-row-start: 3;
   grid-column-start: 1;
+  z-index: 4;
 }
 
 .buttonContainer a {
@@ -115,6 +116,34 @@
 .leftBar a:hover svg path {
   fill: url("#iconHover");
 }
+
+@media (max-width: 80rem) {
+  .hello {
+    font-size: 2rem;
+    margin-left: 7.75rem;
+  }
+
+  .textContainer div {
+    max-width: 14rem;
+  }
+
+  .textContainer p {
+    font-size: 1rem;
+  }
+
+  .buttonContainer a {
+    width: 6.8125rem;
+    height: 6.8125rem;
+    top: 82px;
+    font-size: 0.65rem;
+  }
+
+  .backgroundBlur {
+    width: 196px;
+    height: 218px;
+  }
+}
+
 /* Hero Section End */
 
 /* About Section Start */
@@ -124,7 +153,7 @@
 
 .aboutContainer {
   max-width: 45.4375rem;
-  margin: 0 0 0 auto;
+  margin-left: auto;
 }
 
 .aboutContainer p {

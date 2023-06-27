@@ -8,6 +8,7 @@ const pagesArr: { page: string; path: string }[] = [
   { page: "Home", path: "/" },
   { page: "About", path: "/about" },
   { page: "Portfolio", path: "/portfolio" },
+  { page: "Articles", path: "/portfolio" },
   { page: "Contact", path: "/contact" },
 ];
 
