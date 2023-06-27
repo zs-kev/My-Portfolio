@@ -20,7 +20,7 @@ export default function Home() {
           <p className={styles.hello}>Hello, I am</p>
           <h1 className={`headingSpecial ${styles.h1}`}>Kevin</h1>
           <h2 className={`headingSpecial ${styles.h2}`}>Simon</h2>
-          <div className={styles.flexContainer}>
+          <div className={styles.textContainer}>
             <div>
               <p>
                 I am an aspiring full-stack developer based in South Africa.
@@ -83,7 +83,7 @@ export default function Home() {
       {/* --------- About Me Section --------- */}
 
       <section id="about-home" className={styles.aboutSection}>
-        <div className="sectionContainer">
+        <div className="max-width-wrapper">
           <div className={styles.aboutContainer}>
             <p>
               I am a self-taught web developer based in vibrant Johannesburg,
@@ -112,7 +112,7 @@ export default function Home() {
       </section>
 
       {/* --------- My Skills Section --------- */}
-      <section className={`${styles.skills} sectionContainer`}>
+      <section className={`${styles.skills} max-width-wrapper`}>
         <div>
           <h2>My Skills</h2>
           <ul className={styles.list}>

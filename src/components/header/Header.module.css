@@ -12,7 +12,7 @@
   display: none;
 }
 
-@media (width < 57.75rem) {
+@media (width < 64rem) {
   .header {
     display: grid;
     align-items: start;

@@ -7,7 +7,7 @@ export interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = () => {
   return (
-    <footer className="sectionContainer">
+    <footer className="max-width-wrapper">
       <div className={styles.line} />
       <div className={styles.wrapper}>
         <Logo copywrite={true} />

@@ -59,7 +59,7 @@
   transform: translateX(-465%);
 }
 
-@media (width < 57.75rem) {
+@media (width < 64rem) {
   .button {
     margin: 0 auto;
   }
