@@ -25,7 +25,6 @@
   border: 2px solid var(--gray);
   border-radius: 50%;
   position: relative;
-  transition: all ease-in-out 0.3;
   width: 0.8125rem;
   height: 0.8125rem;
   z-index: 2;

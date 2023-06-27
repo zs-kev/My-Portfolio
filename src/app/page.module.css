@@ -72,8 +72,8 @@
   border-radius: 9999px;
   width: 8.3125rem;
   height: 8.3125rem;
-  left: 32px;
-  top: 128px;
+  left: 15%;
+  top: 40%;
 }
 
 .imageContainer {
@@ -117,7 +117,7 @@
   fill: url("#iconHover");
 }
 
-@media (max-width: 80rem) {
+@media (width < 80rem) {
   .hello {
     font-size: 2rem;
     margin-left: 7.75rem;
@@ -180,6 +180,26 @@
   text-transform: uppercase;
   font-family: var(--font-sansProBold);
   color: var(--black-white);
+}
+
+@media (width < 48rem) {
+  .aboutContainer p {
+    font-size: 1.5rem;
+  }
+
+  .aboutContainer img {
+    width: 9.75rem;
+  }
+}
+
+@media (width < 32rem) {
+  .aboutContainer p {
+    font-size: 1.25rem;
+  }
+
+  .aboutContainer img {
+    width: 8.875rem;
+  }
 }
 /* About Section End */
 
