@@ -35,7 +35,7 @@
 
 .introText h2 {
   font-family: var(--sansProSemiBold);
-  font-size: 0.75rem;
+  font-size: var(--14px);
   color: var(--gray);
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -45,7 +45,7 @@
 .introText p {
   letter-spacing: 0;
   font-family: var(--font-butlerMedium);
-  font-size: 2.15rem;
+  font-size: var(--36px);
   line-height: 1.15;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .testimonial h3 {
-  font-size: 4.5rem;
+  font-size: var(--72px);
   margin-bottom: 2rem;
   font-family: var(--font-butlerBold);
   line-height: 1;
@@ -95,8 +95,6 @@
 
 .testimonial p {
   margin-top: 2rem;
-  font-family: var(--font-sansProBold);
-  font-size: 1rem;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -104,8 +102,12 @@
 .quote {
   letter-spacing: 0;
   color: var(--gray);
-  font-size: 1rem;
   font-family: var(--font-sansProMediumItalic);
+}
+
+.testimonial p:last-child {
+  font-family: var(--font-sansProBold);
+  font-size: var(--14px);
 }
 
 .sixthItem {

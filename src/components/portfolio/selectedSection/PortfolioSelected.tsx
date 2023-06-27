@@ -54,9 +54,7 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
                 initial due date, great service and great communication. Thank
                 You!&quot;
               </p>
-              <p>
-                <small>Mabel Jones</small>
-              </p>
+              <p>Mabel Jones</p>
             </div>
           </div>
           <Link className={styles.sixthItem} href={""}>

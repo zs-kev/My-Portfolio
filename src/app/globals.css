@@ -48,6 +48,7 @@ h6 {
 }
 
 :root {
+  /* Colors - site colors */
   --transparent: transparent;
   --white: hsl(0, 0%, 100%);
   --black: hsl(0, 0%, 0%);
@@ -58,9 +59,24 @@ h6 {
   --pumpkin: hsl(25, 100%, 50%);
   --red: hsl(352, 90%, 57%);
 
+  /* Themes - to change colors for dark light mode */
   --black-white: var(--black);
   --white-black: var(--white);
   --seasalt-night: var(--seasalt);
+
+  /* Font sizes */
+  --10px: 0.625rem;
+  --12px: 0.75rem;
+  --14px: 0.875rem;
+  --16px: 1rem;
+  --18px: 1.125rem;
+  --24px: 1.5rem;
+  --30px: 1.875rem;
+  --36px: 2.25rem;
+  --48px: 3rem;
+  --60px: 3.375rem;
+  --72px: 4.5rem;
+  --84px: 5.25rem;
 
   /* 
   FONTS:
@@ -74,6 +90,14 @@ h6 {
   var(--font-butlerBold);
   var(--font-butlerBlack); 
   */
+
+  /* Breakpoints */
+  --480px: 30rem;
+  --768px: 48rem;
+  --992px: 62rem;
+  --1024px: 64rem;
+  --1200px: 75rem;
+  --1280px: 80rem;
 }
 
 [data-theme="dark"] {
@@ -93,20 +117,33 @@ h2 {
   font-family: var(--font-butlerBlack);
 }
 
+h1 {
+  font-size: var(--84px);
+}
+
 h2 {
-  font-size: 6rem;
+  font-size: var(--72px);
   letter-spacing: -0.15rem;
 }
 
+h3 {
+  font-size: var(--36px);
+  font-family: var(--font-sansProBold);
+}
+
 h4 {
-  font-size: 1.5rem;
-  font-family: var(--font-sansProMedium);
+  font-size: var(--24px);
+}
+
+p {
+  font-size: var(--18px);
 }
 
 a {
   text-decoration: none;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
+  font-size: var(--16px);
 }
 
 .headingSpecial {
@@ -152,6 +189,12 @@ a {
   }
 }
 
+@media (width < 75rem) {
+  p {
+    /* font-size: 0.875rem; */
+  }
+}
+
 @media (width < 48rem) {
   .max-width-wrapper {
     padding: 74px 48px;
@@ -159,6 +202,10 @@ a {
 }
 
 @media (width < 32rem) {
+  p {
+    /* font-size: 0.875rem; */
+  }
+
   .max-width-wrapper {
     padding: 64px 32px;
   }
