@@ -8,3 +8,13 @@
   color: var(--gray);
   margin: 18px 0 28px;
 }
+
+@media (width < 75rem) {
+  .container {
+    max-width: 14rem;
+  }
+
+  .container p {
+    font-size: 1rem;
+  }
+}

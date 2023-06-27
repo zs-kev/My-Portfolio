@@ -1,5 +1,5 @@
 .link {
-  font-size: 1rem;
+  font-size: var(--16px);
   letter-spacing: 0.15rem;
   line-height: 2;
   text-transform: uppercase;
@@ -20,4 +20,11 @@
 
 .link:hover .underline {
   width: 100%;
+}
+
+@media (width < 75rem) {
+  .link {
+    font-size: 0.875rem;
+    line-height: 1.75;
+  }
 }

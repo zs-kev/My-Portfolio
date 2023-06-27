@@ -11,3 +11,15 @@
   align-items: flex-start;
   padding-top: 98px;
 }
+
+@media (width < 48rem) {
+  .wrapper {
+    padding-top: 74px;
+  }
+}
+
+@media (width < 32rem) {
+  .wrapper {
+    padding-top: 64px;
+  }
+}

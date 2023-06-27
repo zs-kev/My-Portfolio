@@ -13,9 +13,9 @@
 
 .hello {
   font-family: var(--font-sansProExtraBold);
-  font-size: 2.5rem;
+  font-size: var(--36px);
   color: var(--gray);
-  letter-spacing: -0.05rem;
+  letter-spacing: -0.1rem;
   margin-left: 10.75rem;
   margin-top: 6rem;
 }
@@ -46,7 +46,6 @@
   font-family: var(--font-sansProBold);
   position: relative;
   left: 15%;
-  font-size: 1.25rem;
 }
 
 .buttonContainer {
@@ -61,7 +60,7 @@
   background: var(--black-white);
   text-transform: uppercase;
   font-family: var(--font-sansProBold);
-  font-size: 0.75rem;
+  font-size: var(--12px);
   letter-spacing: 0.15rem;
   position: absolute;
   display: flex;
@@ -72,8 +71,8 @@
   border-radius: 9999px;
   width: 8.3125rem;
   height: 8.3125rem;
-  left: 32px;
-  top: 128px;
+  left: 15%;
+  top: 40%;
 }
 
 .imageContainer {
@@ -117,7 +116,7 @@
   fill: url("#iconHover");
 }
 
-@media (max-width: 80rem) {
+@media (width < 80rem) {
   .hello {
     font-size: 2rem;
     margin-left: 7.75rem;
@@ -157,7 +156,7 @@
 }
 
 .aboutContainer p {
-  font-size: 1.75rem;
+  font-size: var(--30px);
   line-height: 1.5;
   font-family: var(--font-sansProExtraBold);
 }
@@ -180,6 +179,26 @@
   text-transform: uppercase;
   font-family: var(--font-sansProBold);
   color: var(--black-white);
+}
+
+@media (width < 48rem) {
+  .aboutContainer p {
+    font-size: 1.5rem;
+  }
+
+  .aboutContainer img {
+    width: 9.75rem;
+  }
+}
+
+@media (width < 32rem) {
+  .aboutContainer p {
+    font-size: 1.25rem;
+  }
+
+  .aboutContainer img {
+    width: 8.875rem;
+  }
 }
 /* About Section End */
 

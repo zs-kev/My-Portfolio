@@ -11,6 +11,7 @@
 .button p {
   letter-spacing: 0.15rem;
   text-transform: uppercase;
+  font-size: var(--16px);
 }
 
 .button p:first-child {
@@ -25,9 +26,8 @@
   border: 2px solid var(--gray);
   border-radius: 50%;
   position: relative;
-  transition: all ease-in-out 0.3;
-  width: 0.8125rem;
-  height: 0.8125rem;
+  width: 13px;
+  height: 13px;
   z-index: 2;
 }
 
@@ -44,10 +44,10 @@
 .line {
   position: absolute;
   background-color: var(--gray);
-  width: 1rem;
-  height: 0.125rem;
-  border-radius: 0.75rem;
-  right: -0.125rem;
+  width: 16px;
+  height: 2px;
+  border-radius: 12px;
+  right: -2px;
   z-index: 1;
 }
 

@@ -6,6 +6,7 @@
 
 .navLink {
   color: var(--gray);
+  font-size: var(--16px);
 }
 
 .navLink:hover {
