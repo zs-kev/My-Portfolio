@@ -74,12 +74,6 @@ const variantsBurger = {
 const Header: React.FC<HeaderProps> = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  if (isNavOpen) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "unset";
-  }
-
   const handleNavClick = () => {
     setIsNavOpen((isOpen) => !isOpen);
   };
