@@ -58,9 +58,3 @@
 .lineLight {
   transform: translateX(-68px);
 }
-
-@media (width < 62rem) {
-  .button {
-    margin: 0 auto;
-  }
-}
