@@ -1,13 +1,34 @@
 "use client";
 
 import { LightDarkLoader } from "@/components/contentLoader";
+import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import styles from "./ThemeToggle.module.css";
 
-export interface ThemeToggleProps {}
+const variants = {
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: 0.6,
+      y: { stiffness: 1000, velocity: -100 },
+    },
+  },
+  closed: {
+    y: 50,
+    opacity: 0,
+    transition: {
+      y: { stiffness: 1000 },
+    },
+  },
+};
 
-const ThemeToggle: React.FC<ThemeToggleProps> = () => {
+export interface ThemeToggleProps {
+  isNavOpen?: Boolean;
+}
+
+const ThemeToggle: React.FC<ThemeToggleProps> = ({ isNavOpen = true }) => {
   const [mounted, setMounted] = useState(false);
   const { systemTheme, theme, setTheme } = useTheme();
 
@@ -37,7 +58,12 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
   };
 
   return (
-    <div>
+    <motion.div
+      variants={variants}
+      initial={"closed"}
+      animate={isNavOpen ? "open" : "closed"}
+      exit={"closed"}
+    >
       <button onClick={handleClick} className={styles.button}>
         <p>Light</p>
         <div
@@ -52,7 +78,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
         ></div>
         <p>Dark</p>
       </button>
-    </div>
+    </motion.div>
   );
 };
 

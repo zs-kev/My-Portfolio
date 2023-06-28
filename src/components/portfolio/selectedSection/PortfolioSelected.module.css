@@ -45,7 +45,7 @@
 .introText p {
   letter-spacing: 0;
   font-family: var(--font-butlerMedium);
-  font-size: var(--36px);
+  font-size: var(--30px);
   line-height: 1.15;
 }
 

@@ -91,13 +91,13 @@ h6 {
   var(--font-butlerBlack); 
   */
 
-  /* Breakpoints */
-  --480px: 30rem;
-  --768px: 48rem;
-  --992px: 62rem;
-  --1024px: 64rem;
-  --1200px: 75rem;
-  --1280px: 80rem;
+  /* Breakpoints
+  480px: 30rem;
+  768px: 48rem;
+  992px: 62rem;
+  1024px: 64rem;
+  1200px: 75rem;
+  1280px: 80rem; */
 }
 
 [data-theme="dark"] {
@@ -136,13 +136,17 @@ h4 {
 }
 
 p {
-  font-size: var(--18px);
+  font-size: var(--16px);
 }
 
 a {
   text-decoration: none;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
+  font-size: var(--14px);
+}
+
+li {
   font-size: var(--16px);
 }
 
