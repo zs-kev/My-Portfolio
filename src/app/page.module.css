@@ -118,7 +118,7 @@
 
 @media (width < 80rem) {
   .hello {
-    font-size: 2rem;
+    /* font-size: 2rem; */
     margin-left: 7.75rem;
   }
 
@@ -127,14 +127,14 @@
   }
 
   .textContainer p {
-    font-size: 1rem;
+    /* font-size: 1rem; */
   }
 
   .buttonContainer a {
     width: 6.8125rem;
     height: 6.8125rem;
     top: 82px;
-    font-size: 0.65rem;
+    /* font-size: 0.65rem; */
   }
 
   .backgroundBlur {
@@ -183,7 +183,7 @@
 
 @media (width < 48rem) {
   .aboutContainer p {
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
   }
 
   .aboutContainer img {
@@ -193,7 +193,7 @@
 
 @media (width < 32rem) {
   .aboutContainer p {
-    font-size: 1.25rem;
+    /* font-size: 1.25rem; */
   }
 
   .aboutContainer img {
@@ -218,7 +218,7 @@
 }
 
 .list li {
-  font-size: 1.125rem;
+  /* font-size: 1.125rem; */
   line-height: 1.85;
 }
 /* Skills Section End */

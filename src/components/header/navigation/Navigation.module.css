@@ -6,7 +6,6 @@
 
 .navLink {
   color: var(--gray);
-  font-size: var(--16px);
 }
 
 .navLink:hover {
@@ -20,7 +19,7 @@
   color: var(--black-white);
 }
 
-@media (width < 64rem) {
+@media (width < 62rem) {
   .nav {
     display: grid;
     grid-template-columns: 1fr;
