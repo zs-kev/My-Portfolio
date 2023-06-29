@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 56px;
+  padding: 48px;
   z-index: 9999;
 }
 
@@ -70,5 +70,11 @@
     top: 0;
     left: 0;
     z-index: -1;
+  }
+}
+
+@media (width < 32rem) {
+  .header {
+    padding: 32px;
   }
 }

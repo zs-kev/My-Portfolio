@@ -94,7 +94,7 @@ h6 {
   /* Breakpoints
   480px: 30rem;
   768px: 48rem;
-  992px: 62rem;
+  992px: 62rem; Mobile Nav Breakpoint
   1024px: 64rem;
   1200px: 75rem;
   1280px: 80rem; */
@@ -193,9 +193,37 @@ li {
   }
 }
 
-@media (width < 75rem) {
+@media (width < 64rem) {
+  .headingSpecial {
+    font-size: 7rem;
+  }
+
+  h1 {
+    font-size: var(--72px);
+  }
+
+  h2 {
+    font-size: var(--60px);
+  }
+
+  h3 {
+    font-size: var(--30px);
+  }
+
+  h4 {
+    font-size: var(--18px);
+  }
+
   p {
-    /* font-size: 0.875rem; */
+    font-size: var(--14px);
+  }
+
+  a {
+    font-size: var(--12px);
+  }
+
+  li {
+    font-size: var(--14px);
   }
 }
 
@@ -203,13 +231,14 @@ li {
   .max-width-wrapper {
     padding: 74px 48px;
   }
+
+  .headingSpecial {
+    font-size: var(--84px);
+    letter-spacing: -0.25rem;
+  }
 }
 
-@media (width < 32rem) {
-  p {
-    /* font-size: 0.875rem; */
-  }
-
+@media (width < 30rem) {
   .max-width-wrapper {
     padding: 64px 32px;
   }
