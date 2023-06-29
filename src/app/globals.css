@@ -12,7 +12,8 @@
 }
 html,
 body,
-#root {
+#root,
+#__next {
   height: 100%;
 }
 body {
@@ -90,14 +91,6 @@ h6 {
   var(--font-butlerBold);
   var(--font-butlerBlack); 
   */
-
-  /* Breakpoints
-  480px: 30rem;
-  768px: 48rem;
-  992px: 62rem; Mobile Nav Breakpoint
-  1024px: 64rem;
-  1200px: 75rem;
-  1280px: 80rem; */
 }
 
 [data-theme="dark"] {
@@ -185,6 +178,14 @@ li {
   -o-transition: ease-in-out 0.3s;
   transition: ease-in-out 0.3s;
 }
+
+/* Breakpoints
+  480px: 30rem;
+  768px: 48rem;
+  992px: 62rem; Mobile Nav Breakpoint
+  1024px: 64rem;
+  1200px: 75rem;
+  1280px: 80rem; */
 
 @media (max-width: 80rem) {
   .headingSpecial {

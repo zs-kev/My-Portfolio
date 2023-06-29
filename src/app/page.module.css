@@ -203,23 +203,26 @@
 
   .buttonContainer a {
     left: 0%;
-    bottom: 0%;
+    bottom: 10%;
     top: auto;
+    gap: 2px;
+    font-size: 8px;
+    width: 5.25rem;
+    height: 5.25rem;
+  }
+
+  .buttonContainer svg {
+    width: 10px;
+    height: 15px;
   }
 
   .image {
-    height: 55vh;
+    height: 50vh;
   }
 
   .backgroundBlur {
     width: 186px;
     height: 198px;
-  }
-}
-
-@media (width < 24rem) {
-  .image {
-    height: 50vh;
   }
 }
 
