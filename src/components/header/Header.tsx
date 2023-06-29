@@ -80,68 +80,70 @@ const Header: React.FC<HeaderProps> = () => {
 
   return (
     <>
-      <header className={styles.header}>
-        <Logo copywrite={false} />
-        <div className={styles.navWrapper}>
-          <Navigation />
+      <header>
+        <div className={styles.header}>
+          <Logo copywrite={false} />
+          <div className={styles.navWrapper}>
+            <Navigation />
+          </div>
+          <div className={styles.toggleWrapper}>
+            <ThemeToggle />
+          </div>
         </div>
-        <div className={styles.toggleWrapper}>
-          <ThemeToggle />
-        </div>
-      </header>
 
-      {/* ------ Header mobile ------ */}
-      <header className={`${styles.header} ${styles.headerMobile}`}>
-        <Logo copywrite={false} />
-        <div className={styles.hamburger} onClick={handleNavClick}>
-          <motion.div
-            className={styles.topLine}
-            variants={variantsBurger}
-            initial={"topLineClose"}
-            animate={isNavOpen ? "topLineOpen" : "topLineClose"}
-            exit={"topLineClose"}
-          ></motion.div>
-          <motion.div
-            className={styles.middleLine}
-            variants={variantsBurger}
-            initial={"middleLineClose"}
-            animate={isNavOpen ? "middleLineOpen" : "middleLineClose"}
-            exit={"middleLineClose"}
-          ></motion.div>
-          <motion.div
-            className={styles.bottomLine}
-            variants={variantsBurger}
-            initial={"bottomLineClose"}
-            animate={isNavOpen ? "bottomLineOpen" : "bottomLineClose"}
-            exit={"bottomLineClose"}
-          ></motion.div>
+        {/* ------ Header mobile ------ */}
+        <div className={`${styles.header} ${styles.headerMobile}`}>
+          <Logo copywrite={false} />
+          <div className={styles.hamburger} onClick={handleNavClick}>
+            <motion.div
+              className={styles.topLine}
+              variants={variantsBurger}
+              initial={"topLineClose"}
+              animate={isNavOpen ? "topLineOpen" : "topLineClose"}
+              exit={"topLineClose"}
+            ></motion.div>
+            <motion.div
+              className={styles.middleLine}
+              variants={variantsBurger}
+              initial={"middleLineClose"}
+              animate={isNavOpen ? "middleLineOpen" : "middleLineClose"}
+              exit={"middleLineClose"}
+            ></motion.div>
+            <motion.div
+              className={styles.bottomLine}
+              variants={variantsBurger}
+              initial={"bottomLineClose"}
+              animate={isNavOpen ? "bottomLineOpen" : "bottomLineClose"}
+              exit={"bottomLineClose"}
+            ></motion.div>
+          </div>
+          <AnimatePresence>
+            {isNavOpen && (
+              <div className={styles.nav}>
+                <div
+                  className={`${styles.navWrapper} ${styles.navWrapperMobile}`}
+                >
+                  <Navigation
+                    handleNavClick={handleNavClick}
+                    isNavOpen={isNavOpen}
+                  />
+                </div>
+                <div
+                  className={`${styles.toggleWrapper} ${styles.toggleWrapperMobile}`}
+                >
+                  <ThemeToggle isNavOpen={isNavOpen} />
+                </div>
+                <motion.div
+                  className={styles.background}
+                  variants={variants}
+                  initial={"backgroundClose"}
+                  animate={isNavOpen ? "backgroundOpen" : "backgroundClose"}
+                  exit={"backgroundClose"}
+                ></motion.div>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
-        <AnimatePresence>
-          {isNavOpen && (
-            <div className={styles.nav}>
-              <div
-                className={`${styles.navWrapper} ${styles.navWrapperMobile}`}
-              >
-                <Navigation
-                  handleNavClick={handleNavClick}
-                  isNavOpen={isNavOpen}
-                />
-              </div>
-              <div
-                className={`${styles.toggleWrapper} ${styles.toggleWrapperMobile}`}
-              >
-                <ThemeToggle isNavOpen={isNavOpen} />
-              </div>
-              <motion.div
-                className={styles.background}
-                variants={variants}
-                initial={"backgroundClose"}
-                animate={isNavOpen ? "backgroundOpen" : "backgroundClose"}
-                exit={"backgroundClose"}
-              ></motion.div>
-            </div>
-          )}
-        </AnimatePresence>
       </header>
     </>
   );
