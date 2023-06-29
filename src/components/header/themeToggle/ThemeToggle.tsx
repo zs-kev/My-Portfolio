@@ -1,6 +1,5 @@
 "use client";
 
-import { LightDarkLoader } from "@/components/contentLoader";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -37,11 +36,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isNavOpen = true }) => {
   }, []);
 
   if (!mounted) {
-    return (
-      <div className="self-start">
-        <LightDarkLoader />
-      </div>
-    );
+    return <div />;
   }
 
   const currentTheme = theme === "system" ? systemTheme : theme;

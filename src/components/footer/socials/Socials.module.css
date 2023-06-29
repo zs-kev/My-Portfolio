@@ -13,9 +13,3 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-@media (width < 75rem) {
-  .container {
-    gap: 26px;
-  }
-}
