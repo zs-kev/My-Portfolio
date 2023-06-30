@@ -9,5 +9,34 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-top: 98px;
+  padding-top: 84px;
+}
+
+@media (max-width: 64rem) {
+  .wrapper {
+    padding-top: 72px;
+  }
+}
+
+@media (max-width: 62rem) {
+  .wrapper {
+    flex-direction: column;
+    gap: 36px;
+  }
+}
+
+@media (width < 48rem) {
+  .wrapper {
+    display: grid;
+    gap: 0;
+    padding-top: 60px;
+  }
+}
+
+@media (width < 30rem) {
+  .wrapper {
+    padding-top: 48px;
+    display: flex;
+    gap: 30px;
+  }
 }

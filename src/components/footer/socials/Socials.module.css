@@ -1,5 +1,5 @@
 .container {
-  display: inline-flex;
+  display: flex;
   gap: 36px;
 }
 
@@ -12,4 +12,17 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 80rem) {
+  .container {
+    gap: 26px;
+  }
+}
+
+@media (width < 48rem) {
+  .container {
+    flex-direction: column;
+    gap: 18px;
+  }
 }

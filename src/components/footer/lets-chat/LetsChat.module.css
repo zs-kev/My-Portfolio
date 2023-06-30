@@ -3,8 +3,26 @@
 }
 
 .container p {
-  font-size: 1.125rem;
   line-height: 1.6;
   color: var(--gray);
   margin: 18px 0 28px;
+}
+
+@media (max-width: 80rem) {
+  .container {
+    max-width: 12rem;
+  }
+}
+
+@media (max-width: 62rem) {
+  .container p {
+    margin: 12px 0 18px;
+  }
+}
+
+@media (width < 48rem) {
+  .container {
+    grid-column-start: 2;
+    grid-row-start: 1;
+  }
 }
