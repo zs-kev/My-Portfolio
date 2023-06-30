@@ -20,10 +20,3 @@
 .link:hover .underline {
   width: 100%;
 }
-
-@media (width < 75rem) {
-  .link {
-    font-size: 0.875rem;
-    line-height: 1.75;
-  }
-}
