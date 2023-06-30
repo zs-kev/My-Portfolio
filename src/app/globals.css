@@ -237,6 +237,18 @@ li {
     font-size: var(--84px);
     letter-spacing: -0.25rem;
   }
+
+  h1 {
+    font-size: var(--60px);
+  }
+
+  h2 {
+    font-size: var(--48px);
+  }
+
+  h3 {
+    font-size: var(--24px);
+  }
 }
 
 @media (width < 30rem) {
