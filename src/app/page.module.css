@@ -284,6 +284,26 @@
   font-family: var(--font-sansProBold);
   color: var(--black-white);
 }
+
+@media (width < 64rem) {
+  .aboutContainer p {
+    font-size: var(--24px);
+  }
+
+  .aboutContainer img {
+    width: 9.75rem;
+  }
+}
+
+@media (width < 48rem) {
+  .aboutContainer p {
+    font-size: var(--18px);
+  }
+
+  .aboutContainer img {
+    width: 9rem;
+  }
+}
 /* About Section End */
 
 /* Skills Section Start */

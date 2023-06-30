@@ -162,7 +162,7 @@ li {
 .max-width-wrapper {
   max-width: 76.125rem;
   margin: 0 auto;
-  padding: 98px 48px;
+  padding: 84px 48px;
 }
 
 .two-trans {
@@ -195,6 +195,10 @@ li {
 }
 
 @media (width < 64rem) {
+  .max-width-wrapper {
+    padding: 72px 48px;
+  }
+
   .headingSpecial {
     font-size: 7rem;
   }
@@ -230,7 +234,7 @@ li {
 
 @media (width < 48rem) {
   .max-width-wrapper {
-    padding: 74px 48px;
+    padding: 60px 48px;
   }
 
   .headingSpecial {
@@ -253,6 +257,6 @@ li {
 
 @media (width < 30rem) {
   .max-width-wrapper {
-    padding: 64px 32px;
+    padding: 48px 32px;
   }
 }
