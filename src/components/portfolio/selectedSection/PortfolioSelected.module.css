@@ -162,6 +162,7 @@
 
   .testimonial h3 {
     font-size: var(--48px);
+    max-width: none;
   }
 
   .firstItem {
