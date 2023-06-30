@@ -133,3 +133,74 @@
   grid-row-start: 9;
   align-self: end;
 }
+
+@media (width < 64rem) {
+  .container {
+    grid-gap: 65px;
+  }
+
+  .introText p {
+    font-size: var(--24px);
+  }
+
+  .testimonial h3 {
+    font-size: var(--60px);
+  }
+}
+
+@media (width < 48rem) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(13, 130px);
+    grid-gap: 25px;
+    width: 100%;
+  }
+
+  .introText h2 {
+    font-size: var(--10px);
+  }
+
+  .testimonial h3 {
+    font-size: var(--48px);
+  }
+
+  .firstItem {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+
+  .secondItem {
+    grid-column: 1/2;
+    grid-row: 2/5;
+  }
+
+  .thirdItem {
+    grid-column: 1/2;
+    grid-row: 5/8;
+  }
+
+  .fourthItem {
+    grid-column: 1/2;
+    grid-row: 10/13;
+  }
+
+  .fifthItem {
+    grid-column: 1/2;
+    grid-row: 8/9;
+  }
+
+  .sixthItem {
+    display: none;
+  }
+
+  .seventhItem {
+    display: none;
+  }
+
+  .eightItem {
+    grid-column: 1/2;
+    grid-row-start: 13;
+    align-self: center;
+    justify-self: center;
+  }
+}
