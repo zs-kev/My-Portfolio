@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(3, 2fr);
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   justify-items: center;
   column-gap: 136px;
@@ -10,4 +10,20 @@
 
 .container svg:hover path {
   fill: url("#iconHover");
+}
+
+@media (max-width: 62rem) {
+  .container {
+    column-gap: 50.4px;
+  }
+}
+
+@media (width < 48rem) {
+  .container {
+    width: 100%;
+  }
+
+  .container svg {
+    height: 60px;
+  }
 }
