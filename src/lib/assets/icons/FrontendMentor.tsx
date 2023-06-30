@@ -13,8 +13,8 @@ const FrontendMentor: FC<FrontendMentorProps> = () => {
     >
       <defs>
         <linearGradient id="iconHover" gradientTransform="rotate(90)">
-          <stop offset="0%" stop-color="#EE0979" />
-          <stop offset="100%" stop-color="#FF6A00" />
+          <stop offset="0%" stopColor="#EE0979" />
+          <stop offset="100%" stopColor="#FF6A00" />
         </linearGradient>
       </defs>
       <g id="Group 19">

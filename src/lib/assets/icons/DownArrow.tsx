@@ -25,8 +25,8 @@ const DownArrow: FC<DownArrowProps> = () => {
           y2="4.5016"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EE0979" />
-          <stop offset="1" stop-color="#FF6A00" />
+          <stop stopColor="#EE0979" />
+          <stop offset="1" stopColor="#FF6A00" />
         </linearGradient>
       </defs>
     </svg>
