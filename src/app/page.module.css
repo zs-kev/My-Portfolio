@@ -177,13 +177,20 @@
 }
 
 @media (width < 48rem) {
+  .heroSection {
+    overflow: hidden;
+  }
+
   .gridContainer {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 98px 32px 0;
   }
 
   .hello {
     margin-left: 0;
+    margin-bottom: 1rem;
     font-size: var(--24px);
   }
 
@@ -193,12 +200,15 @@
   }
 
   .textContainer div {
-    margin: 0;
+    margin: 1rem 0;
     max-width: 20rem;
+    text-align: center;
   }
 
   .buttonContainer {
     height: 50%;
+    position: absolute;
+    left: 32px;
   }
 
   .buttonContainer a {
@@ -216,13 +226,24 @@
     height: 15px;
   }
 
+  .imageContainer {
+    height: 100%;
+    align-self: center;
+    transform: translateX(0%);
+    position: static;
+  }
+
   .image {
-    height: 50vh;
+    height: 100%;
   }
 
   .backgroundBlur {
     width: 186px;
     height: 198px;
+  }
+
+  .leftBar {
+    display: none;
   }
 }
 
