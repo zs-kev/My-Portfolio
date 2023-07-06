@@ -112,20 +112,8 @@ export default function Home() {
       </section>
 
       {/* --------- My Skills Section --------- */}
-      <section className={`${styles.skills} max-width-wrapper`}>
-        <div>
-          <h2>My Skills</h2>
-          <ul className={styles.list}>
-            <li>User Interface Design</li>
-            <li>Responsive Design</li>
-            <li>Front-End Website Development</li>
-            <li>Back-End Website Development</li>
-            <li>Full-Stack Development</li>
-            <li>Search Engine Optimisation</li>
-          </ul>
-        </div>
-        <TechStack />
-      </section>
+
+      <TechStack>My Skills</TechStack>
 
       {/* --------- Portfolio Selected Works Section --------- */}
 

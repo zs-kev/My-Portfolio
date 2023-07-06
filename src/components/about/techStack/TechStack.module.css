@@ -12,6 +12,24 @@
   fill: url("#iconHover");
 }
 
+.skills {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list {
+  color: var(--gray);
+
+  list-style-type: none;
+  margin: 2.75rem 0 0;
+  padding: 0;
+}
+
+.list li {
+  line-height: 1.85;
+}
+
 @media (max-width: 62rem) {
   .container {
     column-gap: 50.4px;
@@ -25,5 +43,15 @@
 
   .container svg {
     height: 60px;
+  }
+
+  .skills {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .list {
+    margin-top: 1.125rem;
+    margin-bottom: 2.75rem;
   }
 }
