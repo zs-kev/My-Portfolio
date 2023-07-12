@@ -3,7 +3,7 @@
 import TechStack from "@/components/about/techStack/TechStack";
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
 import DownArrow from "@/lib/assets/icons/DownArrow";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { useState } from "react";
 import styles from "./page.module.css";
 
@@ -31,13 +31,11 @@ const varientsHobby = {
     return {
       x: direction > 0 ? 200 : -200,
       opacity: 0,
-      position: "absolute",
     };
   },
   animate: {
     x: 0,
     opacity: 1,
-    position: "relative",
     transition: {
       x: { type: "circInOut" },
     },
@@ -46,7 +44,6 @@ const varientsHobby = {
     return {
       x: direction > 0 ? -200 : 200,
       opacity: 0,
-      position: "absolute",
     };
   },
 };
@@ -110,18 +107,20 @@ export default function About() {
           <div className={styles.textSlideContainer}>
             <div className={styles.textSlideShow}>
               <AnimatePresence initial={false} custom={direction}>
-                <motion.div
-                  variants={varientsHobby}
-                  animate="animate"
-                  initial="initial"
-                  exit="exit"
-                  className={styles.textSlides}
-                  key={hobbyIndex}
-                  custom={direction}
-                >
-                  <h3>{hobbiesSlideText[hobbyIndex][0]}</h3>
-                  <p>{hobbiesSlideText[hobbyIndex][1]}</p>
-                </motion.div>
+                <LayoutGroup>
+                  <motion.div
+                    variants={varientsHobby}
+                    animate="animate"
+                    initial="initial"
+                    exit="exit"
+                    className={styles.textSlides}
+                    key={hobbyIndex}
+                    custom={direction}
+                  >
+                    <h3>{hobbiesSlideText[hobbyIndex][0]}</h3>
+                    <p>{hobbiesSlideText[hobbyIndex][1]}</p>
+                  </motion.div>
+                </LayoutGroup>
               </AnimatePresence>
               <button className={styles.prevBtn} onClick={prevStep}>
                 <DownArrow />

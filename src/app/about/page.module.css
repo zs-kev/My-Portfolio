@@ -59,9 +59,10 @@
 }
 
 .textSlideShow {
-  margin: auto;
   overflow: hidden;
-  position: relative;
+}
+
+.textSlides {
 }
 
 .prevBtn {
