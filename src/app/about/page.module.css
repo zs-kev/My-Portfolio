@@ -1,29 +1,27 @@
 .heroContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  place-content: center;
-  justify-content: space-between;
+  display: flex;
   padding-top: 185px;
   padding-bottom: 84px;
-  position: relative;
+  padding: 185px 48px 84px;
+  justify-content: space-between;
+  max-width: 1700px;
+  margin: 0 auto;
 }
 
 .heroContainer div {
   max-width: 40.875rem;
   height: 100%;
+  /* position: relative; */
 }
 
-.heroContainer h1 {
-  text-align: right;
-}
-
-.image {
+/* .image {
   position: absolute;
   bottom: 0;
-  left: 42px;
-  width: auto;
-  height: 60%;
-}
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+} */
 
 .heroContainer p {
   font-size: var(--60px);
@@ -54,4 +52,28 @@
 
 .infoWrapper {
   max-width: 30rem;
+}
+
+.textSlideContainer {
+  display: flex;
+}
+
+.textSlideShow {
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.prevBtn {
+  transform: rotate(90deg);
+}
+
+.nextBtn {
+  transform: rotate(-90deg);
+}
+
+.nextBtn,
+.prevBtn {
+  background: none;
+  border: 0;
 }
