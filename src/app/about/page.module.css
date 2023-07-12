@@ -1,0 +1,91 @@
+.heroContainer {
+  display: flex;
+  padding-top: 185px;
+  padding-bottom: 84px;
+  padding: 185px 48px 84px;
+  justify-content: space-between;
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+.heroContainer div {
+  max-width: 40.875rem;
+  height: 100%;
+  /* position: relative; */
+}
+
+/* .image {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+} */
+
+.heroContainer p {
+  font-size: var(--60px);
+  font-family: var(--font-sansProBold);
+  line-height: 1.3;
+  max-width: 53.125rem;
+}
+
+.background {
+  background-color: var(--seasalt-night);
+}
+
+.moreInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.moreInfo h2 {
+  font-size: var(--36px);
+  font-family: var(--font-sansProBold);
+  padding-bottom: 60px;
+}
+
+.moreInfo p {
+  font-size: var(--24px);
+  line-height: 1.5;
+}
+
+.infoWrapper {
+  max-width: 30rem;
+}
+
+.textSlideContainer {
+  display: flex;
+}
+
+.textSlideShow {
+  overflow: hidden;
+}
+
+.textSlides h3 {
+  color: var(--gray);
+  font-size: var(--12px);
+  text-transform: uppercase;
+  letter-spacing: 0.125rem;
+}
+
+.textSlides p {
+  padding: 1.63rem 0;
+  font-size: var(--24px);
+}
+
+.prevBtn {
+  transform: rotate(90deg);
+}
+
+.nextBtn {
+  transform: rotate(-90deg);
+  margin-left: 32px;
+}
+
+.nextBtn,
+.prevBtn {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
