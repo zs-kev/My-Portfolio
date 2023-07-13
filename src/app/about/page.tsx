@@ -3,8 +3,9 @@
 import TechStack from "@/components/about/techStack/TechStack";
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
 import DownArrow from "@/lib/assets/icons/DownArrow";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import { useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
+import { useCallback } from "react";
 import styles from "./page.module.css";
 
 const hobbiesSlideText = [
@@ -26,68 +27,32 @@ const hobbiesSlideText = [
   ],
 ];
 
-const varientsHobby = {
-  initial: (direction: number) => {
-    return {
-      x: direction > 0 ? 200 : -200,
-      opacity: 0,
-    };
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      x: { type: "circInOut" },
-    },
-  },
-  exit: (direction: number) => {
-    return {
-      x: direction > 0 ? -200 : 200,
-      opacity: 0,
-    };
-  },
-};
+const experienceSlideText = [
+  [
+    "Feb 2020 - March 2021",
+    "Developer at FuseBox Online",
+    "My position involved working with various programming languages. Specifically, I worked with HTML, CSS/SASS, and JavaScript on frontend projects, and PHP and Laravel on the backend.",
+    "As I progressed, I was entrusted with more responsibilities and began working alongside senior developers on both frontend and backend tasks. ",
+    "/assets/images/logos/fusebox.png",
+  ],
+];
 
 export default function About() {
-  const [hobbyIndex, setHobbyIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
-  const nextStep = () => {
-    setDirection(1);
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
-    if (hobbyIndex === hobbiesSlideText.length - 1) {
-      setHobbyIndex(0);
-      return;
-    }
-
-    setHobbyIndex(hobbyIndex + 1);
-  };
-
-  const prevStep = () => {
-    setDirection(-1);
-
-    if (hobbyIndex === 0) {
-      setHobbyIndex(hobbiesSlideText.length - 1);
-      return;
-    }
-
-    setHobbyIndex(hobbyIndex - 1);
-  };
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   return (
     <>
       <section className={styles.heroContainer}>
         <div>
           <h1 className="headingSpecial">About Me</h1>
-          {/* <Image
-            src={"/assets/images/kevin-simon.png"}
-            alt={"Kevin Simon Portrait"}
-            priority
-            width="0"
-            height="0"
-            sizes="100vw"
-            className={styles.image}
-          /> */}
         </div>
         <p>
           Hello! I&apos;m Kevin Simon, an enthusiastic full-stack developer
@@ -98,38 +63,58 @@ export default function About() {
 
       <div className={styles.background}>
         <TechStack>My Skills</TechStack>
-        <section className="max-width-wrapper"></section>
+
+        <section className="max-width-wrapper">
+          <h2>Experience</h2>
+          <div className={styles.experience}>
+            <div className={styles.experienceImg}>
+              <Image
+                src={"/assets/images/logos/fusebox.png"}
+                alt="Fusebox Online"
+                width={153}
+                height={35}
+              />
+            </div>
+            <div className={styles.experienceText}>
+              <p>Feb 2020 - March 2021</p>
+              <h3>Intern at FuseBox Online</h3>
+              <div>
+                <p>
+                  My position involved working with various programming
+                  languages. Specifically, I worked with HTML, CSS/SASS, and
+                  JavaScript on frontend projects, and PHP and Laravel on the
+                  backend.
+                </p>
+                <p>
+                  As I progressed, I was entrusted with more responsibilities
+                  and began working alongside senior developers on both frontend
+                  and backend tasks.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
       <section className={`max-width-wrapper ${styles.moreInfo}`}>
         <div className={styles.infoWrapper}>
           <h2>Hobbies</h2>
-          <div className={styles.textSlideContainer}>
-            <div className={styles.textSlideShow}>
-              <AnimatePresence initial={false} custom={direction}>
-                <LayoutGroup>
-                  <motion.div
-                    variants={varientsHobby}
-                    animate="animate"
-                    initial="initial"
-                    exit="exit"
-                    className={styles.textSlides}
-                    key={hobbyIndex}
-                    custom={direction}
-                  >
-                    <h3>{hobbiesSlideText[hobbyIndex][0]}</h3>
-                    <p>{hobbiesSlideText[hobbyIndex][1]}</p>
-                  </motion.div>
-                </LayoutGroup>
-              </AnimatePresence>
-              <button className={styles.prevBtn} onClick={prevStep}>
-                <DownArrow />
-              </button>
-              <button className={styles.nextBtn} onClick={nextStep}>
-                <DownArrow />
-              </button>
+          <div className={styles.embla} ref={emblaRef}>
+            <div className={styles.embla__container}>
+              {hobbiesSlideText.map((content, index) => (
+                <div className={styles.embla__slide} key={index}>
+                  <h3>{content[0]}</h3>
+                  <p>{content[1]}</p>
+                </div>
+              ))}
             </div>
           </div>
+          <button className={styles.embla__prev} onClick={scrollPrev}>
+            <DownArrow />
+          </button>
+          <button className={styles.embla__next} onClick={scrollNext}>
+            <DownArrow />
+          </button>
         </div>
         <div className={styles.infoWrapper}>
           <h2>A little more about me</h2>

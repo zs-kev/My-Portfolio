@@ -54,37 +54,41 @@
   max-width: 30rem;
 }
 
-.textSlideContainer {
-  display: flex;
-}
-
-.textSlideShow {
+.embla {
   overflow: hidden;
 }
 
-.textSlides h3 {
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.embla__slide h3 {
   color: var(--gray);
   font-size: var(--12px);
   text-transform: uppercase;
   letter-spacing: 0.125rem;
 }
 
-.textSlides p {
+.embla__slide p {
   padding: 1.63rem 0;
   font-size: var(--24px);
 }
 
-.prevBtn {
+.embla__prev {
   transform: rotate(90deg);
 }
 
-.nextBtn {
+.embla__next {
   transform: rotate(-90deg);
   margin-left: 32px;
 }
 
-.nextBtn,
-.prevBtn {
+.embla__next,
+.embla__prev {
   background: none;
   border: 0;
   cursor: pointer;
