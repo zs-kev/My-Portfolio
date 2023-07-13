@@ -65,6 +65,8 @@ h6 {
   --white-black: var(--white);
   --seasalt-night: var(--seasalt);
 
+  --black-opacity-10: hsla(0, 0%, 0%, 0.1);
+
   /* Font sizes */
   --10px: 0.625rem;
   --12px: 0.75rem;
@@ -153,6 +155,13 @@ li {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.smallGrayHeading {
+  color: var(--gray);
+  font-size: var(--12px);
+  text-transform: uppercase;
+  letter-spacing: 0.125rem;
 }
 
 .maxWidth {
