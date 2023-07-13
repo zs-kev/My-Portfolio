@@ -27,16 +27,6 @@ const hobbiesSlideText = [
   ],
 ];
 
-const experienceSlideText = [
-  [
-    "Feb 2020 - March 2021",
-    "Developer at FuseBox Online",
-    "My position involved working with various programming languages. Specifically, I worked with HTML, CSS/SASS, and JavaScript on frontend projects, and PHP and Laravel on the backend.",
-    "As I progressed, I was entrusted with more responsibilities and began working alongside senior developers on both frontend and backend tasks. ",
-    "/assets/images/logos/fusebox.png",
-  ],
-];
-
 export default function About() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
@@ -64,7 +54,7 @@ export default function About() {
       <div className={styles.background}>
         <TechStack>My Skills</TechStack>
 
-        <section className="max-width-wrapper">
+        <section className={`max-width-wrapper ${styles.expSection}`}>
           <h2>Experience</h2>
           <div className={styles.experience}>
             <div className={styles.experienceImg}>
@@ -76,7 +66,7 @@ export default function About() {
               />
             </div>
             <div className={styles.experienceText}>
-              <p>Feb 2020 - March 2021</p>
+              <p className="smallGrayHeading">Feb 2020 - March 2021</p>
               <h3>Intern at FuseBox Online</h3>
               <div>
                 <p>
@@ -103,7 +93,7 @@ export default function About() {
             <div className={styles.embla__container}>
               {hobbiesSlideText.map((content, index) => (
                 <div className={styles.embla__slide} key={index}>
-                  <h3>{content[0]}</h3>
+                  <h3 className="smallGrayHeading">{content[0]}</h3>
                   <p>{content[1]}</p>
                 </div>
               ))}
