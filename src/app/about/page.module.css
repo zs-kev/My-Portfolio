@@ -89,6 +89,7 @@
 
 .infoWrapper {
   max-width: 30rem;
+  width: 100%;
 }
 
 .embla {
@@ -153,6 +154,16 @@
   }
 }
 
+@media (width < 75rem) {
+  .moreInfo {
+    gap: 2.5rem;
+  }
+
+  .moreInfo p {
+    font-size: var(--18px);
+  }
+}
+
 @media (width < 64rem) {
   .heroContainer p {
     font-size: var(--30px);
@@ -160,6 +171,14 @@
 
   .experienceText {
     max-width: 40rem;
+  }
+
+  .moreInfo h2 {
+    font-size: var(--30px);
+  }
+
+  .moreInfo h3 {
+    font-size: var(--10px);
   }
 }
 
@@ -174,6 +193,18 @@
     margin-top: -80px;
     padding: 60px;
     max-width: 37rem;
+  }
+
+  .moreInfo {
+    flex-direction: column;
+  }
+
+  .moreInfo h2 {
+    padding-bottom: 30px;
+  }
+
+  .infoWrapper {
+    max-width: initial;
   }
 }
 
