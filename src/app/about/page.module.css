@@ -11,17 +11,7 @@
 .heroContainer div {
   max-width: 40.875rem;
   height: 100%;
-  /* position: relative; */
 }
-
-/* .image {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  z-index: 2;
-} */
 
 .heroContainer p {
   font-size: var(--60px);
@@ -39,6 +29,14 @@
   flex-direction: row-reverse;
 }
 
+.expSection h2 {
+  line-height: 1;
+}
+
+.experience {
+  width: 100%;
+}
+
 .experienceImg {
   background-color: #24282c;
   max-width: 600px;
@@ -51,7 +49,7 @@
 .experienceText {
   background-color: var(--white);
   color: var(--black);
-  padding: 70px 100px;
+  padding: 70px;
   max-width: 48.125rem;
   margin-top: -150px;
   margin-right: -380px;
@@ -62,6 +60,7 @@
 .experienceText div {
   display: flex;
   justify-content: space-between;
+  gap: 40px;
 }
 
 .experienceText h3 {
@@ -90,6 +89,7 @@
 
 .infoWrapper {
   max-width: 30rem;
+  width: 100%;
 }
 
 .embla {
@@ -123,4 +123,116 @@
   background: none;
   border: 0;
   cursor: pointer;
+}
+
+@media (max-width: 98.75rem) {
+  .heroContainer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .heroContainer p {
+    font-size: var(--48px);
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 80rem) {
+  .heroContainer p {
+    font-size: var(--36px);
+  }
+
+  .experienceImg {
+    max-width: 525px;
+    height: 350px;
+  }
+
+  .experienceText {
+    margin-left: 260px;
+    margin-top: -125px;
+  }
+}
+
+@media (width < 75rem) {
+  .moreInfo {
+    gap: 2.5rem;
+  }
+
+  .moreInfo p {
+    font-size: var(--18px);
+  }
+}
+
+@media (width < 64rem) {
+  .heroContainer p {
+    font-size: var(--30px);
+  }
+
+  .experienceText {
+    max-width: 40rem;
+  }
+
+  .moreInfo h2 {
+    font-size: var(--30px);
+  }
+
+  .moreInfo h3 {
+    font-size: var(--10px);
+  }
+}
+
+@media (width < 62rem) {
+  .experienceImg {
+    max-width: 380px;
+    height: 270px;
+  }
+
+  .experienceText {
+    margin-left: 100px;
+    margin-top: -80px;
+    padding: 60px;
+    max-width: 37rem;
+  }
+
+  .moreInfo {
+    flex-direction: column;
+  }
+
+  .moreInfo h2 {
+    padding-bottom: 30px;
+  }
+
+  .infoWrapper {
+    max-width: initial;
+  }
+}
+
+@media (width < 48rem) {
+  .heroContainer p {
+    font-size: var(--24px);
+  }
+
+  .expSection {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .experienceImg {
+    max-width: 100%;
+  }
+
+  .experienceText {
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .experienceText div {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .experienceText div p {
+    max-width: 100%;
+  }
 }
