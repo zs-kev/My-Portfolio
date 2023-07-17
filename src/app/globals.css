@@ -145,6 +145,31 @@ li {
   font-size: var(--16px);
 }
 
+input,
+textarea {
+  border: none;
+  border-bottom: 1px solid var(--gray);
+  background-color: var(--white-black);
+  padding: 0 0 0.8rem;
+  font-size: var(--16px);
+  width: 100%;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0;
+}
+
+::-webkit-input-placeholder {
+  opacity: 0;
+}
+:-ms-input-placeholder {
+  opacity: 0;
+}
+::placeholder {
+  opacity: 0;
+}
+
 .headingSpecial {
   display: inline-block;
   position: relative;
