@@ -4,7 +4,7 @@ import SquareButton from "@/components/buttons/squareButton/SquareButton";
 import Input from "@/components/forms/input/Input";
 import Label from "@/components/forms/label/Label";
 import Textarea from "@/components/forms/textarea/Textarea";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import styles from "./page.module.css";
 
 export default function Contact() {
@@ -13,10 +13,6 @@ export default function Contact() {
   const [number, setNumber] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-
-  const handelSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
 
   return (
     <>
@@ -114,7 +110,9 @@ export default function Contact() {
                 </Label>
               </div>
               <div className={styles.button}>
-                <SquareButton buttonStyle="filled">Submit</SquareButton>
+                <SquareButton buttonStyle="filled" type="submit">
+                  Submit
+                </SquareButton>
               </div>
             </form>
           </div>

@@ -1,10 +1,10 @@
 .getInTouch {
-  padding-top: 12rem;
+  padding-top: 200px;
 }
 
 .wrapper {
   background-color: var(--white-black);
-  padding: 3rem 4rem 4rem;
+  padding: 4rem;
   box-shadow: -2.4492935992912173e-15px 0px 250px 0px rgba(104, 120, 143, 0.1);
   display: flex;
   flex-direction: column;
@@ -23,6 +23,11 @@
   color: var(--gray);
   padding: 0.75rem 0 4.5rem;
   max-width: 29rem;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 35.625rem;
 }
 
 .form {
@@ -45,4 +50,31 @@
   grid-column: 1/3;
   display: grid;
   place-content: center;
+}
+
+@media (width < 64rem) {
+  .getInTouch {
+    padding-top: 144px;
+  }
+  .introContainer h1 {
+    font-size: var(--36px);
+  }
+}
+
+@media (width < 48rem) {
+  .getInTouch {
+    padding-top: 120px;
+  }
+  .wrapper {
+    padding: 3rem 2rem;
+  }
+  .form {
+    grid-template-columns: 1fr;
+  }
+  .message {
+    grid-column: 1;
+  }
+  .button {
+    grid-column: 1;
+  }
 }

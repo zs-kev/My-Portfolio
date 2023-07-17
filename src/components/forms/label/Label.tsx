@@ -14,7 +14,12 @@ const Label: React.FC<LabelProps> = ({
   children,
 }) => {
   return (
-    <label className={`${styles.label} ${floatingLabel && styles.floatingLabel}`} htmlFor={htmlFor}>
+    <label
+      className={`${styles.label} ${floatingLabel && styles.floatingLabel} ${
+        error && styles.error
+      }`}
+      htmlFor={htmlFor}
+    >
       {children}
     </label>
   );
