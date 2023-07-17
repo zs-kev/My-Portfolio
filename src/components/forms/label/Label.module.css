@@ -1,0 +1,42 @@
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  color: var(--gray);
+  font-size: var(--14px);
+  font-family: var(--font-sansProRegular);
+  line-height: 1.5;
+}
+
+.floatingLabel {
+  transition: 0.3s ease-in-out;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.error {
+  color: var(--red);
+}
+
+input:focus + .floatingLabel {
+  top: -25px;
+}
+
+textarea:focus + .floatingLabel {
+  top: -25px;
+}
+
+input:not(:placeholder-shown) + .floatingLabel {
+  top: -25px;
+}
+
+textarea:not(:placeholder-shown) + .floatingLabel {
+  top: -25px;
+}
+
+@media (width < 64rem) {
+  .label {
+    font-size: var(--12px);
+  }
+}
