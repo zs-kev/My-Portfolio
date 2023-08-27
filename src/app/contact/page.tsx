@@ -26,7 +26,7 @@ export default function Contact() {
             </p>
           </div>
           <div className={styles.formContainer}>
-            <form className={styles.form}>
+            <form className={styles.form} method="POST">
               <div className={`${styles.name} ${styles.inputContainer}`}>
                 <Input
                   type="text"
