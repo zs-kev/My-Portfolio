@@ -149,6 +149,7 @@ input,
 textarea {
   border: none;
   border-bottom: 1px solid var(--gray);
+  border-radius: 0;
   background-color: var(--white-black);
   padding: 0 0 0.8rem;
   font-size: var(--16px);

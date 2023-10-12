@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       {/* --------- Hero Section --------- */}
@@ -53,6 +53,7 @@ export default function Home() {
             href="https://www.linkedin.com/in/kevin-simon-dev/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn"
           >
             <Linkedin />
           </a>
@@ -60,6 +61,7 @@ export default function Home() {
             href="https://github.com/zs-kev"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Github"
           >
             <Github />
           </a>
@@ -67,6 +69,7 @@ export default function Home() {
             href="https://www.frontendmentor.io/profile/zs-kev"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Frontend Mentor"
           >
             <FrontendMentor />
           </a>
@@ -74,6 +77,7 @@ export default function Home() {
             href="https://instagram.com/kevin_coffeecycles"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Instagram"
           >
             <Insta />
           </a>
