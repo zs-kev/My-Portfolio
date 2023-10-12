@@ -59,7 +59,7 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
           </div>
           <Link
             className={styles.secondItem}
-            href={firstPost ? firstPost?.featuredOne.slug.current : ""}
+            href={firstPost ? firstPost?.featuredOne.slug.current : "/"}
           >
             <div
               className={styles.logoItem}
