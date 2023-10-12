@@ -1,11 +1,49 @@
+"use client";
+
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
+import { client } from "@/lib/sanity.client";
+import urlFor from "@/lib/urlFor";
+import { groq } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { FeaturedPostType } from "../../../../typings";
 import styles from "./PortfolioSelected.module.css";
 
 export interface PortfolioSelectedProps {}
 
+const query = groq`
+*[_type=='featured'] {
+  ...,
+  featuredOne-> {
+    client -> {
+      altLogo,
+      clientColor
+    },
+    slug
+  },
+}
+`;
+
 const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedPosts = await client.fetch(query);
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const firstPost: FeaturedPostType = posts[0];
+  const altLogoAsset = firstPost?.featuredOne.client.altLogo.asset;
+  const imageUrl = altLogoAsset ? urlFor(altLogoAsset).url() : "";
+
   return (
     <section className="max-width-wrapper">
       <div>
@@ -19,10 +57,20 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
               </p>
             </div>
           </div>
-          <Link className={styles.secondItem} href={""}>
-            <div className={styles.logoItem}>
+          <Link
+            className={styles.secondItem}
+            href={firstPost ? firstPost?.featuredOne.slug.current : ""}
+          >
+            <div
+              className={styles.logoItem}
+              style={{
+                backgroundColor: firstPost
+                  ? firstPost?.featuredOne.client.clientColor.hex
+                  : "",
+              }}
+            >
               <Image
-                src="/assets/images/logos/axio-logo-white.svg"
+                src={imageUrl}
                 alt="axio connect Project Logo"
                 width="0"
                 height="0"

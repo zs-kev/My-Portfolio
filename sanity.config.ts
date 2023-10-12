@@ -8,6 +8,7 @@ import { deskTool } from "sanity/desk";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { colorInput } from "@sanity/color-input";
+import { imageHotspotArrayPlugin } from "sanity-plugin-hotspot-array";
 import { apiVersion, dataset, projectId } from "./src/sanity/env";
 import { schema } from "./src/sanity/schema";
 
@@ -23,5 +24,6 @@ export default defineConfig({
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
     colorInput(),
+    imageHotspotArrayPlugin(),
   ],
 });
