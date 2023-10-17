@@ -1,0 +1,51 @@
+.portfolioSection {
+  padding-top: 8.5rem;
+  padding-left: 24rem;
+  width: 100%;
+}
+
+.portfolioSection h1 {
+  font-size: 4.5rem;
+}
+
+.introText {
+  padding-top: 1.85rem;
+  padding-bottom: 6rem;
+  max-width: 40rem;
+  font-size: 1.125rem;
+  color: var(--gray);
+}
+
+.sideBar {
+  height: 100%;
+  width: 12rem;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 48px;
+  overflow-x: hidden;
+  padding-top: 9.5rem;
+}
+
+.sideBar p {
+  color: var(--gray);
+  line-height: 1.6875rem;
+}
+
+.link {
+  display: block;
+  color: var(--black-white);
+  margin-bottom: 1.5rem;
+}
+
+.socials {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.line {
+  background-color: var(--gray);
+  height: 1px;
+  width: 40%;
+  margin: 2.675rem 0;
+}

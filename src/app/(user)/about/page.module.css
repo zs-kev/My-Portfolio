@@ -1,10 +1,8 @@
 .heroContainer {
   display: flex;
-  padding-top: 185px;
-  padding-bottom: 84px;
-  padding: 185px 48px 84px;
+  padding: 11.563rem 3rem 5.25rem;
   justify-content: space-between;
-  max-width: 1700px;
+  max-width: 106.25rem;
   margin: 0 auto;
 }
 

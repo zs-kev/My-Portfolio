@@ -41,8 +41,12 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
   }, []);
 
   const firstPost: FeaturedPostType = posts[0];
-  const altLogoAsset = firstPost?.featuredOne.client.altLogo.asset;
-  const imageUrl = altLogoAsset ? urlFor(altLogoAsset).url() : "";
+  const firstAltLogoAsset = firstPost?.featuredOne.client.altLogo.asset;
+  const firstImageUrl = firstAltLogoAsset
+    ? urlFor(firstAltLogoAsset).url()
+    : "";
+
+  console.log(posts);
 
   return (
     <section className="max-width-wrapper">
@@ -70,7 +74,7 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
               }}
             >
               <Image
-                src={imageUrl}
+                src={firstImageUrl}
                 alt="axio connect Project Logo"
                 width="0"
                 height="0"
