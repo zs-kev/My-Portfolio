@@ -1,6 +1,7 @@
+import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import { client } from "@/lib/sanity.client";
 import { groq } from "next-sanity";
-import Link from "next/link";
+import styles from "./page.module.css";
 
 type Props = {
   params: {
@@ -25,48 +26,54 @@ export default async function PortfolioPiece({ params: { slug } }: Props) {
 
   return (
     <>
-      <section>
-        <p>{post.client.title}</p>
-        <h1>{post.title}</h1>
-        <div>
-          <div>
-            <div>
-              <p>Made by</p>
-              <p>{post.author.name}</p>
+      <section className={styles.heroWrapper}>
+        <div className="max-width-wrapper">
+          <p className={styles.clientTitle}>{post.client.title}</p>
+          <h1>{post.title}</h1>
+          <div className={styles.infoWrapper}>
+            <div className={styles.infoDetails}>
+              <div>
+                <p className={styles.infoDetailsHeading}>Made by</p>
+                <p className={styles.infoDetailsText}>{post.author.name}</p>
+              </div>
+              <div>
+                <p className={styles.infoDetailsHeading}>Client</p>
+                <p className={styles.infoDetailsText}>{post.client.title}</p>
+              </div>
+              <div>
+                <p className={styles.infoDetailsHeading}>Date</p>
+                <p className={styles.infoDetailsText}>{post.CompletedAt}</p>
+              </div>
+              <div>
+                <p className={styles.infoDetailsHeading}>Role</p>
+                <div className={styles.infoDetailsCat}>
+                  {post.categories.map((category: any, index: number) => (
+                    <p key={index} className={styles.infoDetailsText}>
+                      {category.title}
+                    </p>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div>
-              <p>Client</p>
-              <p>{post.client.title}</p>
-            </div>
-            <div>
-              <p>Date</p>
-              <p>{post.CompletedAt}</p>
-            </div>
-            <div>
-              <p>Role</p>
-              {post.categories.map((category: any, index: number) => (
-                <p key={index}>{category.title}</p>
-              ))}
+            <div className={styles.infoDesc}>
+              <div className={styles.infoDescLine} />
+              <div>
+                <p>{post.description}</p>
+              </div>
             </div>
           </div>
-          <div>
-            <div />
-            <div>
-              <p>{post.description}</p>
-            </div>
+          <div className={styles.heroLinksWrapper}>
+            {post.websiteUrl && (
+              <ButtonUnderline link={post.websiteUrl} target={"_blank"}>
+                Visit Website
+              </ButtonUnderline>
+            )}
+            {post.githubUrl && (
+              <ButtonUnderline link={post.githubUrl} target={"_blank"}>
+                Visit Github
+              </ButtonUnderline>
+            )}
           </div>
-        </div>
-        <div>
-          {post.websiteUrl && (
-            <Link href={post.websiteUrl}>
-              Visit Website <div />
-            </Link>
-          )}
-          {post.githubUrl && (
-            <Link href={post.githubUrl}>
-              Visit Github <div />
-            </Link>
-          )}
         </div>
       </section>
     </>

@@ -1,0 +1,75 @@
+.heroWrapper {
+  padding-top: 12.5rem;
+  height: 100vh;
+}
+
+.clientTitle {
+  font-size: var(--text-s);
+  text-transform: uppercase;
+  color: var(--gray);
+  letter-spacing: 0.175rem;
+  padding-bottom: 1.5rem;
+}
+
+.heroWrapper h1 {
+  max-width: 50%;
+  line-height: 4.5rem;
+  letter-spacing: -0.1rem;
+  padding-bottom: 3rem;
+}
+
+.infoWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.infoDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.25rem;
+  margin-top: 2.86rem;
+}
+
+.infoDetailsHeading {
+  text-transform: uppercase;
+  font-family: var(--font-sansProExtraBold);
+  font-size: var(--text-s);
+}
+
+.infoDetailsText {
+  color: var(--gray);
+}
+
+.infoDetailsCat {
+  display: flex;
+  gap: 1rem;
+}
+
+.infoDesc {
+  max-width: 30rem;
+  margin-left: auto;
+}
+
+.infoDesc p {
+  font-size: var(--text-l);
+}
+
+.infoDescLine {
+  width: 4.375rem;
+  height: 1px;
+  background-color: var(--gray);
+  margin-bottom: 2.86rem;
+}
+
+.heroLinksWrapper {
+  padding-top: 4rem;
+}
+
+.heroLinksWrapper a {
+  display: block;
+  max-width: fit-content;
+}
+
+.heroLinksWrapper a:first-child {
+  margin-bottom: 2.25rem;
+}
