@@ -3,7 +3,7 @@ export type FeaturedPostType = {
   featuredOne: {
     client: {
       altLogo: Image;
-      clientColor: Color;
+      clientColorPrimary: Color;
     };
     slug: {
       current: string;

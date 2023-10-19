@@ -36,7 +36,7 @@
 
 .introText h2 {
   font-family: var(--sansProSemiBold);
-  font-size: var(--14px);
+  font-size: var(--text-xs);
   color: var(--gray);
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -46,7 +46,7 @@
 .introText p {
   letter-spacing: 0;
   font-family: var(--font-butlerMedium);
-  font-size: var(--30px);
+  font-size: var(--text-xxl);
   line-height: 1.15;
 }
 
@@ -83,7 +83,7 @@
 }
 
 .testimonial h3 {
-  font-size: var(--72px);
+  font-size: var(--h1);
   margin-bottom: 2rem;
   font-family: var(--font-butlerBold);
   line-height: 1;
@@ -105,7 +105,7 @@
 
 .testimonial p:last-child {
   font-family: var(--font-sansProBold);
-  font-size: var(--14px);
+  font-size: var(--text-s);
 }
 
 .sixthItem {
@@ -136,14 +136,6 @@
   .container {
     grid-gap: 65px;
   }
-
-  .introText p {
-    font-size: var(--24px);
-  }
-
-  .testimonial h3 {
-    font-size: var(--60px);
-  }
 }
 
 @media (width < 48rem) {
@@ -154,12 +146,7 @@
     width: 100%;
   }
 
-  .introText h2 {
-    font-size: var(--10px);
-  }
-
   .testimonial h3 {
-    font-size: var(--48px);
     max-width: none;
   }
 

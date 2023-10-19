@@ -11,7 +11,7 @@
 .button p {
   letter-spacing: 0.15rem;
   text-transform: uppercase;
-  font-size: var(--14px);
+  font-size: var(--text-s);
 }
 
 .button p:first-child {

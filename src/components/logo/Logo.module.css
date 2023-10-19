@@ -1,5 +1,5 @@
 .logo {
-  font-size: var(--36px);
+  font-size: var(--text-4xl);
   font-family: var(--font-sansProSemiBold);
   line-height: 1;
   letter-spacing: -0.1rem;
@@ -12,15 +12,6 @@
 .copywrite {
   color: var(--gray);
   font-family: var(--font-sansProRegular);
-  font-size: var(--10px);
+  font-size: var(--text-xxs);
   line-height: 3;
-}
-
-@media (width < 75rem) {
-  .logo {
-    font-size: 2rem;
-  }
-  .copywrite {
-    font-size: 0.625rem;
-  }
 }

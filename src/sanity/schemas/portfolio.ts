@@ -1,8 +1,8 @@
 import { defineField, defineType } from "sanity";
 
 export default defineType({
-  name: "post",
-  title: "Post",
+  name: "portfolio",
+  title: "Portfolio",
   type: "document",
   groups: [
     {
@@ -327,14 +327,25 @@ export default defineType({
       of: [{ type: "reference", to: { type: "category" } }],
     }),
     defineField({
+      name: "featureImage",
+      title: "feature image",
+      type: "image",
+      validation: (Rule) => Rule.required(),
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: "alt",
+          type: "string",
+          title: "Alternative Text",
+        },
+      ],
+    }),
+    defineField({
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
-    }),
-    defineField({
-      name: "isFeatured",
-      title: "Is Featured",
-      type: "boolean",
     }),
   ],
 

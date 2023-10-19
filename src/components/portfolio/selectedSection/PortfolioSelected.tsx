@@ -18,7 +18,7 @@ const query = groq`
   featuredOne-> {
     client -> {
       altLogo,
-      clientColor
+      clientColorPrimary
     },
     slug
   },
@@ -26,13 +26,13 @@ const query = groq`
 `;
 
 const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
-  const [posts, setPosts] = useState([]);
+  const [portfolio, setPortfolio] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedPosts = await client.fetch(query);
-        setPosts(fetchedPosts);
+        const fetchedPortfolio = await client.fetch(query);
+        setPortfolio(fetchedPortfolio);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -40,13 +40,13 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
     fetchData();
   }, []);
 
-  const firstPost: FeaturedPostType = posts[0];
-  const firstAltLogoAsset = firstPost?.featuredOne.client.altLogo.asset;
+  const firstItem: FeaturedPostType = portfolio[0];
+  const firstAltLogoAsset = firstItem?.featuredOne.client.altLogo.asset;
   const firstImageUrl = firstAltLogoAsset
     ? urlFor(firstAltLogoAsset).url()
     : "";
 
-  console.log(posts);
+  console.log(portfolio);
 
   return (
     <section className="max-width-wrapper">
@@ -63,13 +63,13 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
           </div>
           <Link
             className={styles.secondItem}
-            href={firstPost ? firstPost?.featuredOne.slug.current : "/"}
+            href={firstItem ? firstItem?.featuredOne.slug.current : "/"}
           >
             <div
               className={styles.logoItem}
               style={{
-                backgroundColor: firstPost
-                  ? firstPost?.featuredOne.client.clientColor.hex
+                backgroundColor: firstItem
+                  ? firstItem?.featuredOne.client.clientColorPrimary.hex
                   : "",
               }}
             >

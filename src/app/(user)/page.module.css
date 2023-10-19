@@ -13,7 +13,7 @@
 
 .hello {
   font-family: var(--font-sansProExtraBold);
-  font-size: var(--36px);
+  font-size: var(--text-4xl);
   color: var(--gray);
   letter-spacing: -0.1rem;
   margin-left: 10.75rem;
@@ -60,7 +60,7 @@
   background: var(--black-white);
   text-transform: uppercase;
   font-family: var(--font-sansProBold);
-  font-size: var(--12px);
+  font-size: var(--text-xs);
   letter-spacing: 0.15rem;
   position: absolute;
   display: flex;
@@ -152,7 +152,6 @@
   .hello {
     margin-top: 0;
     margin-left: 5rem;
-    font-size: var(--30px);
   }
 
   .textContainer div {
@@ -164,7 +163,6 @@
   .buttonContainer a {
     width: 6.8125rem;
     height: 6.8125rem;
-    font-size: var(--10px);
   }
 
   .image {
@@ -191,7 +189,6 @@
   .hello {
     margin-left: 0;
     margin-bottom: 1rem;
-    font-size: var(--24px);
   }
 
   .h2 {
@@ -260,7 +257,7 @@
 }
 
 .aboutContainer p {
-  font-size: var(--30px);
+  font-size: var(--text-xxl);
   line-height: 1.5;
   font-family: var(--font-sansProExtraBold);
 }
@@ -286,20 +283,12 @@
 }
 
 @media (width < 64rem) {
-  .aboutContainer p {
-    font-size: var(--24px);
-  }
-
   .aboutContainer img {
     width: 9.75rem;
   }
 }
 
 @media (width < 48rem) {
-  .aboutContainer p {
-    font-size: var(--18px);
-  }
-
   .aboutContainer img {
     width: 9rem;
   }
