@@ -1,6 +1,6 @@
 .heroWrapper {
   padding-top: 12.5rem;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .clientTitle {
@@ -21,6 +21,7 @@
 .infoWrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
 }
 
 .infoDetails {
@@ -72,4 +73,34 @@
 
 .heroLinksWrapper a:first-child {
   margin-bottom: 2.25rem;
+}
+
+@media (width < 75rem) {
+  .heroWrapper {
+    padding-top: 7.5rem;
+    min-height: 100%;
+  }
+
+  .heroWrapper h1 {
+    max-width: 100%;
+  }
+}
+
+@media (width < 48rem) {
+  .heroWrapper {
+    padding-top: 5.5rem;
+  }
+  .heroWrapper h1 {
+    line-height: 3.25rem;
+  }
+  .infoWrapper {
+    grid-template-columns: 1fr;
+  }
+  .infoDetails {
+    margin-top: 0;
+  }
+  .infoDesc {
+    max-width: 100%;
+    margin-left: 0;
+  }
 }
