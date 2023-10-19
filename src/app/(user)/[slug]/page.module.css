@@ -1,0 +1,106 @@
+.heroWrapper {
+  padding-top: 12.5rem;
+  min-height: 100vh;
+}
+
+.clientTitle {
+  font-size: var(--text-s);
+  text-transform: uppercase;
+  color: var(--gray);
+  letter-spacing: 0.175rem;
+  padding-bottom: 1.5rem;
+}
+
+.heroWrapper h1 {
+  max-width: 50%;
+  line-height: 4.5rem;
+  letter-spacing: -0.1rem;
+  padding-bottom: 3rem;
+}
+
+.infoWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.infoDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.25rem;
+  margin-top: 2.86rem;
+}
+
+.infoDetailsHeading {
+  text-transform: uppercase;
+  font-family: var(--font-sansProExtraBold);
+  font-size: var(--text-s);
+}
+
+.infoDetailsText {
+  color: var(--gray);
+}
+
+.infoDetailsCat {
+  display: flex;
+  gap: 1rem;
+}
+
+.infoDesc {
+  max-width: 30rem;
+  margin-left: auto;
+}
+
+.infoDesc p {
+  font-size: var(--text-l);
+}
+
+.infoDescLine {
+  width: 4.375rem;
+  height: 1px;
+  background-color: var(--gray);
+  margin-bottom: 2.86rem;
+}
+
+.heroLinksWrapper {
+  padding-top: 4rem;
+}
+
+.heroLinksWrapper a {
+  display: block;
+  max-width: fit-content;
+}
+
+.heroLinksWrapper a:first-child {
+  margin-bottom: 2.25rem;
+}
+
+@media (width < 75rem) {
+  .heroWrapper {
+    padding-top: 7.5rem;
+    min-height: 100%;
+  }
+
+  .heroWrapper h1 {
+    max-width: 100%;
+  }
+}
+
+@media (width < 48rem) {
+  .heroWrapper {
+    padding-top: 5.5rem;
+  }
+  .heroWrapper h1 {
+    line-height: 3.25rem;
+  }
+  .infoWrapper {
+    grid-template-columns: 1fr;
+  }
+  .infoDetails {
+    margin-top: 0;
+  }
+  .infoDesc {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
