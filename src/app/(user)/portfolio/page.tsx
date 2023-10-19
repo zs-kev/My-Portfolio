@@ -9,8 +9,9 @@ import Link from "next/link";
 import styles from "./page.module.css";
 
 const query = groq`
-*[_type=='post'] | order(_createdAt desc) {
+*[_type=='portfolio'] | order(_createdAt desc) {
   slug,
+  featureImage,
   client->{
     title,
   },
@@ -21,7 +22,8 @@ const query = groq`
 `;
 
 export default async function Portfolio() {
-  const posts = await client.fetch(query);
+  const portfolioItems = await client.fetch(query);
+  console.log(portfolioItems[0]);
 
   return (
     <>
@@ -32,7 +34,7 @@ export default async function Portfolio() {
           mine. And, I do everything with my core values of honesty, hard work,
           and trust.
         </p>
-        <PortfolioList posts={posts} />
+        <PortfolioList portfolioItems={portfolioItems} />
       </section>
       <section className={styles.sideBar}>
         <div>

@@ -16,6 +16,21 @@ export default defineType({
       type: "text",
     }),
     defineField({
+      name: "clientColorPrimary",
+      title: "Client color Primary",
+      type: "color",
+    }),
+    defineField({
+      name: "clientColorSecondary",
+      title: "Client color Secondary",
+      type: "color",
+    }),
+    defineField({
+      name: "clientColorAlt",
+      title: "Client color Alternative",
+      type: "color",
+    }),
+    defineField({
       name: "mainLogo",
       title: "Main Logo",
       type: "image",
@@ -45,10 +60,5 @@ export default defineType({
         },
       ],
     }),
-    {
-      name: "clientColor",
-      title: "Client color",
-      type: "color",
-    },
   ],
 });
