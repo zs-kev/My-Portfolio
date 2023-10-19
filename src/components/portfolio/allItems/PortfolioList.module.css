@@ -1,0 +1,18 @@
+.portfolioList h3 {
+  font-size: var(--text-xl);
+  color: var(--black-white);
+  font-family: var(--font-sansProRegular);
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.categoryWrapper {
+  display: flex;
+  gap: 1rem;
+  color: var(--gray);
+}
+
+.categoryWrapper p {
+  font-size: var(--text-xxs);
+  letter-spacing: 0.125rem;
+}

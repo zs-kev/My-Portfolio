@@ -2,7 +2,7 @@
   text-transform: uppercase;
   letter-spacing: 0.15rem;
   color: var(--gray);
-  font-size: var(--14px);
+  font-size: var(--text-s);
   font-family: var(--font-sansProRegular);
   line-height: 1.5;
 }
@@ -33,10 +33,4 @@ input:not(:placeholder-shown) + .floatingLabel {
 
 textarea:not(:placeholder-shown) + .floatingLabel {
   top: -25px;
-}
-
-@media (width < 64rem) {
-  .label {
-    font-size: var(--12px);
-  }
 }

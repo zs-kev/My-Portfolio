@@ -16,7 +16,7 @@
 }
 
 .introContainer h1 {
-  font-size: var(--48px);
+  font-size: var(--h2);
 }
 
 .introContainer p {
@@ -55,9 +55,6 @@
 @media (width < 64rem) {
   .getInTouch {
     padding-top: 144px;
-  }
-  .introContainer h1 {
-    font-size: var(--36px);
   }
 }
 

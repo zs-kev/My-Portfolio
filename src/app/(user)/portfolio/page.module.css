@@ -1,18 +1,18 @@
 .portfolioSection {
-  padding-top: 8.5rem;
+  padding-top: 12rem;
   padding-left: 24rem;
   width: 100%;
 }
 
 .portfolioSection h1 {
-  font-size: 4.5rem;
+  font-size: var(--h1);
 }
 
 .introText {
   padding-top: 1.85rem;
   padding-bottom: 6rem;
   max-width: 40rem;
-  font-size: 1.125rem;
+  font-size: var(--text-l);
   color: var(--gray);
 }
 
@@ -24,7 +24,7 @@
   top: 0;
   left: 48px;
   overflow-x: hidden;
-  padding-top: 9.5rem;
+  padding-top: 13rem;
 }
 
 .sideBar p {

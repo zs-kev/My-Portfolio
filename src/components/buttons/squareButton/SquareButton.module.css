@@ -1,5 +1,5 @@
 .button {
-  font-size: var(--14px);
+  font-size: var(--text-s);
   border: 0;
   padding: 1.5rem 3rem;
   text-transform: uppercase;
@@ -16,10 +16,4 @@
   color: var(--black-white);
   background-color: var(--white-black);
   border: 1px solid var(--black-white);
-}
-
-@media (width < 64rem) {
-  .button {
-    font-size: var(--12px);
-  }
 }

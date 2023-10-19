@@ -68,18 +68,37 @@ h6 {
   --black-opacity-10: hsla(0, 0%, 0%, 0.1);
 
   /* Font sizes */
-  --10px: 0.625rem;
-  --12px: 0.75rem;
-  --14px: 0.875rem;
-  --16px: 1rem;
-  --18px: 1.125rem;
-  --24px: 1.5rem;
-  --30px: 1.875rem;
-  --36px: 2.25rem;
-  --48px: 3rem;
-  --60px: 3.375rem;
-  --72px: 4.5rem;
-  --84px: 5.25rem;
+  --10px: 0.625rem; /*xxs*/
+  --12px: 0.75rem; /*xs*/
+  --14px: 0.875rem; /*s*/
+  --16px: 1rem; /*m*/
+  --18px: 1.125rem; /*l*/
+  --24px: 1.5rem; /*xl*/
+  --30px: 1.875rem; /*xxl*/
+  --36px: 2.25rem; /*xxxl*/
+  --48px: 3rem; /*4xl*/
+  --60px: 3.375rem; /*5xl*/
+  --72px: 4.5rem; /*6xl*/
+  --84px: 5.25rem; /*title*/
+
+  --text-xxs: clamp(0.7rem, -0.22vw + 0.75rem, 0.58rem);
+  --text-xs: clamp(0.79rem, -0.17vw + 0.82rem, 0.69rem);
+  --text-s: clamp(0.89rem, -0.1vw + 0.91rem, 0.83rem);
+  --text-m: clamp(1rem, 0vw + 1rem, 1rem);
+  --text-l: clamp(1.13rem, 0.13vw + 1.1rem, 1.2rem);
+  --text-xl: clamp(1.27rem, 0.31vw + 1.2rem, 1.44rem);
+  --text-xxl: clamp(1.42rem, 0.54vw + 1.32rem, 1.73rem);
+  --text-3xl: clamp(1.6rem, 0.84vw + 1.43rem, 2.07rem);
+  --text-4xl: clamp(1.8rem, 1.22vw + 1.56rem, 2.49rem);
+
+  --h6: clamp(0.8rem, 0.45vw + 0.71rem, 1.06rem);
+  --h5: clamp(1rem, 0.72vw + 0.86rem, 1.41rem);
+  --h4: clamp(1.25rem, 1.11vw + 1.03rem, 1.88rem);
+  --h3: clamp(1.56rem, 1.67vw + 1.23rem, 2.5rem);
+  --h2: clamp(1.95rem, 2.46vw + 1.46rem, 3.33rem);
+  --h1: clamp(2.44rem, 3.56vw + 1.73rem, 4.44rem);
+  --title: clamp(3.05rem, 5.11vw + 2.03rem, 5.92rem);
+  --h-xl: clamp(5.96rem, 14.36vw + 3.09rem, 14.02rem);
 
   /* 
   FONTS:
@@ -113,36 +132,36 @@ h2 {
 }
 
 h1 {
-  font-size: var(--84px);
+  font-size: var(--h1);
 }
 
 h2 {
-  font-size: var(--72px);
+  font-size: var(--h2);
   letter-spacing: -0.15rem;
 }
 
 h3 {
-  font-size: var(--36px);
+  font-size: var(--h3);
   font-family: var(--font-sansProBold);
 }
 
 h4 {
-  font-size: var(--24px);
+  font-size: var(--h4);
 }
 
 p {
-  font-size: var(--16px);
+  font-size: var(--text-m);
 }
 
 a {
   text-decoration: none;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
-  font-size: var(--14px);
+  font-size: var(--text-s);
 }
 
 li {
-  font-size: var(--16px);
+  font-size: var(--text-m);
 }
 
 input,
@@ -152,7 +171,7 @@ textarea {
   border-radius: 0;
   background-color: var(--white-black);
   padding: 0 0 0.8rem;
-  font-size: var(--16px);
+  font-size: var(--text-m);
   width: 100%;
 }
 
@@ -174,7 +193,8 @@ textarea:focus {
 .headingSpecial {
   display: inline-block;
   position: relative;
-  font-size: 12.5rem;
+  /* font-size: 12.5rem; */
+  font-size: var(--h-xl);
   letter-spacing: -0.625rem;
   line-height: 1;
   background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
@@ -185,7 +205,7 @@ textarea:focus {
 
 .smallGrayHeading {
   color: var(--gray);
-  font-size: var(--12px);
+  font-size: var(--text-xs);
   text-transform: uppercase;
   letter-spacing: 0.125rem;
 }
@@ -224,7 +244,6 @@ textarea:focus {
 
 @media (max-width: 80rem) {
   .headingSpecial {
-    font-size: 10rem;
     letter-spacing: -0.4rem;
   }
 }
@@ -232,38 +251,6 @@ textarea:focus {
 @media (width < 64rem) {
   .max-width-wrapper {
     padding: 72px 48px;
-  }
-
-  .headingSpecial {
-    font-size: 7rem;
-  }
-
-  h1 {
-    font-size: var(--72px);
-  }
-
-  h2 {
-    font-size: var(--60px);
-  }
-
-  h3 {
-    font-size: var(--30px);
-  }
-
-  h4 {
-    font-size: var(--18px);
-  }
-
-  p {
-    font-size: var(--14px);
-  }
-
-  a {
-    font-size: var(--12px);
-  }
-
-  li {
-    font-size: var(--14px);
   }
 }
 
@@ -273,20 +260,7 @@ textarea:focus {
   }
 
   .headingSpecial {
-    font-size: var(--84px);
     letter-spacing: -0.25rem;
-  }
-
-  h1 {
-    font-size: var(--60px);
-  }
-
-  h2 {
-    font-size: var(--48px);
-  }
-
-  h3 {
-    font-size: var(--24px);
   }
 }
 
