@@ -20,12 +20,16 @@ export default function Home() {
   const [timeLine, setTimeLine] = useState<gsap.core.Timeline | null>(null);
 
   useLayoutEffect(() => {
-    const timeLine = gsap.timeline({
-      onComplete: () => setLoaderFinished(true),
+    const context = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => setLoaderFinished(true),
+      });
+      setTimeLine(tl);
     });
 
-    setTimeLine(timeLine);
+    return () => context.revert();
   }, []);
+
   return (
     <>
       <Loader timeline={timeLine} />

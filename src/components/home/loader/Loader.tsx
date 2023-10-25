@@ -20,8 +20,8 @@ const Loader: FC<LoaderProps> = ({ timeline }) => {
     timeline &&
       timeline
         .add(introAnimation(wordGroupRef))
-        .add(progressAnimation(progressRef, progressNumberRef))
-        .add(collapseWords(loaderRef));
+        .add(progressAnimation(progressRef, progressNumberRef), 0)
+        .add(collapseWords(loaderRef), "-=1");
   }, [timeline]);
 
   return (

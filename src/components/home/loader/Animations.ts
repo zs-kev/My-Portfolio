@@ -48,7 +48,15 @@ export const progressAnimation = (
     .to(progressRef.current, {
       y: 24,
       autoAlpha: 0,
-    });
+    })
+    .to(
+      progressNumberRef.current,
+      {
+        y: 24,
+        autoAlpha: 0,
+      },
+      "<"
+    );
 
   return timeLine;
 };
