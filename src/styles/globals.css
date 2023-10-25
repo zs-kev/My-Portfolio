@@ -66,6 +66,10 @@ h6 {
   --seasalt-night: var(--seasalt);
 
   --black-opacity-10: hsla(0, 0%, 0%, 0.1);
+  --white-opacity-90: rgba(255, 255, 255, 0.9);
+  --black-opacity-90: rgba(0, 0, 0, 0.9);
+
+  --white-black-90: var(--white-opacity-90);
 
   /* Font sizes */
   --10px: 0.625rem; /*xxs*/
@@ -118,6 +122,7 @@ h6 {
   --black-white: var(--white);
   --white-black: var(--black);
   --seasalt-night: var(--night);
+  --white-black-90: var(--black-opacity-90);
 }
 
 /* Custom global styles */
