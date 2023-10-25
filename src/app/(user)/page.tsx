@@ -1,18 +1,34 @@
+"use client";
+
 import TechStack from "@/components/about/techStack/TechStack";
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
+import Loader from "@/components/home/loader/Loader";
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
 import DownArrow from "@/lib/assets/icons/DownArrow";
 import FrontendMentor from "@/lib/assets/icons/FrontendMentor";
 import Github from "@/lib/assets/icons/Github";
 import Insta from "@/lib/assets/icons/Instagram";
 import Linkedin from "@/lib/assets/icons/Linkedin";
+import { gsap } from "gsap";
 import Image from "next/image";
 import Link from "next/link";
+import { useLayoutEffect, useState } from "react";
 import styles from "./page.module.css";
 
-export default async function Home() {
+export default function Home() {
+  const [loaderFinished, setLoaderFinished] = useState(false);
+  const [timeLine, setTimeLine] = useState<gsap.core.Timeline | null>(null);
+
+  useLayoutEffect(() => {
+    const timeLine = gsap.timeline({
+      onComplete: () => setLoaderFinished(true),
+    });
+
+    setTimeLine(timeLine);
+  }, []);
   return (
     <>
+      <Loader timeline={timeLine} />
       {/* --------- Hero Section --------- */}
 
       <section className={styles.heroSection}>
