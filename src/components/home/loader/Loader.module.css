@@ -82,3 +82,19 @@
     left: -10vw;
   }
 }
+
+@media (width < 48rem) {
+  .words {
+    height: 28.2rem;
+  }
+
+  .word {
+    font-size: 2.1rem;
+  }
+}
+
+@media (width < 30rem) {
+  .progressNumber {
+    left: -17vw;
+  }
+}
