@@ -1,5 +1,6 @@
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import { ProviderLoader } from "@/lib/providers/LoaderProvider/ProviderLoader";
 import { Providers } from "../../lib/providers/ThemeProvider/providers";
 import {
   butlerBlack,
@@ -30,9 +31,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={fonts}>
         <Providers>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <ProviderLoader>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </ProviderLoader>
         </Providers>
       </body>
     </html>
