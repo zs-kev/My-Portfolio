@@ -125,6 +125,10 @@ h6 {
   --white-black-90: var(--black-opacity-90);
 }
 
+[data-hidden] {
+  opacity: 0;
+}
+
 /* Custom global styles */
 html,
 body {
@@ -197,7 +201,7 @@ textarea:focus {
 
 .headingSpecial {
   display: inline-block;
-  position: relative;
+  /* position: relative; */
   /* font-size: 12.5rem; */
   font-size: var(--h-xl);
   letter-spacing: -0.625rem;

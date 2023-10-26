@@ -2,6 +2,7 @@
 .heroSection {
   position: relative;
   height: 100vh;
+  overflow: hidden;
 }
 
 .gridContainer {
@@ -18,6 +19,12 @@
   letter-spacing: -0.1rem;
   margin-left: 10.75rem;
   margin-top: 3rem;
+  overflow: hidden;
+}
+
+.hello span {
+  display: inline-block;
+  transform: translateY(100%);
 }
 
 .h1 {
@@ -28,6 +35,20 @@
 .h2 {
   grid-row-start: 2;
   z-index: 2;
+}
+
+.heroHeading {
+  opacity: 0;
+}
+
+.heroKevin {
+  transform: translateX(-50%);
+  opacity: 0;
+}
+
+.heroSimon {
+  transform: translateX(50%);
+  opacity: 0;
 }
 
 .textContainer {
@@ -87,6 +108,9 @@
   width: auto;
   max-width: none;
   height: 85vh;
+  transform-origin: bottom;
+  transform: scale(0.8);
+  opacity: 0;
 }
 
 .backgroundBlur {
@@ -100,6 +124,21 @@
   border-radius: 267px;
   filter: blur(250px);
   bottom: 240px;
+  transform-origin: bottom;
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+.imageOverlay {
+  position: absolute;
+  /* inset: 0; */
+  z-index: 4;
+  background-color: black;
+  /* transform: scaleY(0.1); */
+  height: 5vh;
+  width: 100%;
+  bottom: 0;
+  transform-origin: bottom center;
 }
 
 .leftBar {
