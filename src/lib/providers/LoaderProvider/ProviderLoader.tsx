@@ -24,10 +24,8 @@ export function ProviderLoader({ children }: { children: any }) {
     }
 
     return () => {
-      if (context) {
-        context.revert();
-        sessionStorage.setItem("hasSeenLoader", "true");
-      }
+      context.revert();
+      sessionStorage.setItem("hasSeenLoader", "true");
     };
   }, []);
 

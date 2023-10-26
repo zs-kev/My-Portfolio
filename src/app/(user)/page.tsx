@@ -1,3 +1,5 @@
+"use client";
+
 import TechStack from "@/components/about/techStack/TechStack";
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
@@ -6,20 +8,49 @@ import FrontendMentor from "@/lib/assets/icons/FrontendMentor";
 import Github from "@/lib/assets/icons/Github";
 import Insta from "@/lib/assets/icons/Instagram";
 import Linkedin from "@/lib/assets/icons/Linkedin";
+import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { animateHero } from "./animations";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const heroRef = useRef(null);
+  const timeline = useRef(gsap.timeline());
+
+  useEffect(() => {
+    const context = gsap.context(() => {
+      const tl = timeline.current;
+
+      tl.add(animateHero());
+    }, heroRef);
+
+    return () => context.revert();
+  }, []);
+
   return (
     <>
       {/* --------- Hero Section --------- */}
 
-      <section className={styles.heroSection}>
+      <section className={styles.heroSection} ref={heroRef}>
         <div className={styles.gridContainer}>
-          <p className={styles.hello}>Hello, I am</p>
-          <h1 className={`headingSpecial ${styles.h1}`}>Kevin</h1>
-          <h2 className={`headingSpecial ${styles.h2}`}>Simon</h2>
+          <p className={styles.hello}>
+            <span data-hello>Hello,</span> <span data-i>I</span>{" "}
+            <span data-am>am</span>
+          </p>
+          <h1
+            className={`headingSpecial  ${styles.heroKevin} ${styles.h1}`}
+            data-kevin
+          >
+            Kevin
+          </h1>
+          <h2
+            className={`headingSpecial  ${styles.heroSimon} ${styles.h2}`}
+            data-simon
+          >
+            Simon
+          </h2>
           <div className={styles.textContainer}>
             <div>
               <p>
@@ -43,10 +74,12 @@ export default function Home() {
               height="0"
               sizes="100vw"
               className={styles.image}
+              data-hero-image
             />
           </div>
         </div>
-        <div className={styles.backgroundBlur}></div>
+        <div className={styles.backgroundBlur} data-image-shadow></div>
+        <div data-image-overlay className={styles.imageOverlay}></div>
 
         <div className={styles.leftBar}>
           <a
