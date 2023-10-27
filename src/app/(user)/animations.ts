@@ -1,6 +1,12 @@
 import { gsap } from "gsap";
+import SplitType from "split-type";
 
 export const animateHero = () => {
+  const kevinText = SplitType.create("[data-kevin]", { types: "chars" });
+  const kevinChars = kevinText.chars;
+  const simonText = SplitType.create("[data-simon]", { types: "chars" });
+  const simonChars = simonText.chars;
+
   const tl = gsap.timeline({
     defaults: {
       ease: "expo.out",
@@ -30,7 +36,7 @@ export const animateHero = () => {
       {
         scale: 1,
         opacity: 1,
-        duration: 2.5,
+        duration: 3.5,
         ease: "power2.inOut",
       },
       "<"
@@ -40,28 +46,40 @@ export const animateHero = () => {
       {
         scale: 1,
         opacity: 1,
-        duration: 2.5,
+        duration: 3,
         ease: "power2.inOut",
       },
       "<"
     )
-    .to(
-      "[data-kevin]",
+    .fromTo(
+      kevinChars,
       {
-        xPercent: 0,
-        opacity: 1,
-        ease: "power2.inOut",
+        y: 100,
+        opacity: 0,
       },
-      "<+=0.2"
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        duration: 1.5,
+      },
+      "<0.5"
     )
-    .to(
-      "[data-simon]",
+    .fromTo(
+      simonChars,
       {
-        x: 0,
-        opacity: 1,
-        ease: "power2.inOut",
+        y: 100,
+        opacity: 0,
       },
-      "<+=0.5"
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        duration: 1.5,
+      },
+      "<1"
     );
 
   return tl;
