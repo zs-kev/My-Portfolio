@@ -41,14 +41,12 @@
   opacity: 0;
 }
 
-.heroKevin {
-  transform: translateX(-50%);
-  opacity: 0;
-}
-
-.heroSimon {
-  transform: translateX(50%);
-  opacity: 0;
+.heroKevin div,
+.heroSimon div {
+  background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .textContainer {
@@ -228,6 +226,7 @@
   .hello {
     margin-left: 0;
     margin-bottom: 1rem;
+    height: 7rem;
   }
 
   .h2 {
