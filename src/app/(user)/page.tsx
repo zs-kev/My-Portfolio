@@ -52,7 +52,7 @@ export default function Home() {
             Simon
           </h2>
           <div className={styles.textContainer}>
-            <div>
+            <div className={styles.textWrapper}>
               <p data-intro-text>
                 I am an aspiring full-stack developer based in South Africa.
                 With a growing expertise in front-end and back-end technologies.

@@ -166,7 +166,7 @@
     margin-top: 6rem;
   }
 
-  .textContainer div {
+  .textWrapper {
     max-width: 14rem;
   }
 
@@ -194,7 +194,7 @@
     margin-left: 5rem;
   }
 
-  .textContainer div {
+  .textWrapper {
     max-width: auto;
     margin-bottom: 6rem;
     max-width: 12rem;
@@ -237,7 +237,7 @@
     display: block;
   }
 
-  .textContainer div {
+  .textWrapper {
     margin: 1rem 0;
     max-width: 20rem;
     text-align: center;
