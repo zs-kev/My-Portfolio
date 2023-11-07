@@ -30,11 +30,13 @@
 .h1 {
   grid-row-start: 2;
   z-index: 4;
+  opacity: 0;
 }
 
 .h2 {
   grid-row-start: 2;
   z-index: 2;
+  opacity: 0;
 }
 
 .heroHeading {
@@ -65,6 +67,7 @@
   font-family: var(--font-sansProBold);
   position: relative;
   left: 15%;
+  opacity: 0;
 }
 
 .buttonContainer {
