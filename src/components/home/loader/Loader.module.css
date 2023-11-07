@@ -63,7 +63,7 @@
   width: 100%;
   background-color: var(--black-white);
   transform: scaleX(0);
-  transform-origin: left center;
+  transform-origin: left bottom;
 }
 
 .progressNumber {

@@ -79,7 +79,6 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.backgroundBlur} data-image-shadow></div>
-        <div data-image-overlay className={styles.imageOverlay}></div>
 
         <div className={styles.leftBar}>
           <a

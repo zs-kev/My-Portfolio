@@ -130,18 +130,6 @@
   opacity: 0;
 }
 
-.imageOverlay {
-  position: absolute;
-  /* inset: 0; */
-  z-index: 4;
-  background-color: black;
-  /* transform: scaleY(0.1); */
-  height: 5vh;
-  width: 100%;
-  bottom: 0;
-  transform-origin: bottom center;
-}
-
 .leftBar {
   position: absolute;
   bottom: 44px;
