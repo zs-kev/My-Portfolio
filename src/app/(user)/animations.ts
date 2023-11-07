@@ -6,6 +6,8 @@ export const animateHero = () => {
   const kevinChars = kevinText.chars;
   const simonText = SplitType.create("[data-simon]", { types: "chars" });
   const simonChars = simonText.chars;
+  const intro = SplitType.create("[data-intro-text]");
+  const introLines = intro.lines;
 
   const tl = gsap.timeline({
     defaults: {
@@ -14,9 +16,16 @@ export const animateHero = () => {
     },
   });
 
-  tl.to("[data-hello]", {
-    y: 0,
+  tl.to("[data-image-overlay]", {
+    height: 0,
   })
+    .to(
+      "[data-hello]",
+      {
+        y: 0,
+      },
+      "<0.5"
+    )
     .to(
       "[data-i]",
       {
@@ -51,6 +60,22 @@ export const animateHero = () => {
       },
       "<"
     )
+    .to(
+      "[data-kevin]",
+      {
+        opacity: 1,
+        duration: 0.01,
+      },
+      "<"
+    )
+    .to(
+      "[data-simon]",
+      {
+        opacity: 1,
+        duration: 0.01,
+      },
+      "<"
+    )
     .fromTo(
       kevinChars,
       {
@@ -61,8 +86,8 @@ export const animateHero = () => {
         y: 0,
         opacity: 1,
         stagger: 0.2,
-        ease: "power3.out",
-        duration: 1.5,
+        ease: "power2.out",
+        duration: 1,
       },
       "<0.5"
     )
@@ -76,8 +101,31 @@ export const animateHero = () => {
         y: 0,
         opacity: 1,
         stagger: 0.2,
-        ease: "power3.out",
-        duration: 1.5,
+        ease: "power2.out",
+        duration: 1,
+      },
+      "<1"
+    )
+    .to(
+      "[data-intro-text]",
+      {
+        opacity: 1,
+        duration: 0.01,
+      },
+      "<"
+    )
+    .fromTo(
+      introLines,
+      {
+        y: 50,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.1,
+        ease: "power2.out",
+        duration: 1,
       },
       "<1"
     );

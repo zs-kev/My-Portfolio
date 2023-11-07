@@ -53,13 +53,13 @@ export default function Home() {
           </h2>
           <div className={styles.textContainer}>
             <div>
-              <p>
+              <p data-intro-text>
                 I am an aspiring full-stack developer based in South Africa.
                 With a growing expertise in front-end and back-end technologies.
               </p>
             </div>
           </div>
-          <div className={styles.buttonContainer}>
+          <div className={styles.buttonContainer} data-round-button>
             <Link href={"#about-home"}>
               <span>Let&apos;s Meet</span>
               <DownArrow />
