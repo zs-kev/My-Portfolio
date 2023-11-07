@@ -16,16 +16,13 @@ export const animateHero = () => {
     },
   });
 
-  tl.to("[data-image-overlay]", {
-    height: 0,
-  })
-    .to(
-      "[data-hello]",
-      {
-        y: 0,
-      },
-      "<0.5"
-    )
+  tl.to(
+    "[data-hello]",
+    {
+      y: 0,
+    },
+    "<0.5"
+  )
     .to(
       "[data-i]",
       {
