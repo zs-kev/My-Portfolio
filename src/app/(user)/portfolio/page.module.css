@@ -1,16 +1,18 @@
 .portfolioSection {
   padding-top: 12rem;
-  padding-left: 24rem;
+  padding-left: 384px;
+  padding-right: 48px;
   width: 100%;
 }
 
 .portfolioSection h1 {
   font-size: var(--h1);
+  line-height: 1.2;
 }
 
 .introText {
   padding-top: 1.85rem;
-  padding-bottom: 6rem;
+  padding-bottom: 96px;
   max-width: 40rem;
   font-size: var(--text-l);
   color: var(--gray);
@@ -48,4 +50,37 @@
   height: 1px;
   width: 40%;
   margin: 2.675rem 0;
+}
+
+@media (max-width: 80rem) {
+  .portfolioSection {
+    padding-left: 284px;
+  }
+  .introText {
+    padding-bottom: 64px;
+  }
+}
+
+@media (width < 64rem) {
+  .portfolioSection {
+    padding-left: 48px;
+    padding-top: 150px;
+  }
+
+  .sideBar {
+    display: none;
+  }
+}
+
+@media (width < 48rem) {
+  .portfolioSection {
+    padding-top: 118px;
+  }
+}
+
+@media (width < 30rem) {
+  .portfolioSection {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
 }
