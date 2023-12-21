@@ -23,6 +23,7 @@ export default async function PortfolioPiece({ params: { slug } }: Props) {
 
   const post = await client.fetch(query, { slug });
   console.log(post);
+  console.log(post.theChallenge);
 
   return (
     <>
@@ -73,6 +74,18 @@ export default async function PortfolioPiece({ params: { slug } }: Props) {
                 Visit Github
               </ButtonUnderline>
             )}
+          </div>
+        </div>
+      </section>
+      <section>
+        <div className={`max-width-wrapper ${styles.challengeWrapper}`}>
+          <div>
+            <h2>The Challenge</h2>
+            <p>{post.theChallenge}</p>
+          </div>
+          <div>
+            <h2>My Approach</h2>
+            <p>{post.myApproach}</p>
           </div>
         </div>
       </section>

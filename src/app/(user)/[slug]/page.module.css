@@ -75,6 +75,29 @@
   margin-bottom: 2.25rem;
 }
 
+.challengeWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 84px;
+  justify-content: center;
+  padding-top: 0;
+}
+
+.challengeWrapper div {
+  text-align: center;
+}
+
+.challengeWrapper h2 {
+  font-family: var(--font-sansProSemiBold);
+  font-size: var(--h3);
+  padding-bottom: 1.2rem;
+}
+
+.challengeWrapper p {
+  color: var(--gray);
+  text-align: justify;
+}
+
 @media (width < 75rem) {
   .heroWrapper {
     padding-top: 7.5rem;
@@ -102,5 +125,9 @@
   .infoDesc {
     max-width: 100%;
     margin-left: 0;
+  }
+
+  .challengeWrapper {
+    grid-template-columns: 1fr;
   }
 }
