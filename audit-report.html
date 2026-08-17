@@ -1,0 +1,1056 @@
+<title>Portfolio Site Audit</title>
+
+<style>
+  :root {
+    /* Ground + ink — warm near-white, ink with a faint violet cast */
+    --ground:        #FBFAF9;
+    --surface:       #FFFFFF;
+    --surface-sunk:  #F4F2F1;
+    --ink:           #181519;
+    --ink-2:         #57525E;
+    --ink-3:         #8B8593;
+    --rule:          #E3DFE2;
+    --rule-soft:     #EFEBEE;
+
+    /* The site's own gradient — pink -> pumpkin. Used sparingly. */
+    --accent-a:      #EE0879;
+    --accent-b:      #FF6A00;
+    --accent-ink:    #C7075F;
+
+    /* Severity: hot -> cool, saturated -> desaturated */
+    --sev-blocker:   #A11043;
+    --sev-high:      #C4551A;
+    --sev-med:       #6E6A86;
+    --sev-low:       #9A97A8;
+    --sev-good:      #2F6B4F;
+
+    --blocker-wash:  #FCF2F5;
+
+    --display: ui-serif, "Iowan Old Style", Georgia, "Times New Roman", serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+    --measure: 68ch;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:        #131114;
+      --surface:       #1A171C;
+      --surface-sunk:  #201C22;
+      --ink:           #EDEAEE;
+      --ink-2:         #AEA8B6;
+      --ink-3:         #7C7686;
+      --rule:          #2E2932;
+      --rule-soft:     #241F27;
+
+      --accent-a:      #FF4D97;
+      --accent-b:      #FF8C33;
+      --accent-ink:    #FF7AAE;
+
+      --sev-blocker:   #F2698F;
+      --sev-high:      #F0954F;
+      --sev-med:       #A6A0BE;
+      --sev-low:       #78738A;
+      --sev-good:      #6FC49B;
+
+      --blocker-wash:  #251A20;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:        #131114;
+    --surface:       #1A171C;
+    --surface-sunk:  #201C22;
+    --ink:           #EDEAEE;
+    --ink-2:         #AEA8B6;
+    --ink-3:         #7C7686;
+    --rule:          #2E2932;
+    --rule-soft:     #241F27;
+
+    --accent-a:      #FF4D97;
+    --accent-b:      #FF8C33;
+    --accent-ink:    #FF7AAE;
+
+    --sev-blocker:   #F2698F;
+    --sev-high:      #F0954F;
+    --sev-med:       #A6A0BE;
+    --sev-low:       #78738A;
+    --sev-good:      #6FC49B;
+
+    --blocker-wash:  #251A20;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0 1.5rem 8rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 54rem;
+    margin: 0 auto;
+  }
+
+  /* ---------- Masthead ---------- */
+
+  .masthead {
+    padding: 4.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(2.6rem, 7vw, 4.1rem);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+    font-weight: 600;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .gradient-rule {
+    height: 3px;
+    border: 0;
+    margin: 0;
+    background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  }
+
+  .standfirst {
+    font-size: 1.14rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: var(--measure);
+    margin: 0;
+  }
+
+  .meta-line {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    color: var(--ink-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.4rem;
+    padding-bottom: 1.25rem;
+  }
+
+  /* ---------- Stat strip ---------- */
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 2.5rem 0 0;
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: 1.1rem 1.15rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 1.85rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .stat-num.hot   { color: var(--sev-blocker); }
+  .stat-num.warm  { color: var(--sev-high); }
+  .stat-num.good  { color: var(--sev-good); }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ---------- Sections ---------- */
+
+  section { margin-top: 4.25rem; }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.65rem, 3.6vw, 2.15rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+    text-wrap: balance;
+  }
+
+  .section-head {
+    border-top: 2px solid var(--ink);
+    padding-top: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section-kicker {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-family: var(--body);
+    font-size: 1.02rem;
+    font-weight: 650;
+    letter-spacing: -0.005em;
+    line-height: 1.4;
+    margin: 2.25rem 0 0.6rem;
+  }
+
+  p { max-width: var(--measure); margin: 0 0 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent-a);
+    outline-offset: 2px;
+  }
+
+  strong { font-weight: 650; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.855em;
+    background: var(--surface-sunk);
+    border: 1px solid var(--rule-soft);
+    padding: 0.08em 0.34em;
+    border-radius: 2px;
+    word-break: break-word;
+  }
+
+  pre {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    background: var(--surface-sunk);
+    border: 1px solid var(--rule);
+    border-left: 2px solid var(--ink-3);
+    padding: 0.85rem 1rem;
+    overflow-x: auto;
+    margin: 0 0 1rem;
+    border-radius: 2px;
+  }
+
+  pre code {
+    background: none;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  ul { max-width: var(--measure); padding-left: 1.15rem; margin: 0 0 1rem; }
+  li { margin-bottom: 0.5rem; }
+  li:last-child { margin-bottom: 0; }
+
+  /* ---------- Blocker cards ---------- */
+
+  .blocker {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--sev-blocker);
+    padding: 1.35rem 1.5rem;
+    margin-bottom: 1.1rem;
+    border-radius: 2px;
+  }
+
+  .blocker-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    margin-bottom: 0.15rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 0.16rem 0.42rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    /* Reads on both themes: near-white on deep red, near-black on light pink */
+    color: var(--ground);
+    background: var(--sev-blocker);
+  }
+
+  .blocker h3 {
+    margin: 0;
+    font-size: 1.06rem;
+    font-weight: 650;
+  }
+
+  .path {
+    font-family: var(--mono);
+    font-size: 0.735rem;
+    color: var(--ink-3);
+    margin: 0.3rem 0 0.85rem;
+    word-break: break-all;
+  }
+
+  .fix {
+    border-top: 1px solid var(--rule-soft);
+    padding-top: 0.8rem;
+    margin-top: 1rem;
+    font-size: 0.93rem;
+    color: var(--ink-2);
+  }
+
+  .fix b {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sev-good);
+    display: block;
+    margin-bottom: 0.28rem;
+    font-weight: 600;
+  }
+
+  /* ---------- Tables ---------- */
+
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    margin-bottom: 1.25rem;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.865rem;
+    background: var(--surface);
+  }
+
+  th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--rule);
+    background: var(--surface-sunk);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: 0; }
+
+  td.v {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  td.pkg { font-family: var(--mono); font-size: 0.82rem; }
+
+  .gap-major { color: var(--sev-blocker); font-weight: 600; }
+  .gap-mid   { color: var(--sev-high); }
+  .gap-minor { color: var(--ink-3); }
+
+  /* ---------- Finding lists ---------- */
+
+  .findings {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    max-width: var(--measure);
+  }
+
+  .findings li {
+    padding: 0.7rem 0 0.7rem 1.1rem;
+    border-top: 1px solid var(--rule-soft);
+    border-left: 2px solid transparent;
+    margin: 0;
+    font-size: 0.955rem;
+  }
+
+  .findings li:last-child { border-bottom: 1px solid var(--rule-soft); }
+  .findings li.sev-high { border-left-color: var(--sev-high); }
+  .findings li.sev-med  { border-left-color: var(--sev-med); }
+  .findings li.sev-low  { border-left-color: var(--sev-low); }
+
+  /* ---------- Callout ---------- */
+
+  .callout {
+    background: var(--blocker-wash);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-a);
+    padding: 1.1rem 1.3rem;
+    margin: 1.5rem 0;
+    border-radius: 2px;
+    font-size: 0.955rem;
+  }
+
+  .callout p { max-width: none; }
+
+  .callout-label {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ---------- Phases ---------- */
+
+  .phase {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: 0 1.1rem;
+    padding: 1.15rem 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .phase:last-of-type { border-bottom: 1px solid var(--rule); }
+
+  .phase-n {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    padding-top: 0.28rem;
+    text-transform: uppercase;
+  }
+
+  .phase h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1rem;
+  }
+
+  .phase p { margin: 0; font-size: 0.94rem; color: var(--ink-2); }
+
+  .phase ol { margin: 0.55rem 0 0; padding-left: 1.15rem; font-size: 0.92rem; color: var(--ink-2); }
+  .phase ol li { margin-bottom: 0.3rem; }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    margin-top: 4.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 34rem) {
+    body { padding: 0 1.1rem 5rem; font-size: 16px; }
+    .masthead { padding-top: 3rem; }
+    .phase { grid-template-columns: 1fr; gap: 0.35rem; }
+    .blocker { padding: 1.1rem 1.15rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <span class="eyebrow">Codebase audit</span>
+    <h1>Portfolio Site Audit</h1>
+    <hr class="gradient-rule">
+    <p class="standfirst">
+      A Next.js 13 + Sanity portfolio, 129 commits deep and dormant since December 2023.
+      The foundations are sound and the build is clean — what's missing is the last 30%,
+      and it's the 30% that makes a site shippable.
+    </p>
+    <div class="meta-line">
+      <span>zs-kev/my-portfolio</span>
+      <span>17 Aug 2026</span>
+      <span>branch: claude/portfolio-site-audit-0sgv3v</span>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num hot">6</span>
+      <span class="stat-label">Ship blockers</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">70</span>
+      <span class="stat-label">Confirmed findings</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num warm">45</span>
+      <span class="stat-label">npm vulnerabilities</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num warm">3</span>
+      <span class="stat-label">Next.js majors behind</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num good">0</span>
+      <span class="stat-label">TypeScript errors</span>
+    </div>
+  </div>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">State of the project</span>
+      <h2>The foundations are sound</h2>
+    </div>
+
+    <p>This is not a rewrite job. Before the problems, the things that are genuinely working:</p>
+
+    <ul>
+      <li>The production build <strong>compiles and type-checks cleanly</strong> — zero TypeScript errors, two trivial lint warnings. Unusual for a project left alone this long.</li>
+      <li>The App Router structure is correct. Route groups <code>(user)</code> and <code>(admin)</code> cleanly separate the public site from the embedded Sanity Studio.</li>
+      <li><code>globals.css</code> is a real design system: a fluid type scale on <code>clamp()</code>, semantic colour tokens, a proper theming layer. The dark-mode wiring via <code>next-themes</code> is <strong>correct</strong> — it uses the <code>data-theme</code> attribute, which is that library's default, and the CSS matches.</li>
+      <li>The Sanity schema is well modelled — field groups, fieldsets, validation rules, a hotspot plugin. Someone thought about the authoring experience.</li>
+    </ul>
+
+    <p>
+      What's missing: the contact form doesn't submit anywhere, project detail pages query the
+      wrong document type, and the whole site sits behind a 7.5-second loader that also hides it
+      from Google. <strong>Roughly 70% built. Two to three focused sessions gets it live.</strong>
+    </p>
+
+    <div class="callout">
+      <span class="callout-label">How this was audited</span>
+      <p>
+        Six parallel review passes — correctness, architecture, SEO, accessibility, performance,
+        completeness — where every candidate finding was then handed to an independent reviewer
+        instructed to <em>refute</em> it. 120 candidates went in; <strong>70 survived, 50 were
+        thrown out</strong>. Only the survivors are in this report. Anything the verifier
+        couldn't confirm was re-checked by hand against a real build.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">Priority one</span>
+      <h2>Ship blockers</h2>
+    </div>
+
+    <p>These six stop the site doing its job. Nothing else should be worked on before them.</p>
+
+    <div class="blocker">
+      <div class="blocker-head">
+        <span class="tag">B1</span>
+        <h3>Project pages fetch a document type that doesn't exist</h3>
+      </div>
+      <p class="path">src/app/(user)/[slug]/page.tsx:14</p>
+      <pre><code>*[_type=='post' &amp;&amp; slug.current == $slug][0]</code></pre>
+      <p>
+        The schema defines the type as <code>portfolio</code>. There is no <code>post</code> type
+        anywhere in the studio. Every project case study — the entire substance of a portfolio —
+        returns <code>null</code> and then throws.
+      </p>
+      <div class="fix">
+        <b>Fix</b>
+        One word: <code>'post'</code> → <code>'portfolio'</code>. Do this first — you can't
+        manually test anything else on the detail page until you do.
+      </div>
+    </div>
+
+    <div class="blocker">
+      <div class="blocker-head">
+        <span class="tag">B2</span>
+        <h3>The contact form submits nowhere</h3>
+      </div>
+      <p class="path">src/app/(user)/contact/page.tsx:29</p>
+      <p>
+        <code>&lt;form method="POST"&gt;</code> with no <code>action</code>, no
+        <code>onSubmit</code>, and no server action. There are <strong>zero route handlers in the
+        entire repo</strong>. The five <code>useState</code> values are written but never read.
+      </p>
+      <p>
+        A visitor fills in the form, hits Submit, and the browser does a native POST to
+        <code>/contact</code> — which Next answers with <strong>405 Method Not Allowed</strong>.
+        The message is destroyed silently. The footer CTA and the portfolio sidebar both funnel
+        here. This is the site's only conversion path, and it's the one thing a hire-me site has
+        to get right.
+      </p>
+      <div class="fix">
+        <b>Fix</b>
+        <code>onSubmit</code> handler → <code>src/app/api/contact/route.ts</code> → Resend, or
+        Formspree if you'd rather not manage a key. Plus success and error states, which the form
+        components are already shaped for.
+      </div>
+    </div>
+
+    <div class="blocker">
+      <div class="blocker-head">
+        <span class="tag">B3</span>
+        <h3>Every page server-renders an empty document</h3>
+      </div>
+      <p class="path">src/lib/providers/LoaderProvider/ProviderLoader.tsx:32</p>
+      <pre><code>return &lt;&gt;{loaderFinished ? children : &lt;Loader … /&gt;}&lt;/&gt;;</code></pre>
+      <p>
+        <code>loaderFinished</code> starts <code>false</code>, so during server rendering the
+        ternary picks the loader. <code>Header</code>, <code>&lt;main&gt;</code> and
+        <code>Footer</code> are <strong>not rendered at all</strong> — not in the HTML, not in
+        the DOM.
+      </p>
+      <p>
+        The HTML served to Google, to LinkedIn's preview bot, to every LLM scraper, and to any
+        visitor whose JS fails is a full-screen overlay containing 54 decorative words. No
+        <code>&lt;h1&gt;</code>. No nav. No project names. The string "Kevin Simon" appears
+        nowhere in the body of any page.
+      </p>
+      <div class="fix">
+        <b>Fix</b>
+        Always render <code>children</code>; make the loader a fixed-position <em>sibling</em>
+        that overlays and fades out —
+        <code>&lt;&gt;{children}{!loaderFinished &amp;&amp; &lt;Loader/&gt;}&lt;/&gt;</code>
+      </div>
+    </div>
+
+    <div class="blocker">
+      <div class="blocker-head">
+        <span class="tag">B4</span>
+        <h3>The loader runs 7.5 seconds — on every single load</h3>
+      </div>
+      <p class="path">src/components/home/loader/Animations.ts · ProviderLoader.tsx:28</p>
+      <p>
+        Adding up the GSAP timeline: 5s intro and 5s progress sweep running concurrently, then
+        0.5s, then a 3s collapse — <strong>≈7.5 seconds</strong> before content mounts.
+      </p>
+      <p>
+        Worse, the "only show this once" guard doesn't work.
+        <code>sessionStorage.setItem("hasSeenLoader", …)</code> is written <em>inside the effect's
+        cleanup function</em>, which doesn't run on a normal page load. The flag is rarely set,
+        so returning visitors sit through the full 7.5s again. Combined with B3, LCP is ~7.5s by
+        construction on every page. Google's "poor" threshold is 4s.
+      </p>
+      <div class="fix">
+        <b>Fix</b>
+        Set the flag in the timeline's <code>onComplete</code> alongside
+        <code>setLoaderFinished(true)</code>, cut the timeline to ≲1.2s, and add a skip control.
+      </div>
+    </div>
+
+    <div class="blocker">
+      <div class="blocker-head">
+        <span class="tag">B5</span>
+        <h3>Unknown URLs return 500 instead of 404</h3>
+      </div>
+      <p class="path">src/app/(user)/[slug]/page.tsx:24-51</p>
+      <p>
+        <code>[slug]</code> sits at the route root, so it matches <em>every</em> unmatched
+        top-level path. The query ends in <code>[0]</code> — which returns <code>null</code> on
+        no match — and there's no guard before <code>post.theChallenge</code> and
+        <code>post.client.title</code>.
+      </p>
+      <p>
+        A typo'd link, a deleted project, a crawler probing an old URL: all throw
+        <code>TypeError</code> and serve a <strong>500</strong>. Search engines read removed
+        projects as server errors rather than gone. There's no <code>not-found.tsx</code> or
+        <code>error.tsx</code> either.
+      </p>
+      <div class="fix">
+        <b>Fix</b>
+        <code>if (!post) notFound();</code> plus <code>not-found.tsx</code> and
+        <code>error.tsx</code>.
+      </div>
+    </div>
+
+    <div class="blocker">
+      <div class="blocker-head">
+        <span class="tag">B6</span>
+        <h3>"Selected Projects" is mostly empty placeholder tiles</h3>
+      </div>
+      <p class="path">src/components/portfolio/selectedSection/PortfolioSelected.tsx:64-117</p>
+      <p>
+        This grid renders on <strong>both the homepage and the About page</strong> — the first
+        impression of your work on your two highest-traffic pages. Of six tiles, one is real.
+      </p>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Tile</th><th>State</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="v">1</td><td>Intro text — fine</td></tr>
+            <tr><td class="v">2</td><td>Real, CMS-driven (<code>featuredOne</code>)</td></tr>
+            <tr><td class="v">3</td><td>Empty grey block, <code>href=""</code></td></tr>
+            <tr><td class="v">4</td><td>Hardcoded Huddle logo, <code>href=""</code></td></tr>
+            <tr><td class="v">5</td><td>Hardcoded testimonial</td></tr>
+            <tr><td class="v">6, 7</td><td>Empty grey blocks, <code>href=""</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The schema already defines <code>featuredTwo</code> … <code>featuredFive</code> — the
+        query just never dereferences them. Four <code>&lt;Link href=""&gt;</code> elements are
+        focusable, announce as links, and reload the current page when clicked.
+      </p>
+      <div class="fix">
+        <b>Fix</b>
+        Dereference all five in the query and map over them. Better still: replace the five fixed
+        slots with a single <code>array of reference to portfolio</code>.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">The upgrade</span>
+      <h2>Dependency currency</h2>
+    </div>
+
+    <p>
+      Everything is roughly three years stale. <code>npm audit</code> reports
+      <strong>45 vulnerabilities — 4 critical, 16 high, 20 moderate</strong>.
+    </p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Package</th><th>Current</th><th>Latest</th><th>Gap</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="pkg">next</td><td class="v">13.4.3</td><td class="v">16.3.1</td><td class="v gap-major">3 major</td></tr>
+          <tr><td class="pkg">react / react-dom</td><td class="v">18.2.0</td><td class="v">19.2.8</td><td class="v gap-mid">1 major</td></tr>
+          <tr><td class="pkg">sanity</td><td class="v">3.17.0</td><td class="v">6.9.2</td><td class="v gap-major">3 major</td></tr>
+          <tr><td class="pkg">next-sanity</td><td class="v">5.5.5</td><td class="v">13.3.3</td><td class="v gap-major">8 major</td></tr>
+          <tr><td class="pkg">typescript</td><td class="v">5.0.4</td><td class="v">7.0.2</td><td class="v gap-mid">2 major</td></tr>
+          <tr><td class="pkg">eslint</td><td class="v">8.40.0</td><td class="v">10.8.1</td><td class="v gap-mid">2 major</td></tr>
+          <tr><td class="pkg">eslint-config-next</td><td class="v">13.4.3</td><td class="v">16.3.1</td><td class="v gap-major">3 major</td></tr>
+          <tr><td class="pkg">framer-motion</td><td class="v">10.12.16</td><td class="v">13.1.0</td><td class="v gap-major">3 major + renamed to <code>motion</code></td></tr>
+          <tr><td class="pkg">@commitlint/cli</td><td class="v">17.6.5</td><td class="v">21.2.2</td><td class="v gap-mid">4 major</td></tr>
+          <tr><td class="pkg">@sanity/color-input</td><td class="v">3.1.0</td><td class="v">6.1.3</td><td class="v gap-mid">3 major</td></tr>
+          <tr><td class="pkg">@sanity/image-url</td><td class="v">1.0.2</td><td class="v">2.1.1</td><td class="v gap-minor">1 major</td></tr>
+          <tr><td class="pkg">styled-components</td><td class="v">5.2.3</td><td class="v">6.5.3</td><td class="v gap-minor">1 major — see below</td></tr>
+          <tr><td class="pkg">prettier</td><td class="v">2.8.8</td><td class="v">3.9.6</td><td class="v gap-minor">1 major</td></tr>
+          <tr><td class="pkg">husky</td><td class="v">8.0.3</td><td class="v">9.1.7</td><td class="v gap-minor">1 major</td></tr>
+          <tr><td class="pkg">next-themes</td><td class="v">0.2.1</td><td class="v">0.4.6</td><td class="v gap-minor">minor</td></tr>
+          <tr><td class="pkg">embla-carousel-react</td><td class="v">8.0.0-rc11</td><td class="v">8.6.0</td><td class="v gap-mid">release candidate in prod</td></tr>
+          <tr><td class="pkg">gsap</td><td class="v">3.12.2</td><td class="v">3.15.0</td><td class="v gap-minor">minor</td></tr>
+          <tr><td class="pkg">react-content-loader</td><td class="v">6.2.1</td><td class="v">7.1.2</td><td class="v gap-minor">unused — delete</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="callout-label">Don't delete styled-components</span>
+      <p>
+        It looks like dead code — nothing in <code>src/</code> imports it — but it's a required
+        peer dependency of <code>sanity@3.17</code>, which is exactly why it's pinned without a
+        caret. It moves when Sanity moves.
+      </p>
+    </div>
+
+    <h3>The constraint that shapes the whole upgrade</h3>
+    <p>The versions are coupled, so this can't be done piecemeal:</p>
+    <ul>
+      <li><code>sanity@3.x</code> peers <code>react: ^18</code> → <strong>React 19 is blocked until Sanity 4+</strong></li>
+      <li><code>next-sanity@6+</code> requires <strong>Next 14 minimum</strong></li>
+      <li><code>next@16</code> requires <strong>Node 20.9+, React 19.2, TypeScript 5.1+</strong></li>
+      <li>Next 16 <strong>removes</strong> synchronous <code>params</code> / <code>searchParams</code> — the <code>[slug]</code> page uses the sync form</li>
+      <li>Next 16 replaces <code>next lint</code> with the ESLint CLI, and ESLint 9+ needs flat config, so <code>.eslintrc.json</code> must be converted</li>
+      <li>Sanity renamed <code>deskTool</code> → <code>structureTool</code> in 3.24; <code>sanity.config.ts:6</code> still uses the old import</li>
+      <li>Sanity 4+ needs <code>@sanity/ui/styles.css</code> imported explicitly — styles are no longer auto-injected</li>
+    </ul>
+    <p>
+      So <strong>React, Sanity and Next have to move together.</strong> There's a CLI codemod for
+      most of it (<code>npx @next/codemod@latest upgrade</code>) and a Sanity codemod for the desk
+      rename.
+    </p>
+
+    <h3>Also needs attention</h3>
+    <ul class="findings">
+      <li class="sev-high"><code>.nvmrc</code> says <code>lts/hydrogen</code> — Node 18, EOL since April 2025. Needs Node 22 or 24. (The <code>engines</code> floor of <code>&gt;=18.15.0</code> is <em>not</em> blocking anything — it has no upper bound.)</li>
+      <li class="sev-med"><code>next.config.js</code> uses <code>images.domains</code> — valid in Next 13, removed in Next 16. Becomes <code>remotePatterns</code>.</li>
+      <li class="sev-med"><code>@types/next-auth@3.15.0</code> is a deprecated stub that just depends on <code>next-auth</code>. Nothing imports it, but it drags all of next-auth into the tree — the source of the <code>cookie</code> and <code>jose</code> vulnerabilities. Delete it.</li>
+      <li class="sev-low">Husky 9 changed the hook file format — the <code>#!/usr/bin/env sh</code> preamble must be removed.</li>
+      <li class="sev-low">Prettier 3 changes default <code>trailingComma</code> to <code>"all"</code>. Expect one large reformat commit; do it on its own.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">Findability</span>
+      <h2>SEO</h2>
+    </div>
+
+    <p>
+      For a site whose entire purpose is being found by recruiters and clients, this is the
+      weakest area after the ship blockers. B3 — the empty server HTML — dominates everything
+      else here. Beyond it:
+    </p>
+
+    <ul class="findings">
+      <li class="sev-high"><strong>All five routes serve an identical title and description</strong> — "Kevin Simon" / "My Portfolio Website". Home, About, Contact, Portfolio, and every project page. Three of them are <code>"use client"</code>, so they <strong>physically cannot</strong> export metadata until they're split into server wrappers.</li>
+      <li class="sev-high"><strong>No <code>generateMetadata</code> on <code>[slug]</code></strong> — the richest content on the site. No technical obstacle here, just omitted.</li>
+      <li class="sev-high"><strong>No Open Graph or Twitter Card metadata anywhere.</strong> Every time this is pasted into LinkedIn, Slack or WhatsApp — the primary distribution channel for a portfolio — it renders as a naked URL.</li>
+      <li class="sev-med"><strong>No JSON-LD <code>Person</code> data</strong>, despite four social profiles being hardcoded in three places. No <code>sameAs</code>, so Google can't consolidate the entity.</li>
+      <li class="sev-med"><strong>The homepage <code>&lt;h1&gt;</code> is the single word "Kevin".</strong> "Simon" is an <code>&lt;h2&gt;</code> purely for visual sizing. "Kevin Simon" exists nowhere as one contiguous heading.</li>
+      <li class="sev-med"><strong>The meta description is a placeholder.</strong> "My Portfolio Website" contains none of the terms anyone searches — not "full-stack developer", not "React", not "Johannesburg". The good copy is already written on the About page.</li>
+      <li class="sev-med"><strong>Project titles are never fetched.</strong> The <code>/portfolio</code> query omits <code>title</code> entirely; cards are headed by the <em>client</em> name, so every internal link to a case study carries no descriptive anchor text.</li>
+      <li class="sev-med"><strong><code>/studio</code> is fully indexable</strong> — no <code>noindex</code>. Google will index your CMS login screen.</li>
+      <li class="sev-low">Project thumbnails ship <code>alt=""</code> even though the CMS stores alt text and the query fetches it.</li>
+      <li class="sev-low">No <code>sitemap.ts</code>, no <code>robots.ts</code>, no <code>metadataBase</code>, no canonicals.</li>
+      <li class="sev-low">Footer says <strong>"© 2023"</strong> on every page — the cheapest credibility leak on the site.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">Accessibility</span>
+      <h2>18 confirmed issues</h2>
+    </div>
+
+    <p>Two are genuinely serious:</p>
+
+    <ul class="findings">
+      <li class="sev-high"><strong>Mobile navigation is unreachable by keyboard.</strong> The hamburger is a bare <code>&lt;div onClick&gt;</code> — no <code>tabIndex</code>, no <code>role</code>, no <code>onKeyDown</code>, no accessible name, no <code>aria-expanded</code>. Below 62rem the desktop nav is <code>display:none</code>, so this div is the <em>only</em> route to About, Portfolio and Contact. Keyboard and screen-reader users cannot navigate the site on mobile at all.</li>
+      <li class="sev-high"><strong><code>outline: 0</code> on every input and textarea with no replacement.</strong> This is the only <code>:focus</code> rule in the codebase. All five contact fields lose their focus ring and gain nothing back — you cannot see where you are in the form.</li>
+    </ul>
+
+    <p>Also confirmed:</p>
+
+    <ul class="findings">
+      <li class="sev-med"><code>--gray</code> (<code>#9393a5</code>) computes to <strong>3.01:1 on white</strong> — under the 4.5:1 AA minimum — and it's used for nav links, form labels and body copy.</li>
+      <li class="sev-med"><strong><code>prefers-reduced-motion</code> is honoured nowhere.</strong> Zero hits across the codebase. The 7.5s loader, the per-character hero stagger, the 100vh menu sweep and every framer-motion transition all run unconditionally.</li>
+      <li class="sev-med"><strong>SplitType shatters the <code>h1</code>, <code>h2</code> and intro paragraph into per-character <code>&lt;div&gt;</code>s</strong> with no <code>aria-label</code> compensation, destroying their accessible text.</li>
+      <li class="sev-med">Mobile menu has <strong>no focus management and no Escape handler</strong>, and leaves background content tabbable behind the overlay.</li>
+      <li class="sev-med">Carousel prev/next buttons have <strong>no accessible name</strong> — both announce as just "button".</li>
+      <li class="sev-med">Theme toggle announces as <strong>"Light Dark"</strong>, with no <code>aria-pressed</code> or <code>role="switch"</code>.</li>
+      <li class="sev-low">Active nav item is indicated <strong>by colour alone</strong> — no <code>aria-current</code>.</li>
+      <li class="sev-low">Three <code>&lt;a href=""&gt;</code> elements with <strong>completely empty content</strong> — focusable, no name, no destination.</li>
+      <li class="sev-low">No <code>autoComplete</code> on any field (name, email, tel).</li>
+      <li class="sev-low">Hero <code>h1</code>, <code>h2</code> and intro are <strong><code>opacity: 0</code> in CSS</strong>, revealed only if GSAP completes.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">Speed</span>
+      <h2>Performance</h2>
+    </div>
+
+    <ul class="findings">
+      <li class="sev-high"><strong>1.89 MiB of fonts, all preloaded on every route.</strong> Nine unsubsetted <code>.ttf</code> faces — I confirmed all nine are emitted to <code>.next/static/media/</code> with the <code>-s.p.ttf</code> preload marker, so every route pays for all of them. Converting to <code>woff2</code> and subsetting to Latin typically cuts this ~70%, to around 500KB. <strong>The single biggest performance win available, and it's mechanical work.</strong></li>
+      <li class="sev-med"><strong>Hero LCP image is a 533×704 PNG</strong> (181KB) declared <code>width="0" height="0" sizes="100vw"</code>. The <code>sizes</code> value overstates its rendered width considerably, so the browser fetches a larger candidate than it needs.</li>
+      <li class="sev-med"><strong><code>width="0" height="0"</code> on four <code>&lt;Image&gt;</code> call sites</strong> removes the aspect-ratio box, so no space is reserved until load — layout shift. The signature image has <code>width="0" height="0"</code> and <strong>no <code>sizes</code> at all</strong>.</li>
+      <li class="sev-med"><strong><code>PortfolioSelected</code> fetches client-side in a <code>useEffect</code></strong>, shipping the Sanity client and GROQ query into the browser bundle on the two most-visited pages, creating a request waterfall, and rendering <code>&lt;Image src=""&gt;</code> on first paint — browsers resolve an empty <code>src</code> to the current document URL and re-download the page as an image.</li>
+      <li class="sev-med"><strong><code>gsap</code> and <code>framer-motion</code> are both in the root-layout bundle</strong>, so they load on all five routes including Contact, which animates nothing.</li>
+      <li class="sev-med"><strong><code>/portfolio</code> is baked at build time with no revalidation.</strong> Publishing a new project in Sanity changes nothing on the live site until a redeploy. (The <code>[slug]</code> route is <em>not</em> affected — without <code>generateStaticParams</code> it renders dynamically. Verified against a real build.)</li>
+    </ul>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">Unfinished work</span>
+      <h2>Completeness punch-list</h2>
+    </div>
+
+    <p>
+      <strong>The case study template renders 12 of 23 schema fields.</strong> Four of six
+      authoring groups produce zero output — you can fill these in the Studio today and nothing
+      appears on the page:
+    </p>
+
+    <pre><code>mainImage      featuresImage   hotspots (whole plugin)
+quote          quoteName       finalWords
+firstImage     secondImage     thirdImage    fourthImage</code></pre>
+
+    <p>
+      Zero images appear on a project page. <code>featureImage</code> only shows on the index.
+    </p>
+
+    <ul class="findings">
+      <li class="sev-med"><code>featuredTwo</code>–<code>featuredFive</code> authored but never queried — the root cause of B6.</li>
+      <li class="sev-med">Client schema: <code>mainLogo</code>, <code>description</code> and two of three brand colours never rendered.</li>
+      <li class="sev-low"><code>/portfolio</code> "All Projects" link is <code>href="#"</code> — reads as a filter control, does nothing.</li>
+      <li class="sev-low">Testimonial is hardcoded, unattributed, unsourced. The heading reads "What they saying".</li>
+      <li class="sev-low">Social links hardcoded in <strong>three</strong> separate places — two are copy-paste identical.</li>
+      <li class="sev-low">Experience section has one entry, ending 2021.</li>
+      <li class="sev-low"><code>var(--sansProSemiBold)</code> is missing the <code>font-</code> prefix — undefined variable, silently falls back.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">Housekeeping</span>
+      <h2>Engineering hygiene</h2>
+    </div>
+
+    <ul class="findings">
+      <li class="sev-med"><strong>No CI.</strong> No <code>.github/</code> directory at all. The <code>pre-push</code> hook runs a full <code>next build</code> locally instead.</li>
+      <li class="sev-med"><strong>No tests.</strong> No framework, no test files.</li>
+      <li class="sev-med"><strong>No <code>.env.example</code></strong>, despite three required env vars. <code>src/lib/sanity.client.ts:5</code> reads <code>NEXT_PUBLIC_SANITY_API_VERSION</code> <strong>with no fallback</strong>, and the Sanity client throws <code>Invalid API version string</code> at module load if it's unset — taking down every page. <code>src/sanity/env.ts</code> defaults it correctly; the two clients disagree.</li>
+      <li class="sev-med"><strong>Two duplicate Sanity clients.</strong> <code>src/lib/sanity.client.ts</code> (used, <code>useCdn: true</code>, no fallback) and <code>src/sanity/lib/client.ts</code> (never imported, <code>useCdn: false</code>, correct fallback).</li>
+      <li class="sev-low"><strong>README is unmodified <code>create-next-app</code> boilerplate</strong> — it still tells you to edit <code>app/page.tsx</code> and describes loading Inter, which the project doesn't use.</li>
+      <li class="sev-low"><strong>Genuinely dead code:</strong> <code>contentLoader.tsx</code>, <code>react-content-loader</code>, <code>BaseTemplate</code>, <code>@types/next-auth</code>, <code>src/sanity/lib/*</code>, <code>public/next.svg</code>, <code>public/vercel.svg</code>.</li>
+      <li class="sev-low"><strong>Four <code>console.log</code> calls</strong> in production paths, including <code>console.log(post.theChallenge)</code> — itself a crash site.</li>
+      <li class="sev-low"><strong>Missing <code>suppressHydrationWarning</code></strong> on both <code>&lt;html&gt;</code> elements. <code>next-themes</code> requires it; without it React logs an "Extra attributes from the server" warning on every load.</li>
+      <li class="sev-low"><strong><code>reactStrictMode</code> not enabled</strong> — off by default in Next 13, and it would surface the effect bugs in B4 and B5. Becomes automatic on upgrade.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-label">One thing to check yourself</span>
+      <p>
+        The repo self-hosts <strong>Cerebri Sans Pro</strong>, a commercial typeface from Hanken
+        Design Co, and the <code>.ttf</code> files are committed to a public GitHub repo.
+        Self-hosting on a public site normally needs a webfont licence. Butler is free for
+        commercial use, so that one's fine. Worth confirming you're covered before launch —
+        better to flag it now than after.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="section-head">
+      <span class="section-kicker">Plan of attack</span>
+      <h2>Recommended sequence</h2>
+    </div>
+
+    <p>
+      Fixing bugs on the old stack and <em>then</em> upgrading means doing some work twice —
+      particularly around <code>params</code>, metadata and the client/server split, which all
+      change shape in Next 16. So this sequence front-loads the one-line fix that unblocks manual
+      testing, then upgrades, then builds.
+    </p>
+
+    <div class="phase">
+      <span class="phase-n">Phase 0</span>
+      <div>
+        <h3>Unblock — 30 minutes</h3>
+        <p>
+          Recover the Sanity project ID and dataset, add <code>.env.example</code>, fix the
+          <code>_type=='post'</code> typo (B1), fix the missing <code>apiVersion</code> fallback.
+          Goal: the site runs locally and you can see project pages.
+        </p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <span class="phase-n">Phase 1</span>
+      <div>
+        <h3>The upgrade — one session</h3>
+        <p>In this order, committing separately at each step so a regression is bisectable:</p>
+        <ol>
+          <li>Node 22/24 · <code>.nvmrc</code> · <code>engines</code></li>
+          <li>Tooling: Prettier 3 (reformat commit on its own), Husky 9, commitlint 21, ESLint flat config</li>
+          <li><code>npm audit fix</code>; delete <code>@types/next-auth</code></li>
+          <li>Framework, all together: Next 13→16 via codemod, React 19, Sanity 3→6, next-sanity 5→13, styled-components 6, <code>deskTool</code>→<code>structureTool</code>, <code>images.domains</code>→<code>remotePatterns</code>, async <code>params</code></li>
+          <li><code>embla-carousel-react</code> off the release candidate</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="phase">
+      <span class="phase-n">Phase 2</span>
+      <div>
+        <h3>Ship blockers — one session</h3>
+        <p>
+          B2 contact form · B3 loader/SSR · B4 loader timing · B5 404 handling · B6 featured
+          grid. This is the phase that makes it launchable.
+        </p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <span class="phase-n">Phase 3</span>
+      <div>
+        <h3>Findable and usable — one session</h3>
+        <p>
+          Split the three client pages into server wrappers so they can export metadata ·
+          <code>generateMetadata</code> for <code>[slug]</code> · OG tags · JSON-LD ·
+          sitemap and robots · keyboard-accessible hamburger · focus indicators · contrast ·
+          reduced-motion · fonts to woff2.
+        </p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <span class="phase-n">Phase 4</span>
+      <div>
+        <h3>Finish the work</h3>
+        <p>
+          Build out the case study template (the 11 unrendered fields) · portfolio filtering ·
+          testimonials in the CMS · replace hardcoded content. Then CI on GitHub Actions, and
+          deploy.
+        </p>
+      </div>
+    </div>
+
+    <h3>Two things I need from you</h3>
+    <ul>
+      <li>
+        <strong>Do you still have the Sanity project credentials</strong> — project ID, dataset,
+        studio access? If the project was deleted or the org lapsed, we need to know now: it
+        turns Phase 0 from "find the env vars" into "recreate the dataset and re-enter the
+        content."
+      </li>
+      <li>
+        <strong>Is there real project content in Sanity?</strong> The audit can see the schema
+        but not the data. If the CMS is empty, Phase 4 is content work as much as code work, and
+        we should plan for that.
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    Audit of zs-kev/my-portfolio · 17 August 2026<br>
+    120 candidate findings, adversarially verified · 70 confirmed, 50 refuted<br>
+    Build verified against Next 13.4.3 · Node 22.22.2 · npm 10.9.7
+  </footer>
+
+</div>
