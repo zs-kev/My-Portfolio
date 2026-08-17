@@ -270,7 +270,17 @@ Build out the case study template (the 11 unrendered fields) · portfolio filter
 
 **Then:** CI on GitHub Actions, and deploy.
 
-### Two things I need from you
+### What the Vercel deploy tells us
 
-1. **Do you still have the Sanity project credentials** (project ID, dataset, and studio access)? If the project was deleted or the org lapsed, we need to know now — it changes Phase 0 from "find the env vars" into "recreate the dataset and re-enter the content."
-2. **Is there real project content in Sanity?** The audit can see the schema but not the data. If the CMS is empty, Phase 4 is content work as much as code work, and we should plan for that.
+The audit PR triggered a Vercel preview build that **succeeded**. The project is still connected at `kevin-simons-projects-0e530519/my-portfolio`. Three useful things follow:
+
+- **All three env vars are configured in Vercel** — including `NEXT_PUBLIC_SANITY_API_VERSION`. It has to be: without it, `src/lib/sanity.client.ts` throws at module load and the build cannot complete. So Phase 0 is "copy them out of the Vercel dashboard", not "recreate the project."
+- **The Sanity dataset is live and reachable.** `/portfolio` prerenders at build time and that step passed.
+- **The data is either empty or well-formed.** `PortfolioList` dereferences `item.featureImage.asset`, `item.slug.current` and `item.client.title` with no guards, so a single incomplete document would have failed the build. It didn't — but an empty result set passes just as cleanly, so this doesn't prove content exists.
+
+**None of this contradicts the findings above.** B1 doesn't break the build because `[slug]` renders dynamically — it fails at request time, not build time. B3 is about what the HTML *contains*, not whether it builds.
+
+### Still open
+
+1. **Is there real project content in Sanity?** The build passing is consistent with both a populated dataset and an empty one. If the CMS is empty, Phase 4 is content work as much as code work.
+2. **Worth doing before Phase 2:** open the preview deployment, view source (not devtools — actual view-source, which shows the server HTML), and search for the word "Kevin". B3 predicts you won't find it in the `<body>`. That's a 30-second check and it confirms the highest-impact finding in this report against your real deployment. I couldn't run it myself — this sandbox blocks egress to `vercel.app`.

@@ -1031,18 +1031,35 @@ firstImage     secondImage     thirdImage    fourthImage</code></pre>
       </div>
     </div>
 
-    <h3>Two things I need from you</h3>
+    <h3>What the Vercel deploy tells us</h3>
+    <p>
+      This audit's PR triggered a Vercel preview build that <strong>succeeded</strong>. The
+      project is still connected. Three useful things follow:
+    </p>
+    <ul class="findings">
+      <li class="sev-low"><strong>All three env vars are configured in Vercel</strong> — including <code>NEXT_PUBLIC_SANITY_API_VERSION</code>. It has to be: without it, <code>src/lib/sanity.client.ts</code> throws at module load and the build cannot complete. Phase 0 is "copy them out of the Vercel dashboard", not "recreate the project."</li>
+      <li class="sev-low"><strong>The Sanity dataset is live and reachable.</strong> <code>/portfolio</code> prerenders at build time and that step passed.</li>
+      <li class="sev-low"><strong>The data is either empty or well-formed.</strong> <code>PortfolioList</code> dereferences <code>item.featureImage.asset</code>, <code>item.slug.current</code> and <code>item.client.title</code> with no guards, so one incomplete document would have failed the build. It didn't — but an empty result set passes just as cleanly, so this doesn't prove content exists.</li>
+    </ul>
+    <p>
+      <strong>None of this contradicts the findings above.</strong> B1 doesn't break the build
+      because <code>[slug]</code> renders dynamically — it fails at request time, not build time.
+      B3 is about what the HTML <em>contains</em>, not whether it builds.
+    </p>
+
+    <h3>Still open</h3>
     <ul>
       <li>
-        <strong>Do you still have the Sanity project credentials</strong> — project ID, dataset,
-        studio access? If the project was deleted or the org lapsed, we need to know now: it
-        turns Phase 0 from "find the env vars" into "recreate the dataset and re-enter the
-        content."
+        <strong>Is there real project content in Sanity?</strong> A passing build is consistent
+        with both a populated dataset and an empty one. If the CMS is empty, Phase 4 is content
+        work as much as code work.
       </li>
       <li>
-        <strong>Is there real project content in Sanity?</strong> The audit can see the schema
-        but not the data. If the CMS is empty, Phase 4 is content work as much as code work, and
-        we should plan for that.
+        <strong>Worth doing before Phase 2:</strong> open the preview deployment and
+        <em>view source</em> — the actual server HTML, not devtools — then search for "Kevin".
+        B3 predicts you won't find it in the <code>&lt;body&gt;</code>. A 30-second check that
+        confirms the highest-impact finding in this report against your real deployment. I
+        couldn't run it myself: this sandbox blocks egress to <code>vercel.app</code>.
       </li>
     </ul>
   </section>
