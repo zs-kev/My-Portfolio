@@ -1,9 +1,14 @@
 import { createClient } from "next-sanity";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION;
+import { apiVersion, dataset, projectId } from "@/sanity/env";
 
+// Config comes from src/sanity/env.ts, which is the single source of truth: it
+// asserts the two required variables with readable error messages and defaults
+// the API version. Reading the variables directly here used to pass an
+// undefined apiVersion straight into createClient, which throws at module load
+// and takes down every page that imports this file.
+//
+// useCdn is on because every consumer of this client reads published content.
 export const client = createClient({
   projectId,
   dataset,

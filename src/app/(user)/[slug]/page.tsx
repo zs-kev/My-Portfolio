@@ -11,7 +11,7 @@ type Props = {
 
 export default async function PortfolioPiece({ params: { slug } }: Props) {
   const query = groq`
-    *[_type=='post' && slug.current == $slug][0] {
+    *[_type=='portfolio' && slug.current == $slug][0] {
         ...,
         author->,
        client->,
@@ -22,8 +22,6 @@ export default async function PortfolioPiece({ params: { slug } }: Props) {
 `;
 
   const post = await client.fetch(query, { slug });
-  console.log(post);
-  console.log(post.theChallenge);
 
   return (
     <>
