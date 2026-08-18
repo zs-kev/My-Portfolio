@@ -10,6 +10,9 @@ export default defineType({
       title: "Featured One",
       type: "reference",
       to: { type: "portfolio" },
+      // Required: the homepage and About page both read this slot. Publishing
+      // the document without it used to break both pages.
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "featuredTwo",
@@ -36,4 +39,16 @@ export default defineType({
       to: { type: "portfolio" },
     }),
   ],
+
+  preview: {
+    select: {
+      first: "featuredOne.title",
+    },
+    prepare({ first }) {
+      return {
+        title: "Selected Projects",
+        subtitle: first ? `Featured: ${first}` : "No project selected yet",
+      };
+    },
+  },
 });

@@ -1,11 +1,16 @@
 export type FeaturedPostType = {
   _id: string;
-  featuredOne: {
-    client: {
-      altLogo: Image;
-      clientColorPrimary: Color;
+  // Every level below featuredOne is optional on purpose. A Featured
+  // document can be saved with no project selected, and a selected project's
+  // client may have no alt logo or no brand colour. Declaring these as
+  // always-present is what allowed unguarded access to typecheck and then
+  // throw at runtime.
+  featuredOne?: {
+    client?: {
+      altLogo?: Image;
+      clientColorPrimary?: Color;
     };
-    slug: {
+    slug?: {
       current: string;
       _type: string;
     };
