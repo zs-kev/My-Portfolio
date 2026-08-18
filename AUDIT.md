@@ -21,7 +21,7 @@
 
 ### Audit method
 
-A six-dimension review (correctness, architecture, SEO, accessibility, performance, completeness), where every candidate finding was then handed to an independent agent instructed to *refute* it. **120 candidate findings → 70 confirmed, 50 refuted.** Everything below survived that adversarial pass or was verified by hand against a real build. The refuted half is not in this report, which is the point.
+A six-dimension review (correctness, architecture, SEO, accessibility, performance, completeness), where every candidate finding was then handed to an independent agent instructed to _refute_ it. **120 candidate findings → 70 confirmed, 50 refuted.** Everything below survived that adversarial pass or was verified by hand against a real build. The refuted half is not in this report, which is the point.
 
 ---
 
@@ -30,6 +30,7 @@ A six-dimension review (correctness, architecture, SEO, accessibility, performan
 These six stop the site from doing its job. Nothing else should be worked on before them.
 
 ### B1 · Project detail pages fetch a document type that doesn't exist
+
 `src/app/(user)/[slug]/page.tsx:14`
 
 ```groq
@@ -41,6 +42,7 @@ The schema defines the document type as `portfolio` (`src/sanity/schemas/portfol
 **Fix:** one word, `'post'` → `'portfolio'`. Do this first; you can't manually test anything else on the detail page until you do.
 
 ### B2 · The contact form submits nowhere
+
 `src/app/(user)/contact/page.tsx:29`
 
 `<form method="POST">` with no `action`, no `onSubmit`, and no server action. There are **zero route handlers in the entire repo** (`find src -name route.ts` returns nothing). The five `useState` values are written but never read after being set.
@@ -50,6 +52,7 @@ A visitor fills in the form, hits Submit, and the browser does a native POST to 
 **Fix:** `onSubmit` handler → `src/app/api/contact/route.ts` → Resend (or Formspree if you'd rather not manage a key). Plus success/error states, which the components are already shaped for.
 
 ### B3 · Every page server-renders an empty document
+
 `src/lib/providers/LoaderProvider/ProviderLoader.tsx:8,32` + `src/app/(user)/layout.tsx:34-38`
 
 ```tsx
@@ -60,13 +63,19 @@ return <>{loaderFinished ? children : <Loader timeline={timeLine} />}</>;
 
 The HTML served to Google, to LinkedIn's link-preview bot, to every LLM scraper, and to any visitor whose JS fails is a full-screen overlay containing 54 decorative words. No `<h1>`. No nav. No project names. The string "Kevin Simon" does not appear in the body of any page.
 
-**Fix:** always render `children`; make the loader a fixed-position *sibling* that overlays and then fades out.
+**Fix:** always render `children`; make the loader a fixed-position _sibling_ that overlays and then fades out.
 
 ```tsx
-return <>{children}{!loaderFinished && <Loader timeline={timeLine} />}</>;
+return (
+  <>
+    {children}
+    {!loaderFinished && <Loader timeline={timeLine} />}
+  </>
+);
 ```
 
 ### B4 · The loader runs 7.5 seconds — on every single load
+
 `src/components/home/loader/Animations.ts` · `ProviderLoader.tsx:28`
 
 Adding up the GSAP timeline: 5s intro + 5s progress sweep (concurrent) + 0.5s + 3s collapse ≈ **7.5 seconds** before content mounts.
@@ -76,27 +85,29 @@ Worse, the "only show this once" guard doesn't work. `sessionStorage.setItem("ha
 **Fix:** set the flag in the timeline's `onComplete` alongside `setLoaderFinished(true)`, cut the timeline to ≲1.2s, and add a skip control.
 
 ### B5 · Unknown URLs return 500 instead of 404
+
 `src/app/(user)/[slug]/page.tsx:24-51`
 
-`[slug]` sits at the route root, so it matches *every* unmatched top-level path. The GROQ query ends in `[0]` (returns `null` on no match), and there's no guard before `post.theChallenge` (line 26) and `post.client.title` (line 32).
+`[slug]` sits at the route root, so it matches _every_ unmatched top-level path. The GROQ query ends in `[0]` (returns `null` on no match), and there's no guard before `post.theChallenge` (line 26) and `post.client.title` (line 32).
 
 `/foo`, a typo'd link, a deleted project, a crawler probing an old URL — all throw `TypeError: Cannot read properties of null` and serve a **500**. Search engines treat removed projects as server errors rather than gone. There's no `not-found.tsx` or `error.tsx` either.
 
 **Fix:** `if (!post) notFound();` plus `not-found.tsx` and `error.tsx`.
 
 ### B6 · "Selected Projects" is mostly empty placeholder tiles
+
 `src/components/portfolio/selectedSection/PortfolioSelected.tsx:64-117`
 
 This grid renders on **both the homepage and the About page** — the first impression of your work on your two highest-traffic pages. Of six tiles:
 
-| Tile | State |
-|------|-------|
-| 1 | Intro text — fine |
-| 2 | Real, CMS-driven (`featuredOne`) |
-| 3 | Empty grey block, `href=""` |
-| 4 | Hardcoded Huddle logo, `href=""` |
-| 5 | Hardcoded testimonial |
-| 6, 7 | Empty grey blocks, `href=""` |
+| Tile | State                            |
+| ---- | -------------------------------- |
+| 1    | Intro text — fine                |
+| 2    | Real, CMS-driven (`featuredOne`) |
+| 3    | Empty grey block, `href=""`      |
+| 4    | Hardcoded Huddle logo, `href=""` |
+| 5    | Hardcoded testimonial            |
+| 6, 7 | Empty grey blocks, `href=""`     |
 
 The schema already defines `featuredTwo` … `featuredFive` (`src/sanity/schemas/featured.ts:14-37`) — the GROQ query just never dereferences them. Four `<Link href="">` elements are focusable, announce as links, and reload the current page when clicked.
 
@@ -106,28 +117,34 @@ The schema already defines `featuredTwo` … `featuredFive` (`src/sanity/schemas
 
 ## 3. Dependency and runtime currency
 
-Everything is roughly three years stale. `npm audit` reports **45 vulnerabilities (4 critical, 16 high, 20 moderate)**.
+> **Status: done (Phase 1).** The staged upgrade landed in seven commits.
+> Now on Node 22 · Next 16.3.1 · React 19.2.8 · Sanity 6.9.2 ·
+> next-sanity 13 · TypeScript 5.9.3 · ESLint 9 (flat config) · Prettier 3 ·
+> styled-components 6 · framer-motion 11. Advisories 45 -> 13, criticals
+> 4 -> 0. The table below is the pre-upgrade state, kept for reference.
 
-| Package | Current | Latest | Gap |
-|---|---|---|---|
-| `next` | 13.4.3 | 16.3.1 | **3 major** |
-| `react` / `react-dom` | 18.2.0 | 19.2.8 | 1 major |
-| `sanity` | 3.17.0 | 6.9.2 | **3 major** |
-| `next-sanity` | 5.5.5 | 13.3.3 | **8 major** |
-| `typescript` | 5.0.4 | 7.0.2 | 2 major |
-| `eslint` | 8.40.0 | 10.8.1 | 2 major |
-| `eslint-config-next` | 13.4.3 | 16.3.1 | 3 major |
-| `framer-motion` | 10.12.16 | 13.1.0 | 3 major + **package renamed to `motion`** |
-| `@commitlint/cli` | 17.6.5 | 21.2.2 | 4 major |
-| `@sanity/color-input` | 3.1.0 | 6.1.3 | 3 major |
-| `@sanity/image-url` | 1.0.2 | 2.1.1 | 1 major |
-| `styled-components` | 5.2.3 | 6.5.3 | 1 major — **see note** |
-| `prettier` | 2.8.8 | 3.9.6 | 1 major |
-| `husky` | 8.0.3 | 9.1.7 | 1 major |
-| `next-themes` | 0.2.1 | 0.4.6 | minor |
-| `embla-carousel-react` | 8.0.0-rc11 | 8.6.0 | **release candidate in production** |
-| `gsap` | 3.12.2 | 3.15.0 | minor |
-| `react-content-loader` | 6.2.1 | 7.1.2 | 1 major (unused — delete) |
+Everything was roughly three years stale. `npm audit` reports **45 vulnerabilities (4 critical, 16 high, 20 moderate)**.
+
+| Package                | Current    | Latest | Gap                                       |
+| ---------------------- | ---------- | ------ | ----------------------------------------- |
+| `next`                 | 13.4.3     | 16.3.1 | **3 major**                               |
+| `react` / `react-dom`  | 18.2.0     | 19.2.8 | 1 major                                   |
+| `sanity`               | 3.17.0     | 6.9.2  | **3 major**                               |
+| `next-sanity`          | 5.5.5      | 13.3.3 | **8 major**                               |
+| `typescript`           | 5.0.4      | 7.0.2  | 2 major                                   |
+| `eslint`               | 8.40.0     | 10.8.1 | 2 major                                   |
+| `eslint-config-next`   | 13.4.3     | 16.3.1 | 3 major                                   |
+| `framer-motion`        | 10.12.16   | 13.1.0 | 3 major + **package renamed to `motion`** |
+| `@commitlint/cli`      | 17.6.5     | 21.2.2 | 4 major                                   |
+| `@sanity/color-input`  | 3.1.0      | 6.1.3  | 3 major                                   |
+| `@sanity/image-url`    | 1.0.2      | 2.1.1  | 1 major                                   |
+| `styled-components`    | 5.2.3      | 6.5.3  | 1 major — **see note**                    |
+| `prettier`             | 2.8.8      | 3.9.6  | 1 major                                   |
+| `husky`                | 8.0.3      | 9.1.7  | 1 major                                   |
+| `next-themes`          | 0.2.1      | 0.4.6  | minor                                     |
+| `embla-carousel-react` | 8.0.0-rc11 | 8.6.0  | **release candidate in production**       |
+| `gsap`                 | 3.12.2     | 3.15.0 | minor                                     |
+| `react-content-loader` | 6.2.1      | 7.1.2  | 1 major (unused — delete)                 |
 
 **`styled-components` is not dead code.** It's a required peer dependency of `sanity@3.17` (`peerDependencies: { styled-components: "^5.2" }`), which is exactly why it's pinned without a caret. Don't remove it; it moves when Sanity moves.
 
@@ -147,7 +164,7 @@ So: **React, Sanity, and Next have to move together.** There's a CLI codemod for
 
 ### Also needs attention
 
-- **`.nvmrc` says `lts/hydrogen`** — Node 18, EOL since April 2025. Needs Node 22 or 24. (Note: the `engines: { node: ">=18.15.0" }` floor is *not* blocking anything — it has no upper bound.)
+- **`.nvmrc` says `lts/hydrogen`** — Node 18, EOL since April 2025. Needs Node 22 or 24. (Note: the `engines: { node: ">=18.15.0" }` floor is _not_ blocking anything — it has no upper bound.)
 - **`next.config.js` uses `images.domains`** — still valid in Next 13, but removed in Next 16. Becomes `remotePatterns` during the upgrade.
 - **`@types/next-auth@3.15.0`** is a deprecated stub package that just depends on `next-auth`. Nothing in `src/` imports it, but it drags the whole of `next-auth` into the tree — which is where the `cookie` and `jose` vulnerabilities come from. Delete it.
 - **`.husky` hook format changed in v9** — the `#!/usr/bin/env sh` + `. husky.sh` preamble must be removed.
@@ -161,14 +178,14 @@ For a site whose entire purpose is being found by recruiters and clients, this i
 
 **Beyond B3 (empty server HTML), which is the dominant SEO problem:**
 
-- **All five routes serve an identical title and description** — `"Kevin Simon"` / `"My Portfolio Website"`. Home, About, Contact, Portfolio, and *every project page*. Three of them (`page.tsx`, `about`, `contact`) are `"use client"`, so they **physically cannot** export metadata until they're split into server wrappers.
+- **All five routes serve an identical title and description** — `"Kevin Simon"` / `"My Portfolio Website"`. Home, About, Contact, Portfolio, and _every project page_. Three of them (`page.tsx`, `about`, `contact`) are `"use client"`, so they **physically cannot** export metadata until they're split into server wrappers.
 - **No `generateMetadata` on `[slug]`** — the richest content on the site, and there's no technical obstacle here, it's just omitted. Every case study is titled "Kevin Simon".
 - **No Open Graph or Twitter Card metadata anywhere.** Every time this gets pasted into LinkedIn, Slack, or WhatsApp — the primary distribution channel for a portfolio — it renders as a naked URL.
 - **No JSON-LD / `Person` structured data**, despite four social profiles being hardcoded in three separate places. No `sameAs`, so Google can't consolidate the entity.
 - **The homepage `<h1>` is the single word "Kevin".** "Simon" is an `<h2>` purely for visual sizing (`page.tsx:42-53`). The string "Kevin Simon" exists nowhere as one contiguous heading.
 - **The meta description is a placeholder.** "My Portfolio Website" contains none of the terms anyone searches — not "full-stack developer", not "React", not "Johannesburg". The good copy is already written on the About page; use it.
 - **`/studio` is fully indexable** — no `noindex`. Google will index your CMS login screen.
-- **Project titles are never fetched or displayed.** The `/portfolio` GROQ query omits `title` entirely; cards are headed by the *client* name, so every internal link to a case study carries no descriptive anchor text.
+- **Project titles are never fetched or displayed.** The `/portfolio` GROQ query omits `title` entirely; cards are headed by the _client_ name, so every internal link to a case study carries no descriptive anchor text.
 - **Project thumbnails ship `alt=""`** even though the CMS stores alt text and the query fetches it.
 - **No `sitemap.ts`, no `robots.ts`, no `metadataBase`, no canonicals.**
 - **Footer says "© 2023"** on every page — the cheapest credibility leak on the site.
@@ -179,7 +196,7 @@ For a site whose entire purpose is being found by recruiters and clients, this i
 
 18 confirmed issues. The two that are genuinely serious:
 
-- **Mobile navigation is unreachable by keyboard.** The hamburger is a bare `<div onClick>` (`Header.tsx:97-119`) — no `tabIndex`, no `role`, no `onKeyDown`, no accessible name, no `aria-expanded`. Below 62rem the desktop nav is `display:none`, so this div is the *only* route to About/Portfolio/Contact. Keyboard and screen-reader users cannot navigate the site on mobile at all.
+- **Mobile navigation is unreachable by keyboard.** The hamburger is a bare `<div onClick>` (`Header.tsx:97-119`) — no `tabIndex`, no `role`, no `onKeyDown`, no accessible name, no `aria-expanded`. Below 62rem the desktop nav is `display:none`, so this div is the _only_ route to About/Portfolio/Contact. Keyboard and screen-reader users cannot navigate the site on mobile at all.
 - **`outline: 0` on every input and textarea with no replacement** (`globals.css:187-190`). This is the only `:focus` rule in the codebase. All five contact fields lose their focus ring and gain nothing back — you cannot see where you are in the form.
 
 Also confirmed:
@@ -204,7 +221,7 @@ Also confirmed:
 - **`width="0" height="0"` on four `<Image>` call sites** removes the aspect-ratio box, so no space is reserved until load → layout shift. The signature image (`page.tsx:174-179`) has `width="0" height="0"` and **no `sizes` at all**.
 - **`PortfolioSelected` fetches client-side in a `useEffect`**, shipping the Sanity client and GROQ query into the browser bundle on the two most-visited pages, creating a request waterfall, and rendering `<Image src="">` on first paint (browsers resolve an empty `src` to the current document URL and re-download the page as an image).
 - **`gsap` and `framer-motion` are both in the root-layout bundle**, so they load on all five routes including Contact, which animates nothing.
-- **`/portfolio` is baked at build time with no revalidation.** Publishing a new project in Sanity changes nothing on the live site until a redeploy. (The `[slug]` route is *not* affected — without `generateStaticParams` it renders dynamically. Verified against a real build.)
+- **`/portfolio` is baked at build time with no revalidation.** Publishing a new project in Sanity changes nothing on the live site until a redeploy. (The `[slug]` route is _not_ affected — without `generateStaticParams` it renders dynamically. Verified against a real build.)
 
 ---
 
@@ -248,18 +265,19 @@ Zero images appear on a project page. `featureImage` only shows on the index.
 
 Bug-fixing on the old stack and then immediately upgrading means doing some work twice — particularly around `params`, metadata, and the client/server split, which all change shape in Next 16. So the sequence below front-loads the one-line fix that unblocks manual testing, then upgrades, then builds.
 
-**Phase 0 — Unblock (30 min)**
+**Phase 0 — Unblock — DONE**
 Recover the Sanity project ID and dataset, add `.env.example`, fix the `_type=='post'` typo (B1), fix the missing `apiVersion` fallback. Goal: the site runs locally and you can see project pages.
 
-**Phase 1 — The upgrade (1 session)**
+**Phase 1 — The upgrade — DONE**
 In this order, committing separately at each step so a regression is bisectable:
+
 1. Node 22/24 · `.nvmrc` · `engines`
 2. Tooling: Prettier 3 (reformat commit on its own), Husky 9, commitlint 21, ESLint flat config
 3. `npm audit fix`; delete `@types/next-auth`
 4. Framework, all together: Next 13→16 via `npx @next/codemod@latest upgrade`, React 19, Sanity 3→6, `next-sanity` 5→13, `styled-components` 6, `deskTool`→`structureTool`, `images.domains`→`remotePatterns`, async `params`
 5. `embla-carousel-react` off the release candidate
 
-**Phase 2 — Ship blockers (1 session)**
+**Phase 2 — Ship blockers (next up)**
 B2 contact form · B3 loader/SSR · B4 loader timing · B5 404 handling · B6 featured grid. This is the phase that makes it launchable.
 
 **Phase 3 — Findable and usable (1 session)**
@@ -278,7 +296,7 @@ The audit PR triggered a Vercel preview build that **succeeded**. The project is
 - **The Sanity dataset is live and reachable.** `/portfolio` prerenders at build time and that step passed.
 - **The data is either empty or well-formed.** `PortfolioList` dereferences `item.featureImage.asset`, `item.slug.current` and `item.client.title` with no guards, so a single incomplete document would have failed the build. It didn't — but an empty result set passes just as cleanly, so this doesn't prove content exists.
 
-**None of this contradicts the findings above.** B1 doesn't break the build because `[slug]` renders dynamically — it fails at request time, not build time. B3 is about what the HTML *contains*, not whether it builds.
+**None of this contradicts the findings above.** B1 doesn't break the build because `[slug]` renders dynamically — it fails at request time, not build time. B3 is about what the HTML _contains_, not whether it builds.
 
 ### Still open
 
