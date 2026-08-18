@@ -40,16 +40,9 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isNavOpen = true }) => {
   }
 
   const currentTheme = theme === "system" ? systemTheme : theme;
-  let themeClass = currentTheme;
 
   const handleClick = () => {
-    if (currentTheme === "dark") {
-      setTheme("light");
-      themeClass = "light";
-    } else {
-      setTheme("dark");
-      themeClass = "dark";
-    }
+    setTheme(currentTheme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -63,12 +56,12 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isNavOpen = true }) => {
         <p>Light</p>
         <div
           className={`${styles.circle} three-trans ${
-            themeClass === "dark" ? styles.darkCircle : styles.lightCircle
+            currentTheme === "dark" ? styles.darkCircle : styles.lightCircle
           }`}
         ></div>
         <div
           className={`${styles.line} ${
-            themeClass === "dark" ? styles.lineDark : styles.lineLight
+            currentTheme === "dark" ? styles.lineDark : styles.lineLight
           }`}
         ></div>
         <p>Dark</p>
