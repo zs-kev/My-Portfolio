@@ -117,7 +117,13 @@ The schema already defines `featuredTwo` … `featuredFive` (`src/sanity/schemas
 
 ## 3. Dependency and runtime currency
 
-Everything is roughly three years stale. `npm audit` reports **45 vulnerabilities (4 critical, 16 high, 20 moderate)**.
+> **Status: done (Phase 1).** The staged upgrade landed in seven commits.
+> Now on Node 22 · Next 16.3.1 · React 19.2.8 · Sanity 6.9.2 ·
+> next-sanity 13 · TypeScript 5.9.3 · ESLint 9 (flat config) · Prettier 3 ·
+> styled-components 6 · framer-motion 11. Advisories 45 -> 13, criticals
+> 4 -> 0. The table below is the pre-upgrade state, kept for reference.
+
+Everything was roughly three years stale. `npm audit` reports **45 vulnerabilities (4 critical, 16 high, 20 moderate)**.
 
 | Package                | Current    | Latest | Gap                                       |
 | ---------------------- | ---------- | ------ | ----------------------------------------- |
@@ -259,10 +265,10 @@ Zero images appear on a project page. `featureImage` only shows on the index.
 
 Bug-fixing on the old stack and then immediately upgrading means doing some work twice — particularly around `params`, metadata, and the client/server split, which all change shape in Next 16. So the sequence below front-loads the one-line fix that unblocks manual testing, then upgrades, then builds.
 
-**Phase 0 — Unblock (30 min)**
+**Phase 0 — Unblock — DONE**
 Recover the Sanity project ID and dataset, add `.env.example`, fix the `_type=='post'` typo (B1), fix the missing `apiVersion` fallback. Goal: the site runs locally and you can see project pages.
 
-**Phase 1 — The upgrade (1 session)**
+**Phase 1 — The upgrade — DONE**
 In this order, committing separately at each step so a regression is bisectable:
 
 1. Node 22/24 · `.nvmrc` · `engines`
@@ -271,7 +277,7 @@ In this order, committing separately at each step so a regression is bisectable:
 4. Framework, all together: Next 13→16 via `npx @next/codemod@latest upgrade`, React 19, Sanity 3→6, `next-sanity` 5→13, `styled-components` 6, `deskTool`→`structureTool`, `images.domains`→`remotePatterns`, async `params`
 5. `embla-carousel-react` off the release candidate
 
-**Phase 2 — Ship blockers (1 session)**
+**Phase 2 — Ship blockers (next up)**
 B2 contact form · B3 loader/SSR · B4 loader timing · B5 404 handling · B6 featured grid. This is the phase that makes it launchable.
 
 **Phase 3 — Findable and usable (1 session)**
