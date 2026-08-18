@@ -4,12 +4,15 @@ import { groq } from "next-sanity";
 import styles from "./page.module.css";
 
 type Props = {
-  params: {
+  // Next 15 made route params async; Next 16 removes sync access entirely.
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-export default async function PortfolioPiece({ params: { slug } }: Props) {
+export default async function PortfolioPiece({ params }: Props) {
+  const { slug } = await params;
+
   const query = groq`
     *[_type=='portfolio' && slug.current == $slug][0] {
         ...,
