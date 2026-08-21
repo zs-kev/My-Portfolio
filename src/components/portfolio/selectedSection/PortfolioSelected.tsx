@@ -26,7 +26,9 @@ const query = groq`
 `;
 
 const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
-  const [portfolio, setPortfolio] = useState([]);
+  // Typed explicitly: useState([]) infers never[], which made every property
+  // access on an item typecheck against never instead of the real shape.
+  const [portfolio, setPortfolio] = useState<FeaturedPostType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,13 +42,16 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
     fetchData();
   }, []);
 
-  const firstItem: FeaturedPostType = portfolio[0];
-  const firstAltLogoAsset = firstItem?.featuredOne.client.altLogo.asset;
+  const firstItem: FeaturedPostType | undefined = portfolio[0];
+  const firstFeatured = firstItem?.featuredOne;
+  const firstAltLogoAsset = firstFeatured?.client?.altLogo?.asset;
   const firstImageUrl = firstAltLogoAsset
     ? urlFor(firstAltLogoAsset).url()
     : "";
-
-  console.log(portfolio);
+  const firstHref = firstFeatured?.slug?.current
+    ? `/${firstFeatured.slug.current}`
+    : "/portfolio";
+  const firstColor = firstFeatured?.client?.clientColorPrimary?.hex ?? "";
 
   return (
     <section className="max-width-wrapper">
@@ -61,25 +66,22 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
               </p>
             </div>
           </div>
-          <Link
-            className={styles.secondItem}
-            href={firstItem ? firstItem?.featuredOne.slug.current : "/"}
-          >
+          <Link className={styles.secondItem} href={firstHref}>
             <div
               className={styles.logoItem}
-              style={{
-                backgroundColor: firstItem
-                  ? firstItem?.featuredOne.client.clientColorPrimary.hex
-                  : "",
-              }}
+              style={{ backgroundColor: firstColor }}
             >
-              <Image
-                src={firstImageUrl}
-                alt="axio connect Project Logo"
-                width="0"
-                height="0"
-                className={styles.image}
-              />
+              {/* Only render once a URL resolves: next/image with src="" makes
+                  the browser re-request the current page as an image. */}
+              {firstImageUrl && (
+                <Image
+                  src={firstImageUrl}
+                  alt="Featured project logo"
+                  width="0"
+                  height="0"
+                  className={styles.image}
+                />
+              )}
               {/* <div className="bg-[#3E3E3E] absolute w-full h-full -translate-x-full"></div> */}
             </div>
           </Link>
