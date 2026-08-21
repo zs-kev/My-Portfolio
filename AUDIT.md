@@ -27,9 +27,12 @@ A six-dimension review (correctness, architecture, SEO, accessibility, performan
 
 ## 2. Ship blockers
 
-These six stop the site from doing its job. Nothing else should be worked on before them.
+> **Status: all six fixed (Phase 0 + Phase 2).** B1 landed in Phase 0; B2–B6
+> in Phase 2. Kept below as the record of what was wrong and why.
 
-### B1 · Project detail pages fetch a document type that doesn't exist
+These six stopped the site from doing its job.
+
+### ✅ B1 · Project detail pages fetch a document type that doesn't exist
 
 `src/app/(user)/[slug]/page.tsx:14`
 
@@ -41,7 +44,7 @@ The schema defines the document type as `portfolio` (`src/sanity/schemas/portfol
 
 **Fix:** one word, `'post'` → `'portfolio'`. Do this first; you can't manually test anything else on the detail page until you do.
 
-### B2 · The contact form submits nowhere
+### ✅ B2 · The contact form submits nowhere
 
 `src/app/(user)/contact/page.tsx:29`
 
@@ -51,7 +54,7 @@ A visitor fills in the form, hits Submit, and the browser does a native POST to 
 
 **Fix:** `onSubmit` handler → `src/app/api/contact/route.ts` → Resend (or Formspree if you'd rather not manage a key). Plus success/error states, which the components are already shaped for.
 
-### B3 · Every page server-renders an empty document
+### ✅ B3 · Every page server-renders an empty document
 
 `src/lib/providers/LoaderProvider/ProviderLoader.tsx:8,32` + `src/app/(user)/layout.tsx:34-38`
 
@@ -74,7 +77,7 @@ return (
 );
 ```
 
-### B4 · The loader runs 7.5 seconds — on every single load
+### ✅ B4 · The loader runs 7.5 seconds — on every single load
 
 `src/components/home/loader/Animations.ts` · `ProviderLoader.tsx:28`
 
@@ -84,7 +87,7 @@ Worse, the "only show this once" guard doesn't work. `sessionStorage.setItem("ha
 
 **Fix:** set the flag in the timeline's `onComplete` alongside `setLoaderFinished(true)`, cut the timeline to ≲1.2s, and add a skip control.
 
-### B5 · Unknown URLs return 500 instead of 404
+### ✅ B5 · Unknown URLs return 500 instead of 404
 
 `src/app/(user)/[slug]/page.tsx:24-51`
 
@@ -94,7 +97,7 @@ Worse, the "only show this once" guard doesn't work. `sessionStorage.setItem("ha
 
 **Fix:** `if (!post) notFound();` plus `not-found.tsx` and `error.tsx`.
 
-### B6 · "Selected Projects" is mostly empty placeholder tiles
+### ✅ B6 · "Selected Projects" is mostly empty placeholder tiles
 
 `src/components/portfolio/selectedSection/PortfolioSelected.tsx:64-117`
 
@@ -277,10 +280,10 @@ In this order, committing separately at each step so a regression is bisectable:
 4. Framework, all together: Next 13→16 via `npx @next/codemod@latest upgrade`, React 19, Sanity 3→6, `next-sanity` 5→13, `styled-components` 6, `deskTool`→`structureTool`, `images.domains`→`remotePatterns`, async `params`
 5. `embla-carousel-react` off the release candidate
 
-**Phase 2 — Ship blockers (next up)**
+**Phase 2 — Ship blockers — DONE**
 B2 contact form · B3 loader/SSR · B4 loader timing · B5 404 handling · B6 featured grid. This is the phase that makes it launchable.
 
-**Phase 3 — Findable and usable (1 session)**
+**Phase 3 — Findable and usable (next up)**
 Split the three client pages into server wrappers so they can export metadata · `generateMetadata` for `[slug]` · OG tags · JSON-LD · sitemap/robots · keyboard-accessible hamburger · focus indicators · contrast · reduced-motion · fonts to woff2.
 
 **Phase 4 — Finish the work**
