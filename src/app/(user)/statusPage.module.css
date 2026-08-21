@@ -1,0 +1,51 @@
+/* Shared by not-found.tsx and error.tsx. */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  min-height: 55vh;
+  justify-content: center;
+}
+
+.code {
+  color: var(--gray);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.125rem;
+}
+
+.body {
+  max-width: 42ch;
+  color: var(--black-white);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.retry {
+  border: 1px solid var(--black-white);
+  border-radius: 0;
+  background-color: var(--transparent);
+  color: var(--black-white);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sansProSemiBold);
+  font-size: var(--text-s);
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.retry:hover {
+  background-color: var(--black-white);
+  color: var(--white-black);
+}
+
+.retry:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}

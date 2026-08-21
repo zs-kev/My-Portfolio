@@ -1,6 +1,7 @@
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import { client } from "@/lib/sanity.client";
 import { groq } from "next-sanity";
+import { notFound } from "next/navigation";
 import styles from "./page.module.css";
 
 type Props = {
@@ -26,21 +27,28 @@ export default async function PortfolioPiece({ params }: Props) {
 
   const post = await client.fetch(query, { slug });
 
+  // This route sits at the root, so it matches every unmatched top-level path.
+  // The [0] projection returns null when nothing matches, and dereferencing
+  // that produced a 500 for any mistyped link, deleted project or crawler
+  // probing an old URL. Search engines read a 500 as "try again later" rather
+  // than "gone".
+  if (!post) notFound();
+
   return (
     <>
       <section className={styles.heroWrapper}>
         <div className="max-width-wrapper">
-          <p className={styles.clientTitle}>{post.client.title}</p>
+          <p className={styles.clientTitle}>{post.client?.title}</p>
           <h1>{post.title}</h1>
           <div className={styles.infoWrapper}>
             <div className={styles.infoDetails}>
               <div>
                 <p className={styles.infoDetailsHeading}>Made by</p>
-                <p className={styles.infoDetailsText}>{post.author.name}</p>
+                <p className={styles.infoDetailsText}>{post.author?.name}</p>
               </div>
               <div>
                 <p className={styles.infoDetailsHeading}>Client</p>
-                <p className={styles.infoDetailsText}>{post.client.title}</p>
+                <p className={styles.infoDetailsText}>{post.client?.title}</p>
               </div>
               <div>
                 <p className={styles.infoDetailsHeading}>Date</p>
@@ -49,7 +57,7 @@ export default async function PortfolioPiece({ params }: Props) {
               <div>
                 <p className={styles.infoDetailsHeading}>Role</p>
                 <div className={styles.infoDetailsCat}>
-                  {post.categories.map((category: any, index: number) => (
+                  {post.categories?.map((category: any, index: number) => (
                     <p key={index} className={styles.infoDetailsText}>
                       {category.title}
                     </p>
