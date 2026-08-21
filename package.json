@@ -33,6 +33,7 @@
     "postcss": "^8.5.26",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "resend": "^6.21.0",
     "sanity": "^6.9.2",
     "sanity-plugin-hotspot-array": "^5.0.15",
     "split-type": "^0.3.4",

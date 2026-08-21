@@ -75,3 +75,25 @@
     grid-column: 1;
   }
 }
+
+.fieldError {
+  color: var(--red);
+  font-size: var(--text-xs);
+  margin-top: 0.5rem;
+}
+
+.formStatus:not(:empty) {
+  margin-top: 1.5rem;
+  font-size: var(--text-s);
+  color: var(--black-white);
+}
+
+/* Visible to bots reading the DOM, never to a person. */
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

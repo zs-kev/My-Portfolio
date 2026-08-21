@@ -20,16 +20,14 @@ const config = [
         { args: "after-used", argsIgnorePattern: "^_" },
       ],
 
-      // eslint-config-next 16 turns this on as an error. It currently fires
-      // in two places, both known and both left as warnings on purpose:
+      // eslint-config-next 16 turns this on as an error. It now fires in
+      // exactly one place: ThemeToggle's mounted flag, which is next-themes'
+      // documented way of avoiding a hydration mismatch. Downgraded rather
+      // than disabled so it stays visible if it starts firing elsewhere.
       //
-      //   ProviderLoader.tsx - the loader gates all page content on client
-      //     state, which is audit blockers B3/B4. Phase 2 rewrites that
-      //     component, and the warning should disappear with it.
-      //   ThemeToggle.tsx - the mounted flag is next-themes' documented way
-      //     of avoiding a hydration mismatch.
-      //
-      // Downgraded rather than disabled so both stay visible in lint output.
+      // ProviderLoader used to trip it too; that was audit blockers B3/B4 and
+      // is now resolved — it reads its client-only state through
+      // useSyncExternalStore instead of setState in an effect.
       "react-hooks/set-state-in-effect": "warn",
     },
   },

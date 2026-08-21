@@ -31,7 +31,7 @@ const Textarea: React.FC<TextareaProps> = ({
 }) => {
   return (
     <textarea
-      className={styles.textarea}
+      className={`${styles.textarea} ${error ? styles.error : ""}`}
       required={required}
       placeholder={placeholder}
       name={name}
@@ -41,6 +41,8 @@ const Textarea: React.FC<TextareaProps> = ({
       autoFocus={autoFocus}
       rows={rows}
       cols={cols}
+      aria-invalid={error || undefined}
+      aria-describedby={error ? `${id}-error` : undefined}
       onChange={onChange}
     ></textarea>
   );

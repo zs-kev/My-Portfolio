@@ -1,21 +1,26 @@
+export type FeaturedProject = {
+  title?: string;
+  slug?: {
+    current: string;
+  };
+  client?: {
+    title?: string;
+    altLogo?: Image;
+    clientColorPrimary?: Color;
+  };
+};
+
+// Every level is optional on purpose. A Featured document can be saved with a
+// slot empty, a slot can point at a deleted project, and a client may have no
+// alt logo or brand colour. Declaring these as always-present is what let
+// unguarded access typecheck and then throw at runtime.
 export type FeaturedPostType = {
   _id: string;
-  // Every level below featuredOne is optional on purpose. A Featured
-  // document can be saved with no project selected, and a selected project's
-  // client may have no alt logo or no brand colour. Declaring these as
-  // always-present is what allowed unguarded access to typecheck and then
-  // throw at runtime.
-  featuredOne?: {
-    client?: {
-      altLogo?: Image;
-      clientColorPrimary?: Color;
-    };
-    slug?: {
-      current: string;
-      _type: string;
-    };
-    _type: string;
-  };
+  featuredOne?: FeaturedProject;
+  featuredTwo?: FeaturedProject;
+  featuredThree?: FeaturedProject;
+  featuredFour?: FeaturedProject;
+  featuredFive?: FeaturedProject;
 };
 
 interface Image {

@@ -12,6 +12,7 @@ export interface InputProps {
   autoFocus: boolean;
   pattern?: string;
   disabled?: boolean;
+  autoComplete?: string;
   // eslint-disable-next-line no-unused-vars
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -27,11 +28,12 @@ const Input: React.FC<InputProps> = ({
   autoFocus,
   pattern,
   disabled,
+  autoComplete,
   onChange,
 }) => {
   return (
     <input
-      className={styles.input}
+      className={`${styles.input} ${error ? styles.error : ""}`}
       type={type}
       required={required}
       placeholder={placeholder}
@@ -41,6 +43,11 @@ const Input: React.FC<InputProps> = ({
       autoFocus={autoFocus}
       pattern={pattern}
       disabled={disabled}
+      autoComplete={autoComplete}
+      // The error prop was accepted and then ignored, so an invalid field
+      // could never be indicated to anyone, visually or otherwise.
+      aria-invalid={error || undefined}
+      aria-describedby={error ? `${id}-error` : undefined}
       onChange={onChange}
     />
   );

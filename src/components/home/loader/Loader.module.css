@@ -20,6 +20,33 @@
   z-index: 9999;
 }
 
+.skip {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10000;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--black-white);
+  border-radius: 2px;
+  background-color: var(--transparent);
+  color: var(--black-white);
+  font-family: var(--font-sansProSemiBold);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.skip:hover {
+  background-color: var(--black-white);
+  color: var(--white-black);
+}
+
+.skip:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}
+
 .words {
   position: relative;
   overflow: hidden;
