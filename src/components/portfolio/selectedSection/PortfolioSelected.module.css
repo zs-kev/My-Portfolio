@@ -60,17 +60,9 @@
   grid-row: 2/5;
 }
 
-.thirdItem div {
-  background-color: #9192a4;
-}
-
 .fourthItem {
   grid-column: 3/7;
   grid-row: 4/6;
-}
-
-.fourthItem div {
-  background-color: #00252e;
 }
 
 .fifthItem {
@@ -113,17 +105,9 @@
   grid-row: 7/10;
 }
 
-.sixthItem div {
-  background-color: #9192a4;
-}
-
 .seventhItem {
   grid-column: 4/7;
   grid-row: 6/9;
-}
-
-.seventhItem div {
-  background-color: #9192a4;
 }
 
 .eightItem {

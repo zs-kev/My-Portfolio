@@ -7,34 +7,49 @@ import { groq } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FeaturedPostType } from "../../../../typings";
+import { FeaturedPostType, FeaturedProject } from "../../../../typings";
 import styles from "./PortfolioSelected.module.css";
 
 export interface PortfolioSelectedProps {}
 
-const query = groq`
-*[_type=='featured'] {
-  ...,
-  featuredOne-> {
+// Only featuredOne was ever dereferenced, so the other four slots the Studio
+// offers produced nothing and the grid was padded with hardcoded placeholders.
+const projection = `{
+    title,
+    slug,
     client -> {
+      title,
       altLogo,
       clientColorPrimary
-    },
-    slug
-  },
+    }
+  }`;
+
+const query = groq`
+*[_type=='featured'][0] {
+  featuredOne-> ${projection},
+  featuredTwo-> ${projection},
+  featuredThree-> ${projection},
+  featuredFour-> ${projection},
+  featuredFive-> ${projection},
 }
 `;
 
+// The grid places each slot by hand, so the slot order is also the layout.
+const SLOTS = [
+  { key: "featuredOne", className: styles.secondItem },
+  { key: "featuredTwo", className: styles.thirdItem },
+  { key: "featuredThree", className: styles.fourthItem },
+  { key: "featuredFour", className: styles.sixthItem },
+  { key: "featuredFive", className: styles.seventhItem },
+] as const;
+
 const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
-  // Typed explicitly: useState([]) infers never[], which made every property
-  // access on an item typecheck against never instead of the real shape.
-  const [portfolio, setPortfolio] = useState<FeaturedPostType[]>([]);
+  const [featured, setFeatured] = useState<FeaturedPostType | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedPortfolio = await client.fetch(query);
-        setPortfolio(fetchedPortfolio);
+        setFeatured(await client.fetch(query));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -42,16 +57,43 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
     fetchData();
   }, []);
 
-  const firstItem: FeaturedPostType | undefined = portfolio[0];
-  const firstFeatured = firstItem?.featuredOne;
-  const firstAltLogoAsset = firstFeatured?.client?.altLogo?.asset;
-  const firstImageUrl = firstAltLogoAsset
-    ? urlFor(firstAltLogoAsset).url()
-    : "";
-  const firstHref = firstFeatured?.slug?.current
-    ? `/${firstFeatured.slug.current}`
-    : "/portfolio";
-  const firstColor = firstFeatured?.client?.clientColorPrimary?.hex ?? "";
+  const renderTile = (slotKey: string, className: string) => {
+    const project: FeaturedProject | undefined = featured?.[
+      slotKey as keyof FeaturedPostType
+    ] as FeaturedProject | undefined;
+
+    const slug = project?.slug?.current;
+    const logoAsset = project?.client?.altLogo?.asset;
+
+    // An empty slot, or one pointing at a deleted project, renders nothing at
+    // all. It used to render a grey block that looked clickable and reloaded
+    // the page the visitor was already on.
+    if (!project || !slug) return null;
+
+    const clientName = project.client?.title ?? project.title ?? "Project";
+
+    return (
+      <Link className={className} href={`/${slug}`} key={slotKey}>
+        <div
+          className={styles.logoItem}
+          style={{
+            backgroundColor: project.client?.clientColorPrimary?.hex ?? "",
+          }}
+        >
+          {logoAsset && (
+            <Image
+              src={urlFor(logoAsset).url()}
+              alt={project.client?.altLogo?.alt ?? `${clientName} logo`}
+              width="0"
+              height="0"
+              sizes="(max-width: 48rem) 100vw, 33vw"
+              className={styles.image}
+            />
+          )}
+        </div>
+      </Link>
+    );
+  };
 
   return (
     <section className="max-width-wrapper">
@@ -66,43 +108,12 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
               </p>
             </div>
           </div>
-          <Link className={styles.secondItem} href={firstHref}>
-            <div
-              className={styles.logoItem}
-              style={{ backgroundColor: firstColor }}
-            >
-              {/* Only render once a URL resolves: next/image with src="" makes
-                  the browser re-request the current page as an image. */}
-              {firstImageUrl && (
-                <Image
-                  src={firstImageUrl}
-                  alt="Featured project logo"
-                  width="0"
-                  height="0"
-                  className={styles.image}
-                />
-              )}
-              {/* <div className="bg-[#3E3E3E] absolute w-full h-full -translate-x-full"></div> */}
-            </div>
-          </Link>
-          <Link className={styles.thirdItem} href={""}>
-            <div className={styles.logoItem}></div>
-          </Link>
-          <Link className={styles.fourthItem} href={""}>
-            <div className={styles.logoItem}>
-              <Image
-                src="/assets/images/logos/huddle-logo-white.svg"
-                alt="Huddle Project Logo"
-                width="0"
-                height="0"
-                className={styles.image}
-              />
-              <div className="third-cover"></div>
-            </div>
-          </Link>
+
+          {SLOTS.map(({ key, className }) => renderTile(key, className))}
+
           <div className={styles.fifthItem}>
             <div className={styles.testimonial}>
-              <h3>What they saying</h3>
+              <h3>What they&apos;re saying</h3>
               <p className={styles.quote}>
                 &quot;Great person to work with! Did the job faster than the
                 initial due date, great service and great communication. Thank
@@ -111,12 +122,7 @@ const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
               <p>Mabel Jones</p>
             </div>
           </div>
-          <Link className={styles.sixthItem} href={""}>
-            <div className={styles.logoItem}></div>
-          </Link>
-          <Link className={styles.seventhItem} href={""}>
-            <div className={styles.logoItem}></div>
-          </Link>
+
           <div className={styles.eightItem}>
             <ButtonUnderline link={"/portfolio"}>
               See all projects
