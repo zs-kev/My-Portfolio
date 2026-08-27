@@ -2,16 +2,39 @@
   padding: 6rem 0;
 }
 
+/* The tall runway and the sticky stage only exist once JS has taken over. If
+   the script never runs the section keeps its natural height and the laptop
+   sits open, because the closed state is applied by GSAP and nothing else. */
+.section[data-scroll-effect="on"] {
+  padding: 0;
+  /* 100vh of sticky viewing, plus the swing open, plus however far the
+     screenshot can travel — measured and set from JS. */
+  height: calc(100vh + 75vh + var(--scroll-runway, 0px));
+}
+
+.section[data-scroll-effect="on"] .sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
 .stage {
+  width: 100%;
   max-width: 76.125rem;
   margin: 0 auto;
   padding: 0 3rem;
+  /* Gives the lid's rotation somewhere to recede to. Without it the hinge
+     reads as a flat vertical squash rather than a lid swinging back. */
+  perspective: 2200px;
 }
 
 .laptop {
   margin: 0 auto;
   max-width: 58rem;
   filter: drop-shadow(0 1.6rem 2.6rem hsla(0, 0%, 0%, 0.22));
+  transform-style: preserve-3d;
 }
 
 /* The lid: one dark rounded body with the screen inset inside it, rather than
@@ -26,6 +49,9 @@
   background-color: #1d1d1f;
   border-radius: 1rem 1rem 0.2rem 0.2rem;
   padding: 1.15rem 0.95rem 1.35rem;
+  /* The hinge: the lid pivots on the edge where it meets the base. */
+  transform-origin: center bottom;
+  backface-visibility: hidden;
 }
 
 /* The camera. Small, but its absence is most of why a dark rectangle does not
@@ -49,8 +75,9 @@
 }
 
 .screenInner {
-  height: 100%;
-  overflow: hidden;
+  /* Not height:100% — the screenshot is allowed to be taller than the screen
+     so there is something to travel through. .screen clips it. */
+  will-change: transform;
 }
 
 .shot {
@@ -82,8 +109,17 @@
 }
 
 @media (width < 48rem) {
-  .section {
+  .section,
+  .section[data-scroll-effect="on"] {
+    /* Phones get the open-on-enter version, so no runway and no sticky. */
+    height: auto;
     padding: 3.5rem 0;
+  }
+
+  .section[data-scroll-effect="on"] .sticky {
+    position: static;
+    height: auto;
+    display: block;
   }
 
   .stage {
