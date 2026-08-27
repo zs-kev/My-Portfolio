@@ -1,0 +1,86 @@
+.section {
+  padding: 2rem 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+.imageFrame {
+  position: relative;
+  line-height: 0;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+/* Positioned from the hotspot's own x/y percentages. */
+.marker {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 50%;
+  background-color: var(--pink);
+  color: var(--white);
+  font-family: var(--font-sansProBold);
+  font-size: var(--text-xs);
+  line-height: 1;
+  box-shadow: 0 0 0 0.35rem hsla(331, 93%, 48%, 0.18);
+}
+
+.heading {
+  font-size: var(--text-xs);
+  font-family: var(--font-sansProSemiBold);
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1.85rem 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.itemNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 50%;
+  border: 1px solid var(--gray-soft);
+  color: var(--gray);
+  font-family: var(--font-sansProBold);
+  font-size: var(--text-xs);
+  line-height: 1;
+}
+
+@media (width < 62rem) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}

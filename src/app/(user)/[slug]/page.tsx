@@ -1,6 +1,9 @@
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import { client } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
+import Image from "next/image";
+import LaptopShowcase from "./LaptopShowcase";
+import Touchpoints from "./Touchpoints";
 import { groq } from "next-sanity";
 import { SITE_NAME } from "@/lib/siteConfig";
 import type { Metadata } from "next";
@@ -149,6 +152,90 @@ export default async function PortfolioPiece({ params }: Props) {
           </div>
         </div>
       </section>
+
+      <LaptopShowcase image={post.mainImage} alt={post.mainImage?.alt} />
+
+      <Touchpoints
+        image={post.featuresImage}
+        alt={post.featuresImage?.alt}
+        hotspots={post.hotspots}
+      />
+
+      {post.quote && (
+        <section className={styles.quoteSection}>
+          <div className="max-width-wrapper">
+            <figure className={styles.quoteFigure}>
+              <blockquote className={styles.quote}>
+                <p>&ldquo;{post.quote}&rdquo;</p>
+              </blockquote>
+              {post.quoteName && (
+                <figcaption className={styles.quoteName}>
+                  {post.quoteName}
+                </figcaption>
+              )}
+            </figure>
+          </div>
+        </section>
+      )}
+
+      <Gallery post={post} />
+
+      {(post.finalWords || post.websiteUrl || post.githubUrl) && (
+        <section className={styles.finalSection}>
+          <div className={`max-width-wrapper ${styles.finalInner}`}>
+            {post.finalWords && (
+              <>
+                <h2 className={styles.finalHeading}>Final Words</h2>
+                <p className={styles.finalWords}>{post.finalWords}</p>
+              </>
+            )}
+            <div className={styles.finalLinks}>
+              {post.websiteUrl && (
+                <ButtonUnderline link={post.websiteUrl} target={"_blank"}>
+                  Visit Website
+                </ButtonUnderline>
+              )}
+              {post.githubUrl && (
+                <ButtonUnderline link={post.githubUrl} target={"_blank"}>
+                  View Github
+                </ButtonUnderline>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
     </>
+  );
+}
+
+// The four gallery slots are separate fields rather than an array, so they are
+// collected here and any unset slot is simply skipped.
+function Gallery({ post }: { post: any }) {
+  const images = [
+    post.firstImage,
+    post.secondImage,
+    post.thirdImage,
+    post.fourthImage,
+  ].filter(Boolean);
+
+  if (images.length === 0) return null;
+
+  return (
+    <section className={styles.gallerySection} aria-label="Project gallery">
+      <div className={`max-width-wrapper ${styles.galleryGrid}`}>
+        {images.map((image: any, index: number) => (
+          <div key={index} className={styles.galleryItem}>
+            <Image
+              src={urlFor(image).width(1200).fit("max").url()}
+              alt={image.alt ?? `Project screen ${index + 1}`}
+              width={900}
+              height={700}
+              sizes="(max-width: 48rem) 92vw, 45vw"
+              className={styles.galleryImage}
+            />
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

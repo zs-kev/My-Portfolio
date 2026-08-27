@@ -1,0 +1,72 @@
+.section {
+  padding: 6rem 0;
+}
+
+.stage {
+  max-width: 76.125rem;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.laptop {
+  margin: 0 auto;
+  max-width: 62rem;
+}
+
+.screen {
+  background-color: var(--night);
+  border: 0.75rem solid var(--night);
+  border-bottom-width: 0.9rem;
+  border-radius: 0.9rem 0.9rem 0 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+}
+
+.screenInner {
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--white);
+}
+
+.shot {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* The base: a shallow trapezoid-ish bar with the trackpad notch, which is what
+   reads as "laptop" rather than "framed picture". */
+.base {
+  position: relative;
+  height: 0.85rem;
+  background: linear-gradient(var(--night), #0d0d0d);
+  border-radius: 0 0 0.35rem 0.35rem;
+  box-shadow: 0 0.6rem 1.6rem hsla(0, 0%, 0%, 0.28);
+}
+
+.notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14%;
+  height: 0.28rem;
+  background-color: #0a0a0a;
+  border-radius: 0 0 0.3rem 0.3rem;
+}
+
+@media (width < 48rem) {
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  .stage {
+    padding: 0 1.5rem;
+  }
+
+  .screen {
+    border-width: 0.4rem;
+    border-bottom-width: 0.5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+}
