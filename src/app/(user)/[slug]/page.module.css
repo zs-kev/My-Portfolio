@@ -131,3 +131,110 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Pull quote ---------- */
+
+.quoteSection {
+  padding: 4rem 0;
+}
+
+.quoteFigure {
+  margin: 0 0 0 auto;
+  max-width: 42rem;
+  /* The rule sits to the left of the quote, as in the design. */
+  border-left: 1px solid var(--gray-soft);
+  padding-left: 3rem;
+}
+
+.quote {
+  margin: 0;
+}
+
+.quote p {
+  font-family: var(--font-butlerMedium);
+  font-size: var(--h3);
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.quoteName {
+  margin-top: 1.75rem;
+  color: var(--gray);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+}
+
+/* ---------- Gallery ---------- */
+
+.gallerySection {
+  padding: 2rem 0;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.galleryItem {
+  line-height: 0;
+  /* The screenshots are mostly white and sat flat on a white page with no
+     edge, so they read as part of the background rather than as artefacts. */
+  box-shadow: 0 1.2rem 2.4rem hsla(0, 0%, 0%, 0.14);
+}
+
+.galleryImage {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Final words ---------- */
+
+.finalSection {
+  padding: 3rem 0 1rem;
+}
+
+.finalInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.finalHeading {
+  font-size: var(--h4);
+  font-family: var(--font-butlerBold);
+  margin-bottom: 1.5rem;
+}
+
+.finalWords {
+  max-width: 46rem;
+  color: var(--black-white);
+}
+
+.finalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 3rem;
+}
+
+@media (width < 62rem) {
+  .quoteFigure {
+    padding-left: 1.75rem;
+    max-width: none;
+  }
+}
+
+@media (width < 48rem) {
+  .galleryGrid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .finalLinks {
+    gap: 2rem;
+  }
+}

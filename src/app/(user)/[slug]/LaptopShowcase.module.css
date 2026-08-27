@@ -1,0 +1,108 @@
+.section {
+  padding: 6rem 0;
+}
+
+.stage {
+  max-width: 76.125rem;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.laptop {
+  margin: 0 auto;
+  max-width: 58rem;
+  filter: drop-shadow(0 1.6rem 2.6rem hsla(0, 0%, 0%, 0.22));
+}
+
+/* The lid: one dark rounded body with the screen inset inside it, rather than
+   a border around the screenshot — that reads as a picture frame, not a lid.
+   The lid is narrower than the laptop and the base fills it, rather than the
+   base being >100% wide: an overflowing base would push horizontal page
+   scroll on narrow screens. */
+.lid {
+  position: relative;
+  width: 78%;
+  margin: 0 auto;
+  background-color: #1d1d1f;
+  border-radius: 1rem 1rem 0.2rem 0.2rem;
+  padding: 1.15rem 0.95rem 1.35rem;
+}
+
+/* The camera. Small, but its absence is most of why a dark rectangle does not
+   read as a laptop. */
+.camera {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background-color: #3a3a3d;
+}
+
+.screen {
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background-color: var(--white);
+  border-radius: 0.15rem;
+}
+
+.screenInner {
+  height: 100%;
+  overflow: hidden;
+}
+
+.shot {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* The base overhangs the lid on both sides — the single strongest cue that
+   this is a laptop seen head-on rather than a framed picture. */
+.base {
+  position: relative;
+  width: 100%;
+  height: 0.95rem;
+  background: linear-gradient(180deg, #29292c 0%, #1d1d1f 45%, #0f0f10 100%);
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+/* The lip you hook a finger into to open it, centred on the bottom edge. */
+.notch {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11%;
+  height: 0.3rem;
+  background-color: #0a0a0b;
+  border-radius: 0.3rem 0.3rem 0 0;
+}
+
+@media (width < 48rem) {
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  .stage {
+    padding: 0 1.5rem;
+  }
+
+  .lid {
+    border-radius: 0.6rem 0.6rem 0.15rem 0.15rem;
+    padding: 0.7rem 0.5rem 0.8rem;
+  }
+
+  .base {
+    height: 0.6rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  .camera {
+    top: 0.28rem;
+    width: 0.2rem;
+    height: 0.2rem;
+  }
+}

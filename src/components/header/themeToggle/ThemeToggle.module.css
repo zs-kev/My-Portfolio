@@ -8,17 +8,22 @@
   border: 0;
 }
 
-.button p {
+/* These were `.button p` selectors. The labels became <span> (a <p> is not
+   valid inside a <button>), which silently dropped the spacing, uppercase and
+   size, leaving the two words overlapping the knob. Keyed on a class now so
+   the element can change without taking the styling with it. */
+.label {
   letter-spacing: 0.15rem;
   text-transform: uppercase;
   font-size: var(--text-s);
+  line-height: 1;
 }
 
-.button p:first-child {
+.label:first-child {
   margin-right: 20px;
 }
 
-.button p:last-child {
+.label:last-child {
   margin-left: 20px;
 }
 
