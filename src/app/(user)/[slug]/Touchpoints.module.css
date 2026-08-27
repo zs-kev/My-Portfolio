@@ -46,36 +46,90 @@
 }
 
 .markerLabel {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 1.85rem;
   height: 1.85rem;
   border-radius: 50%;
-  background-color: var(--white);
-  border: 1px solid var(--gray-soft);
-  color: var(--gray);
+  /* Inactive: solid black on the light ground, solid white on the dark one,
+     with the number always the inverse. Both tokens flip with the theme, so
+     the number can never end up the same colour as its own circle. */
+  background: var(--black-white);
+  color: var(--white-black);
   font-family: var(--font-sansProBold);
   font-size: var(--text-xs);
   line-height: 1;
-  transition: 0.2s ease-in-out;
+  transition:
+    transform 0.2s ease-in-out,
+    background 0.2s ease-in-out;
+}
+
+/* The pulse that says "these are clickable". Sits behind the circle and only
+   runs on the points not currently selected. */
+.markerLabel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--black-white);
+  opacity: 0;
+  animation: touchpointPulse 2.4s ease-out infinite;
+}
+
+@keyframes touchpointPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 
 .marker:hover .markerLabel {
-  border-color: var(--pink);
-  color: var(--pink);
+  /* Scale only. The previous rule recoloured the number to --pink, which also
+     hit the active marker — whose circle is pink — so the number vanished. */
+  transform: scale(1.12);
 }
 
 .markerActive .markerLabel {
-  background-color: var(--pink);
-  border-color: var(--pink);
-  color: var(--white);
-  box-shadow: 0 0 0 0.4rem hsla(331, 93%, 48%, 0.2);
+  /* The site's gradient, same direction as the hero name and the link
+     underlines: pink at the top, pumpkin at the bottom. */
+  background: linear-gradient(180deg, var(--pink) 0%, var(--pumpkin) 100%);
+  /* Black, not white. The gradient is identical in both themes, and white
+     scores only 2.87:1 against the pumpkin end — the numeral is bold ~12.6px,
+     under the large-text threshold, so 4.5:1 applies. Black clears both stops
+     at 4.87:1 worst case. */
+  color: var(--black);
+}
+
+/* Selected already — nothing left to invite. */
+.markerActive .markerLabel::after {
+  animation: none;
+  opacity: 0;
 }
 
 .marker:focus-visible .markerLabel {
   outline: 2px solid var(--pink);
   outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .markerLabel::after {
+    animation: none;
+  }
+
+  .marker:hover .markerLabel {
+    transform: none;
+  }
 }
 
 .srOnly {
@@ -115,8 +169,8 @@
   width: 1.85rem;
   height: 1.85rem;
   border-radius: 50%;
-  background-color: var(--pink);
-  color: var(--white);
+  background: linear-gradient(180deg, var(--pink) 0%, var(--pumpkin) 100%);
+  color: var(--black);
   font-family: var(--font-sansProBold);
   font-size: var(--text-xs);
   line-height: 1;
