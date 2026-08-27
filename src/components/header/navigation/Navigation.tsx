@@ -62,6 +62,9 @@ const Navigation: React.FC<NavigationProps> = ({
           <Link
             onClick={handleNavClick}
             href={path}
+            // The active item differed only in text colour, which is invisible
+            // to a screen reader and to anyone who cannot distinguish it.
+            aria-current={currentRoute === path ? "page" : undefined}
             className={`${styles.navLink} ${
               currentRoute === path && styles.active
             }`}

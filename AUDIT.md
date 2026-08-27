@@ -177,6 +177,11 @@ So: **React, Sanity, and Next have to move together.** There's a CLI codemod for
 
 ## 4. SEO
 
+> **Status: done (Phase 3).** metadataBase, per-page titles via a template,
+> descriptions, Open Graph and Twitter cards, Person JSON-LD, canonicals,
+> sitemap.xml, robots.txt, /studio noindex, generateMetadata for every project,
+> and real project titles in the portfolio index.
+
 For a site whose entire purpose is being found by recruiters and clients, this is the weakest area after the ship blockers.
 
 **Beyond B3 (empty server HTML), which is the dominant SEO problem:**
@@ -196,6 +201,12 @@ For a site whose entire purpose is being found by recruiters and clients, this i
 ---
 
 ## 5. Accessibility
+
+> **Status: mostly done (Phase 3).** Keyboard-operable mobile nav, visible
+> focus indicators, AA contrast, aria-current, carousel semantics, accessible
+> names on the toggle and carousel buttons, and accessible text preserved
+> through SplitType. Still open: the hero ships opacity:0 and is revealed only
+> by JS, and the mobile menu has no focus trap or Escape handler.
 
 18 confirmed issues. The two that are genuinely serious:
 
@@ -218,6 +229,11 @@ Also confirmed:
 ---
 
 ## 6. Performance
+
+> **Status: largely done (Phase 3).** Fonts 1.89 MiB -> 0.39 MiB (woff2, 79%
+> smaller); the Selected Projects grid is server-rendered rather than fetched
+> on the client; /portfolio and [slug] revalidate every 60s. Still open: the
+> next/image width="0" call sites.
 
 - **1.89 MiB of fonts, all preloaded on every route.** Nine unsubsetted `.ttf` faces. I confirmed all nine are emitted to `.next/static/media/` with the `-s.p.ttf` (preload) marker, so every route pays for all of them. Converting to `woff2` and subsetting to Latin typically cuts this by ~70% → ~500KB. This is the single biggest performance win available and it's mechanical work.
 - **Hero LCP image is a 533×704 PNG** (181KB) declared `width="0" height="0" sizes="100vw"`. The `sizes` value overstates its rendered width considerably, so the browser fetches a larger candidate than needed.
@@ -283,10 +299,10 @@ In this order, committing separately at each step so a regression is bisectable:
 **Phase 2 — Ship blockers — DONE**
 B2 contact form · B3 loader/SSR · B4 loader timing · B5 404 handling · B6 featured grid. This is the phase that makes it launchable.
 
-**Phase 3 — Findable and usable (next up)**
+**Phase 3 — Findable and usable — DONE**
 Split the three client pages into server wrappers so they can export metadata · `generateMetadata` for `[slug]` · OG tags · JSON-LD · sitemap/robots · keyboard-accessible hamburger · focus indicators · contrast · reduced-motion · fonts to woff2.
 
-**Phase 4 — Finish the work**
+**Phase 4 — Finish the work (next up)**
 Build out the case study template (the 11 unrendered fields) · portfolio filtering · testimonials in the CMS · replace hardcoded content.
 
 **Then:** CI on GitHub Actions, and deploy.

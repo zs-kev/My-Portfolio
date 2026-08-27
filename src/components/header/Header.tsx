@@ -98,7 +98,14 @@ const Header: React.FC<HeaderProps> = () => {
         {/* ------ Header mobile ------ */}
         <div className={`${styles.header} ${styles.headerMobile}`}>
           <Logo copywrite={false} />
-          <div className={styles.hamburger} onClick={handleNavClick}>
+          <button
+            type="button"
+            className={styles.hamburger}
+            onClick={handleNavClick}
+            aria-label={isNavOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isNavOpen}
+            aria-controls="mobile-nav"
+          >
             <motion.div
               className={styles.topLine}
               variants={variantsBurger}
@@ -120,10 +127,10 @@ const Header: React.FC<HeaderProps> = () => {
               animate={isNavOpen ? "bottomLineOpen" : "bottomLineClose"}
               exit={"bottomLineClose"}
             ></motion.div>
-          </div>
+          </button>
           <AnimatePresence>
             {isNavOpen && (
-              <div className={styles.nav}>
+              <div className={styles.nav} id="mobile-nav">
                 <div
                   className={`${styles.navWrapper} ${styles.navWrapperMobile}`}
                 >

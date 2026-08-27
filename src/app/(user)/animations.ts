@@ -1,13 +1,47 @@
 import { gsap } from "gsap";
 import SplitType from "split-type";
 
+// SplitType replaces the element's text with one <div> per character or line.
+// That leaves the h1 as five block-level divs reading "K" "e" "v" "i" "n", so
+// its accessible text is destroyed. Stash the real text as a label and hide
+// the generated pieces from assistive tech; the animation is unaffected.
+const preserveAccessibleText = (
+  selector: string,
+  split: () => (HTMLElement[] | null | undefined)[]
+) => {
+  const el = document.querySelector<HTMLElement>(selector);
+  const text = el?.textContent?.trim();
+
+  const pieces = split();
+
+  if (el && text) {
+    el.setAttribute("aria-label", text);
+    for (const group of pieces) {
+      for (const piece of group ?? [])
+        piece.setAttribute("aria-hidden", "true");
+    }
+  }
+};
+
 export const animateHero = () => {
-  const kevinText = SplitType.create("[data-kevin]", { types: "chars" });
-  const kevinChars = kevinText.chars;
-  const simonText = SplitType.create("[data-simon]", { types: "chars" });
-  const simonChars = simonText.chars;
-  const intro = SplitType.create("[data-intro-text]");
-  const introLines = intro.lines;
+  let kevinChars: HTMLElement[] | null = null;
+  preserveAccessibleText("[data-kevin]", () => {
+    kevinChars = SplitType.create("[data-kevin]", { types: "chars" }).chars;
+    return [kevinChars];
+  });
+
+  let simonChars: HTMLElement[] | null = null;
+  preserveAccessibleText("[data-simon]", () => {
+    simonChars = SplitType.create("[data-simon]", { types: "chars" }).chars;
+    return [simonChars];
+  });
+
+  let introLines: HTMLElement[] | null = null;
+  preserveAccessibleText("[data-intro-text]", () => {
+    const intro = SplitType.create("[data-intro-text]");
+    introLines = intro.lines;
+    return [intro.chars, intro.words, intro.lines];
+  });
 
   const tl = gsap.timeline({
     defaults: {

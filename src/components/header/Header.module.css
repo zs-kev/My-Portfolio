@@ -78,3 +78,18 @@
     padding: 32px;
   }
 }
+
+/* The hamburger is a real <button> now, so reset the UA chrome the <div>
+   never had. Keyboard focus stays visible via :focus-visible. */
+.hamburger {
+  border: none;
+  background: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hamburger:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 4px;
+}
