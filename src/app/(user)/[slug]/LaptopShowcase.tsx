@@ -18,6 +18,12 @@ type Props = {
 // viewport. The rest of the runway is however far the screenshot can travel.
 const OPEN_RUNWAY_VH = 0.75;
 
+// Closed is the lid folded past flat onto the deck, screen down — which is
+// why it goes beyond 90 and why the lid needs a back face. The deck sits at
+// 74deg, so 104 lays the lid onto it with its outside toward the viewer.
+const CLOSED_ANGLE = "104deg";
+const OPEN_ANGLE = "0deg";
+
 export default function LaptopShowcase({ image, alt }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const lidRef = useRef<HTMLDivElement>(null);
@@ -51,9 +57,9 @@ export default function LaptopShowcase({ image, alt }: Props) {
             // scrubbing, and no scrolling a screenshot inside a small screen.
             gsap.fromTo(
               lid,
-              { rotateX: -92 },
+              { "--lid-angle": CLOSED_ANGLE },
               {
-                rotateX: 0,
+                "--lid-angle": OPEN_ANGLE,
                 ease: "power2.out",
                 duration: 1.1,
                 scrollTrigger: { trigger: section, start: "top 80%" },
@@ -100,9 +106,9 @@ export default function LaptopShowcase({ image, alt }: Props) {
             })
             .fromTo(
               lid,
-              { rotateX: -92 },
+              { "--lid-angle": CLOSED_ANGLE },
               {
-                rotateX: 0,
+                "--lid-angle": OPEN_ANGLE,
                 ease: "power2.out",
                 duration: openPx() / total(),
               }
