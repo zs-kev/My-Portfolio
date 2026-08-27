@@ -62,7 +62,9 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isNavOpen = true }) => {
         aria-checked={currentTheme === "dark"}
         aria-label="Dark mode"
       >
-        <span aria-hidden="true">Light</span>
+        <span className={styles.label} aria-hidden="true">
+          Light
+        </span>
         <div
           className={`${styles.circle} three-trans ${
             currentTheme === "dark" ? styles.darkCircle : styles.lightCircle
@@ -73,7 +75,9 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isNavOpen = true }) => {
             currentTheme === "dark" ? styles.lineDark : styles.lineLight
           }`}
         ></div>
-        <span aria-hidden="true">Dark</span>
+        <span className={styles.label} aria-hidden="true">
+          Dark
+        </span>
       </button>
     </motion.div>
   );
