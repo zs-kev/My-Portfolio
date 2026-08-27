@@ -52,8 +52,17 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isNavOpen = true }) => {
       animate={isNavOpen ? "open" : "closed"}
       exit={"closed"}
     >
-      <button onClick={handleClick} className={styles.button}>
-        <p>Light</p>
+      {/* Announced as "Light Dark" with no indication of purpose or state.
+          role="switch" + aria-checked gives it both. */}
+      <button
+        type="button"
+        onClick={handleClick}
+        className={styles.button}
+        role="switch"
+        aria-checked={currentTheme === "dark"}
+        aria-label="Dark mode"
+      >
+        <span aria-hidden="true">Light</span>
         <div
           className={`${styles.circle} three-trans ${
             currentTheme === "dark" ? styles.darkCircle : styles.lightCircle
@@ -64,7 +73,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isNavOpen = true }) => {
             currentTheme === "dark" ? styles.lineDark : styles.lineLight
           }`}
         ></div>
-        <p>Dark</p>
+        <span aria-hidden="true">Dark</span>
       </button>
     </motion.div>
   );

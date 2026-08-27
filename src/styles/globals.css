@@ -53,7 +53,15 @@ h6 {
   --transparent: transparent;
   --white: hsl(0, 0%, 100%);
   --black: hsl(0, 0%, 0%);
-  --gray: hsl(237, 9%, 61%);
+  /* --gray carries nav links, form labels and body copy, so it has to clear
+     4.5:1. At the original 61% it scored 2.89:1 on the light ground and
+     5.14:1 on the dark one — it only ever failed in light mode. So it is
+     themed rather than globally darkened: 48% here (4.64:1, the lightest
+     value that clears AA, keeping it as close to the original tone as the
+     standard allows) and back to 61% under [data-theme="dark"] below.
+     --gray-soft keeps the original tone for borders and other non-text use. */
+  --gray: hsl(237, 9%, 48%);
+  --gray-soft: hsl(237, 9%, 61%);
   --seasalt: hsl(0, 0%, 98%);
   --night: hsl(0, 0%, 14%);
   --pink: hsl(331, 93%, 48%);
@@ -119,6 +127,8 @@ h6 {
 }
 
 [data-theme="dark"] {
+  /* 5.14:1 on --night, so the original tone is kept here. */
+  --gray: hsl(237, 9%, 61%);
   --black-white: var(--white);
   --white-black: var(--black);
   --seasalt-night: var(--night);
@@ -180,7 +190,7 @@ li {
 input,
 textarea {
   border: none;
-  border-bottom: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray-soft);
   border-radius: 0;
   background-color: var(--white-black);
   padding: 0 0 0.8rem;
@@ -188,9 +198,16 @@ textarea {
   width: 100%;
 }
 
-input:focus,
-textarea:focus {
-  outline: 0;
+/* This used to be `outline: 0` with nothing in its place — the only :focus
+   rule in the codebase — so all five contact fields lost the focus ring and
+   gained nothing back. :focus-visible keeps it out of the way of mouse users. */
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 3px;
 }
 
 ::-webkit-input-placeholder {

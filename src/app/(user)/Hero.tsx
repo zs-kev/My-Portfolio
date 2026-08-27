@@ -1,6 +1,5 @@
 "use client";
 
-import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import SocialIconLinks from "@/components/socials/SocialIconLinks";
 import DownArrow from "@/lib/assets/icons/DownArrow";
 import { useIntroFinished } from "@/lib/providers/LoaderProvider/ProviderLoader";
