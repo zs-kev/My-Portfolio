@@ -125,10 +125,6 @@ h6 {
   --white-black-90: var(--black-opacity-90);
 }
 
-[data-hidden] {
-  opacity: 0;
-}
-
 /* Custom global styles */
 html,
 body {

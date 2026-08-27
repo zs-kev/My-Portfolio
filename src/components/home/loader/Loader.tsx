@@ -38,7 +38,7 @@ const Loader: FC<LoaderProps> = ({ onFinish }) => {
   }, [onFinish]);
 
   return (
-    <div className={styles.wrapper} ref={rootRef}>
+    <div className={styles.wrapper} ref={rootRef} data-loader-overlay>
       {/* First thing in the overlay's tab order: the page behind is already
           rendered, so anyone can dismiss this and get straight to it. */}
       <button type="button" className={styles.skip} onClick={onFinish}>

@@ -4,15 +4,15 @@ interface RefType {
   current: HTMLElement | null;
 }
 
-// The sequence used to run ~7.5s with no page content rendered behind it.
-// Content now renders immediately and the loader is only an overlay, but it
-// still covers the page, so the whole thing is kept to roughly a second.
-const INTRO_DURATION = 1;
-const SETTLE_DURATION = 0.25;
-const COLLAPSE_DURATION = 0.5;
+// The intro is the point of this site, not overhead to be minimised — it is
+// the first thing a prospective client sees you make. These are the original
+// timings. Tune the feel here; everything else reads from these.
+const INTRO_DURATION = 5;
+const SETTLE_DURATION = 0.5;
+const COLLAPSE_DURATION = 3;
 
 // Where the collapse starts, relative to the end of the intro/progress pair.
-export const COLLAPSE_OFFSET = "-=0.35";
+export const COLLAPSE_OFFSET = "-=1";
 
 export const introAnimation = (wordGroupRef: RefType) => {
   const timeLine = gsap.timeline();

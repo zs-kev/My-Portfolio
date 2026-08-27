@@ -1,57 +1,73 @@
 "use client";
 
 import Loader from "@/components/home/loader/Loader";
-import { useCallback, useState, useSyncExternalStore } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 
 const SEEN_KEY = "hasSeenLoader";
 
-// Nothing here changes over a page's lifetime, so there is nothing to
-// subscribe to — the snapshot is read once per mount.
-const subscribe = () => () => {};
+// The intro is a sequence, not a spinner: the loader plays, and only then does
+// the hero and header animate in. Anything with an entrance animation reads
+// this so it waits its turn instead of playing to nobody behind the overlay.
+//
+// Defaults to true so a component used outside this provider animates normally.
+const IntroFinishedContext = createContext(true);
 
-// Whether the intro should play is a client-only question: it depends on
-// sessionStorage and a media query. useSyncExternalStore reads both without a
-// hydration mismatch and without calling setState from an effect.
-const shouldPlayOnClient = () => {
-  try {
-    if (sessionStorage.getItem(SEEN_KEY) === "true") return false;
-  } catch {
-    // Private mode or storage disabled: skip rather than replay every load.
-    return false;
-  }
-  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-};
+export const useIntroFinished = () => useContext(IntroFinishedContext);
 
-// Server render never includes the overlay, so the HTML sent to crawlers and
-// to a JS-less client is the real page.
-const shouldPlayOnServer = () => false;
+// useLayoutEffect warns during SSR, but the whole point here is to settle
+// before the browser paints, so a returning visitor never sees the overlay.
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+type IntroState = "pending" | "playing" | "done";
 
 export function ProviderLoader({ children }: { children: React.ReactNode }) {
-  const shouldPlay = useSyncExternalStore(
-    subscribe,
-    shouldPlayOnClient,
-    shouldPlayOnServer
-  );
-  const [finished, setFinished] = useState(false);
+  // Starts "pending" so the overlay is part of the first paint. Deciding in a
+  // passive effect instead would let the page flash into view for a frame
+  // before the overlay dropped over it.
+  const [intro, setIntro] = useState<IntroState>("pending");
+
+  useIsomorphicLayoutEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(SEEN_KEY) === "true";
+    } catch {
+      // Private mode or storage disabled: skip rather than replay every load.
+      seen = true;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    setIntro(seen || prefersReducedMotion ? "done" : "playing");
+  }, []);
 
   const handleFinish = useCallback(() => {
     // Written when the loader actually finishes. It used to be written in the
     // effect's cleanup, which does not run on a normal page load, so the flag
-    // was rarely set and the intro replayed on every visit.
+    // was rarely set and a returning visitor sat through the whole intro again.
     try {
       sessionStorage.setItem(SEEN_KEY, "true");
     } catch {
       // Storage unavailable; the intro simply plays again next session.
     }
-    setFinished(true);
+    setIntro("done");
   }, []);
 
-  // children always render. The loader is a sibling overlay on top of them,
-  // never a replacement for them.
+  // children always render, so the server HTML is the real page even while the
+  // overlay sits on top of it.
   return (
-    <>
+    <IntroFinishedContext.Provider value={intro === "done"}>
       {children}
-      {shouldPlay && !finished && <Loader onFinish={handleFinish} />}
-    </>
+      {intro !== "done" && <Loader onFinish={handleFinish} />}
+    </IntroFinishedContext.Provider>
   );
 }

@@ -30,6 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fonts}>
+        {/* The intro overlay is part of the first paint so it never flashes.
+            It is dismissed by JS, so without JS it would cover the page
+            forever — hide it outright in that case. */}
+        <noscript>
+          <style>{`[data-loader-overlay]{display:none !important}`}</style>
+        </noscript>
         <Providers>
           <ProviderLoader>
             <Header />
