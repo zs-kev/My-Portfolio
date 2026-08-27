@@ -113,7 +113,6 @@
 .backgroundBlur {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
   width: 246px;
   height: 268px;
   background: var(--black-white);
@@ -122,7 +121,11 @@
   filter: blur(250px);
   bottom: 240px;
   transform-origin: bottom;
-  transform: scale(0.8);
+  /* One declaration, not two. This used to be `transform: translateX(-50%)`
+     followed by `transform: scale(0.8)`, and the second silently discarded the
+     first — so the glow sat half its own width (123px) right of centre instead
+     of behind the portrait. GSAP animates scale only, leaving the offset. */
+  transform: translateX(-50%) scale(0.8);
   opacity: 0;
 }
 

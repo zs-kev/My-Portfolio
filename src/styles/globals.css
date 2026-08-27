@@ -134,6 +134,9 @@ body {
 h1,
 h2 {
   font-family: var(--font-butlerBlack);
+  /* Butler Black is a 900 face. Left at the UA default of 700 the browser has
+     no matching face and fakes the bold, which doubles every stroke. */
+  font-weight: 900;
 }
 
 h1 {
@@ -148,10 +151,15 @@ h2 {
 h3 {
   font-size: var(--h3);
   font-family: var(--font-sansProBold);
+  font-weight: 700;
 }
 
 h4 {
+  /* Inherited the body's 500 face while asking for 700, so it was synthesised
+     too. Use the real bold face instead. */
   font-size: var(--h4);
+  font-family: var(--font-sansProBold);
+  font-weight: 700;
 }
 
 p {
