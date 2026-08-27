@@ -21,6 +21,9 @@ export { viewport } from "next-sanity/studio";
 export const metadata = {
   title: "Kevin Simon Studio",
   description: "Kevin Simon Studio",
+  // A login-walled admin screen has no business in search results, where it
+  // competed against the actual portfolio for the owner's own name.
+  robots: { index: false, follow: false, nocache: true },
 };
 
 export default function RootLayout({
