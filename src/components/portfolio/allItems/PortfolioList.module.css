@@ -16,3 +16,10 @@
   font-size: var(--text-xxs);
   letter-spacing: 0.125rem;
 }
+
+.clientName {
+  color: var(--gray);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.125rem;
+}

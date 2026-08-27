@@ -1,12 +1,9 @@
-"use client";
-
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import { client } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
 import { groq } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { FeaturedPostType, FeaturedProject } from "../../../../typings";
 import styles from "./PortfolioSelected.module.css";
 
@@ -43,19 +40,23 @@ const SLOTS = [
   { key: "featuredFive", className: styles.seventhItem },
 ] as const;
 
-const PortfolioSelected: React.FC<PortfolioSelectedProps> = () => {
-  const [featured, setFeatured] = useState<FeaturedPostType | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setFeatured(await client.fetch(query));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+// A Server Component now. It has no interactivity, and fetching on the client
+// meant the tiles were absent from the HTML — invisible to crawlers, and the
+// main internal-linking hub pointing at the case studies. It also shipped the
+// Sanity client and the query into the browser bundle on the two most-visited
+// pages, and rendered an empty <Image src=""> on first paint.
+const PortfolioSelected = async () => {
+  let featured: FeaturedPostType | null = null;
+  try {
+    featured = await client.fetch(query);
+  } catch (error) {
+    // A homepage without the grid beats a homepage that 500s because the CMS
+    // was briefly unreachable.
+    console.error(
+      "Selected Projects: could not load featured projects:",
+      error
+    );
+  }
 
   const renderTile = (slotKey: string, className: string) => {
     const project: FeaturedProject | undefined = featured?.[

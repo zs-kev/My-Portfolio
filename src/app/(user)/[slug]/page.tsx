@@ -1,6 +1,9 @@
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import { client } from "@/lib/sanity.client";
+import urlFor from "@/lib/urlFor";
 import { groq } from "next-sanity";
+import { SITE_NAME } from "@/lib/siteConfig";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
 
@@ -10,6 +13,54 @@ type Props = {
     slug: string;
   }>;
 };
+
+// Content changes in the Studio reach the live site within the window rather
+// than waiting for a redeploy.
+export const revalidate = 60;
+
+const metaQuery = groq`
+  *[_type=='portfolio' && slug.current == $slug][0] {
+    title,
+    description,
+    "clientTitle": client->title,
+    featureImage
+  }
+`;
+
+// Every case study previously served the site-wide title and the description
+// "My Portfolio Website" — the highest-intent pages on the site, indistinguish-
+// able in search results, browser tabs and link previews.
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await client.fetch(metaQuery, { slug }).catch(() => null);
+  if (!post) return {};
+
+  const title = post.clientTitle
+    ? `${post.title} — ${post.clientTitle}`
+    : post.title;
+  const image = post.featureImage
+    ? urlFor(post.featureImage).width(1200).height(630).fit("crop").url()
+    : undefined;
+
+  return {
+    title,
+    description: post.description,
+    alternates: { canonical: `/${slug}` },
+    openGraph: {
+      type: "article",
+      url: `/${slug}`,
+      title: `${title} | ${SITE_NAME}`,
+      description: post.description,
+      images: image ? [{ url: image, width: 1200, height: 630 }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | ${SITE_NAME}`,
+      description: post.description,
+      images: image ? [image] : undefined,
+    },
+  };
+}
 
 export default async function PortfolioPiece({ params }: Props) {
   const { slug } = await params;

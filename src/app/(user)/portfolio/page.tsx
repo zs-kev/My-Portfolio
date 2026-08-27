@@ -1,8 +1,5 @@
+import SocialIconLinks from "@/components/socials/SocialIconLinks";
 import PortfolioList from "@/components/portfolio/allItems/PortfolioList";
-import FrontendMentor from "@/lib/assets/icons/FrontendMentor";
-import Github from "@/lib/assets/icons/Github";
-import Insta from "@/lib/assets/icons/Instagram";
-import Linkedin from "@/lib/assets/icons/Linkedin";
 import { client } from "@/lib/sanity.client";
 import { groq } from "next-sanity";
 import Link from "next/link";
@@ -10,6 +7,8 @@ import styles from "./page.module.css";
 
 const query = groq`
 *[_type=='portfolio'] | order(_createdAt desc) {
+  _id,
+  title,
   slug,
   featureImage,
   client->{
@@ -21,9 +20,18 @@ const query = groq`
 }
 `;
 
+export const revalidate = 60;
+
+export const metadata = {
+  title: "Portfolio",
+  description:
+    "Selected web design and development work by Kevin Simon — from design through to build, using React and Next.js.",
+  alternates: { canonical: "/portfolio" },
+  openGraph: { url: "/portfolio", title: "Portfolio" },
+};
+
 export default async function Portfolio() {
   const portfolioItems = await client.fetch(query);
-  console.log(portfolioItems[0]);
 
   return (
     <>
@@ -51,40 +59,7 @@ export default async function Portfolio() {
             <div />
           </Link>
           <div className={styles.line} />
-          <div className={styles.socials}>
-            <a
-              href="https://www.linkedin.com/in/kevin-simon-dev/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-            >
-              <Linkedin />
-            </a>
-            <a
-              href="https://github.com/zs-kev"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Github"
-            >
-              <Github />
-            </a>
-            <a
-              href="https://www.frontendmentor.io/profile/zs-kev"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Frontend Mentor"
-            >
-              <FrontendMentor />
-            </a>
-            <a
-              href="https://instagram.com/kevin_coffeecycles"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-            >
-              <Insta />
-            </a>
-          </div>
+          <SocialIconLinks className={styles.socials} />
         </div>
       </section>
     </>
