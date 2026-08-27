@@ -4,6 +4,7 @@ import TechStack from "@/components/about/techStack/TechStack";
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
 import PortfolioSelected from "@/components/portfolio/selectedSection/PortfolioSelected";
 import DownArrow from "@/lib/assets/icons/DownArrow";
+import { useIntroFinished } from "@/lib/providers/LoaderProvider/ProviderLoader";
 import FrontendMentor from "@/lib/assets/icons/FrontendMentor";
 import Github from "@/lib/assets/icons/Github";
 import Insta from "@/lib/assets/icons/Instagram";
@@ -17,17 +18,30 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const heroRef = useRef(null);
-  const timeline = useRef(gsap.timeline());
+  const introFinished = useIntroFinished();
 
   useEffect(() => {
-    const context = gsap.context(() => {
-      const tl = timeline.current;
+    // The hero reveal is the payoff to the loader, so it waits for it. It used
+    // to be gated implicitly: children did not mount until the loader
+    // finished. Now that content renders immediately for crawlers, the
+    // sequencing has to be explicit or the reveal plays behind the overlay
+    // and the visitor only ever sees its final frame.
+    if (!introFinished) return;
 
-      tl.add(animateHero());
+    const context = gsap.context(() => {
+      const timeline = animateHero();
+
+      // The hero ships at opacity 0 and is revealed by this timeline, so
+      // reduced motion cannot mean "skip it" — that would leave the hero
+      // invisible. Jump straight to the final frame instead: everything
+      // visible, nothing moving.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        timeline.progress(1);
+      }
     }, heroRef);
 
     return () => context.revert();
-  }, []);
+  }, [introFinished]);
 
   return (
     <>

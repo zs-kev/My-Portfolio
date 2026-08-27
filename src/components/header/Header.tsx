@@ -1,5 +1,6 @@
 "use client";
 
+import { useIntroFinished } from "@/lib/providers/LoaderProvider/ProviderLoader";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Logo from "../logo/Logo";
@@ -73,6 +74,9 @@ const variantsBurger = {
 
 const Header: React.FC<HeaderProps> = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  // Both default to isNavOpen=true, so on desktop they animate in on mount —
+  // which now means behind the loader. Hold them until the intro is done.
+  const introFinished = useIntroFinished();
 
   const handleNavClick = () => {
     setIsNavOpen((isOpen) => !isOpen);
@@ -84,10 +88,10 @@ const Header: React.FC<HeaderProps> = () => {
         <div className={styles.header}>
           <Logo copywrite={false} />
           <div className={styles.navWrapper}>
-            <Navigation />
+            <Navigation isNavOpen={introFinished} />
           </div>
           <div className={styles.toggleWrapper}>
-            <ThemeToggle />
+            <ThemeToggle isNavOpen={introFinished} />
           </div>
         </div>
 

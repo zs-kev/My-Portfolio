@@ -39,10 +39,6 @@
   opacity: 0;
 }
 
-.heroHeading {
-  opacity: 0;
-}
-
 .heroKevin div,
 .heroSimon div {
   background: -webkit-linear-gradient(var(--pink), var(--pumpkin));
