@@ -131,6 +131,11 @@
   .portfolioSection {
     padding-left: 284px;
   }
+  /* Steps down with .filters. The :has() rule above is more specific, so the
+     tightened value still wins whenever the filters are actually there. */
+  .introText {
+    padding-bottom: 64px;
+  }
   .filters {
     padding-bottom: 64px;
   }

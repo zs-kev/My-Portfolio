@@ -164,14 +164,25 @@ const Header: React.FC<HeaderProps> = () => {
     onBreakpointChange();
     desktop.addEventListener("change", onBreakpointChange);
 
+    // Locking the body removes the scrollbar gutter, and on platforms with
+    // classic space-consuming scrollbars that shifts the whole page sideways
+    // as the menu opens and back again as it closes. Nothing sets overflow on
+    // <html>, so the propagation to the viewport is real here. Holding the
+    // gutter open as padding keeps the page still.
+    const gutter = window.innerWidth - document.documentElement.clientWidth;
     const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+
     document.body.style.overflow = "hidden";
+    if (gutter > 0) document.body.style.paddingRight = `${gutter}px`;
+
     document.addEventListener("keydown", onKeyDown);
 
     return () => {
       desktop.removeEventListener("change", onBreakpointChange);
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
     };
   }, [isNavOpen]);
 
