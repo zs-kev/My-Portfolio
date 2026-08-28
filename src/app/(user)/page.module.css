@@ -129,18 +129,18 @@
   opacity: 0;
 }
 
-/* The rail: the scroll cue sits above the social icons, both pinned to the
-   same left edge. */
-.scrollCue {
-  position: absolute;
-  bottom: 13.5rem;
-  left: 56px;
-}
-
-.leftBar {
+/* The rail: the scroll cue above the social icons, one column, one axis. */
+.leftRail {
   position: absolute;
   bottom: 44px;
   left: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.leftBar {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -275,8 +275,7 @@
     height: 198px;
   }
 
-  .leftBar,
-  .scrollCue {
+  .leftRail {
     display: none;
   }
 }

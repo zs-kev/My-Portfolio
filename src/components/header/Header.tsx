@@ -109,10 +109,23 @@ const Header: React.FC<HeaderProps> = () => {
     const panel = panelRef.current;
     if (!panel) return;
 
-    const focusable = () =>
+    const panelItems = () =>
       Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE));
 
-    focusable()[0]?.focus();
+    // The hamburger is this panel's Close button — it is what carries
+    // aria-label="Close menu" — but it sits outside the panel in the DOM, so
+    // querying the panel alone trapped focus in a cycle that could never reach
+    // it. Keyboard users could open the menu and never tab to the control that
+    // closes it.
+    const cycle = () => {
+      const burger = hamburgerRef.current;
+      const items = panelItems();
+      return burger ? [burger, ...items] : items;
+    };
+
+    // Focus still starts on the first link rather than the Close button: the
+    // point of opening the menu is to choose a destination.
+    panelItems()[0]?.focus();
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -122,7 +135,7 @@ const Header: React.FC<HeaderProps> = () => {
 
       if (event.key !== "Tab") return;
 
-      const items = focusable();
+      const items = cycle();
       if (items.length === 0) return;
 
       const first = items[0];
@@ -139,11 +152,24 @@ const Header: React.FC<HeaderProps> = () => {
       }
     };
 
+    // The panel is hidden by CSS at 62rem and up, but isNavOpen is React state
+    // and knows nothing about that. Crossing the breakpoint with the menu open
+    // therefore left the body scroll-locked with no visible menu to close —
+    // the page simply stopped scrolling. Closing on the change keeps the two
+    // in step.
+    const desktop = window.matchMedia("(min-width: 62rem)");
+    const onBreakpointChange = () => {
+      if (desktop.matches) dismissNav();
+    };
+    onBreakpointChange();
+    desktop.addEventListener("change", onBreakpointChange);
+
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", onKeyDown);
 
     return () => {
+      desktop.removeEventListener("change", onBreakpointChange);
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
     };

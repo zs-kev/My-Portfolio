@@ -118,10 +118,15 @@ export default function Hero() {
       </div>
       <div className={styles.backgroundBlur} data-image-shadow></div>
 
-      {/* Shares the left rail with the social icons, sitting above them as in
-          the design. */}
-      <ScrollCue className={styles.scrollCue} label="Scroll down" />
-      <SocialIconLinks className={styles.leftBar} />
+      {/* One rail. The cue and the icons stack in a single column so they
+          share an axis and the gap between them is a real gap — as two
+          absolutely-positioned boxes they only looked aligned, and the cue's
+          offset was a number derived from how many social links there happen
+          to be. */}
+      <div className={styles.leftRail}>
+        <ScrollCue label="Scroll down" />
+        <SocialIconLinks className={styles.leftBar} />
+      </div>
     </section>
   );
 }

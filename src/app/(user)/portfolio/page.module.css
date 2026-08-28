@@ -12,10 +12,18 @@
 
 .introText {
   padding-top: 1.85rem;
-  padding-bottom: 2.5rem;
+  /* The full gap to the grid, for when nothing follows this. */
+  padding-bottom: 96px;
   max-width: 40rem;
   font-size: var(--text-l);
   color: var(--gray);
+}
+
+/* The filters are only rendered when there are categories, so the gap cannot
+   live on them alone — with none, the copy ended up 40px from the grid. It
+   tightens here only when the filters are actually there to carry the rest. */
+.introText:has(+ .filters) {
+  padding-bottom: 2.5rem;
 }
 
 /* The gap to the grid moved here from .introText so the filters sit with the

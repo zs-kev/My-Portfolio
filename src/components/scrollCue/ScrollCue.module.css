@@ -45,8 +45,12 @@
   0% {
     transform: translateY(-100%);
   }
+  /* The track is 4.5rem and the bar is 45% of it, so 222% is exactly the
+     distance that carries the bar from just above the track to just past its
+     bottom edge. Overshooting left the rule bare for the tail of every cycle,
+     and the ease-out end made it linger there. */
   100% {
-    transform: translateY(322%);
+    transform: translateY(222%);
   }
 }
 

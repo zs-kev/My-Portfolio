@@ -67,21 +67,10 @@ export function ProviderLoader({ children }: { children: React.ReactNode }) {
   return (
     <IntroFinishedContext.Provider value={intro === "done"}>
       {children}
-      {intro !== "done" && (
-        <>
-          {/* The overlay is dismissed by the loader's own GSAP timeline, and
-              it is fixed, opaque and z-index 9999. With scripting off nothing
-              ever dismisses it, so it sat over every page permanently. There
-              is no intro to wait for in that case, so it is simply not shown —
-              inert whenever scripting is on, so the normal path is untouched. */}
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `<style>[data-loader-overlay]{display:none!important}</style>`,
-            }}
-          />
-          <Loader onFinish={handleFinish} />
-        </>
-      )}
+      {/* The overlay is dismissed by JS, so with scripting off it would sit
+          over the page forever. That is already handled once, in the (user)
+          layout, which hides [data-loader-overlay] inside <noscript>. */}
+      {intro !== "done" && <Loader onFinish={handleFinish} />}
     </IntroFinishedContext.Provider>
   );
 }

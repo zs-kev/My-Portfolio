@@ -96,6 +96,10 @@
 }
 
 .testimonial figcaption {
+  /* globals.css applies this to p and h1-h6 only. The attribution used to be a
+     <p> and inherited it; as a <figcaption> in a ~207px cell it would other-
+     wise let a long name or company overflow the tile. */
+  overflow-wrap: break-word;
   margin-top: 2rem;
   letter-spacing: 0;
   text-transform: uppercase;
