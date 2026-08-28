@@ -40,7 +40,7 @@ const PortfolioList: React.FC<PortfolioListProps> = ({ portfolioItems }) => {
             <p className={styles.clientName}>{item.client.title}</p>
           )}
           <div className={styles.categoryWrapper}>
-            {item.categories.map((category: any, index: number) => (
+            {(item.categories ?? []).map((category: any, index: number) => (
               <p key={index}>{category.title}</p>
             ))}
           </div>
