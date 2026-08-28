@@ -1,0 +1,59 @@
+.cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+}
+
+.mouse {
+  display: block;
+  color: var(--gray);
+}
+
+.label {
+  /* Reads down the rail, the direction it is asking you to go. */
+  writing-mode: vertical-rl;
+  font-family: var(--font-sansProSemiBold);
+  font-size: var(--text-xs);
+  letter-spacing: 0.125rem;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.track {
+  position: relative;
+  width: 1px;
+  height: 4.5rem;
+  background-color: var(--gray-soft);
+  /* Clips the highlight at both ends so it reads as travelling through the
+     rule rather than appearing beside it. */
+  overflow: hidden;
+}
+
+.travel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 45%;
+  background: linear-gradient(180deg, var(--pink) 0%, var(--pumpkin) 100%);
+  animation: scrollCueTravel 2.4s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+
+@keyframes scrollCueTravel {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(322%);
+  }
+}
+
+/* Still a marked rule, just not a moving one. The highlight rests at the top of
+   the track rather than vanishing, so the cue does not become a bare line. */
+@media (prefers-reduced-motion: reduce) {
+  .travel {
+    animation: none;
+  }
+}

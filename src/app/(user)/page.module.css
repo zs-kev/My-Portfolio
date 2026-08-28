@@ -129,6 +129,14 @@
   opacity: 0;
 }
 
+/* The rail: the scroll cue sits above the social icons, both pinned to the
+   same left edge. */
+.scrollCue {
+  position: absolute;
+  bottom: 13.5rem;
+  left: 56px;
+}
+
 .leftBar {
   position: absolute;
   bottom: 44px;
@@ -267,7 +275,8 @@
     height: 198px;
   }
 
-  .leftBar {
+  .leftBar,
+  .scrollCue {
     display: none;
   }
 }

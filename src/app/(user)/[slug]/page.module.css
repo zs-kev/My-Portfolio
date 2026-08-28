@@ -66,6 +66,10 @@
   padding-top: 4rem;
 }
 
+.scrollCue {
+  margin: 3.5rem auto 0;
+}
+
 .heroLinksWrapper a {
   display: block;
   max-width: fit-content;

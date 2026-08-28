@@ -1,5 +1,6 @@
 "use client";
 
+import ScrollCue from "@/components/scrollCue/ScrollCue";
 import SocialIconLinks from "@/components/socials/SocialIconLinks";
 import DownArrow from "@/lib/assets/icons/DownArrow";
 import { useIntroFinished } from "@/lib/providers/LoaderProvider/ProviderLoader";
@@ -117,6 +118,9 @@ export default function Hero() {
       </div>
       <div className={styles.backgroundBlur} data-image-shadow></div>
 
+      {/* Shares the left rail with the social icons, sitting above them as in
+          the design. */}
+      <ScrollCue className={styles.scrollCue} label="Scroll down" />
       <SocialIconLinks className={styles.leftBar} />
     </section>
   );
