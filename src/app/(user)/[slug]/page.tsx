@@ -139,8 +139,8 @@ export default async function PortfolioPiece({ params }: Props) {
               </ButtonUnderline>
             )}
           </div>
-          {/* Centred under the hero links, with the mouse, as in the design. */}
-          <ScrollCue className={styles.scrollCue} mouse />
+          {/* The same cue as the home hero, centred under the hero links. */}
+          <ScrollCue className={styles.scrollCue} />
         </div>
       </section>
       <section>
