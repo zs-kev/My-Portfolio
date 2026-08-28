@@ -1,4 +1,11 @@
 .cue {
+  /* The runway and the thing that runs on it. The travel keyframe derives its
+     distance from these rather than carrying a literal, which is how it ended
+     up stopping halfway down the line. --cue-mouse must match the height of
+     the MouseScroll svg. */
+  --cue-rail: 7rem;
+  --cue-mouse: 30px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +29,7 @@
 .rail {
   position: relative;
   width: 20px;
-  height: 7rem;
+  height: var(--cue-rail);
 }
 
 .line {
@@ -58,8 +65,10 @@
   display: block;
 }
 
-/* Down and back, the way you would actually push a mouse to scroll. The
-   translateX is carried through every frame because it is what centres the
+/* Down the whole line and back, the way you would actually push a mouse to
+   scroll. The distance is the rail less the mouse's own height, so the mouse
+   comes to rest flush with the bottom of the rule rather than stopping short.
+   The translateX is carried through every frame because it is what centres the
    mouse on the line. */
 @keyframes scrollCueMouse {
   0%,
@@ -67,7 +76,7 @@
     transform: translate(-50%, 0);
   }
   50% {
-    transform: translate(-50%, 3rem);
+    transform: translate(-50%, calc(var(--cue-rail) - var(--cue-mouse)));
   }
 }
 
