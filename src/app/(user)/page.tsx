@@ -39,8 +39,13 @@ export default function Home() {
               <Image
                 src="/assets/images/kevin-simon-sig.svg"
                 alt="Kevin Simon"
-                width="0"
-                height="0"
+                // Matches the SVG's own viewBox. Was 0x0 with no sizes at all.
+                width={164}
+                height={20}
+                // CSS sets the width; this keeps the height proportional to it
+                // rather than stretching to the flex line, which is what
+                // next/image warns about when only one axis is overridden.
+                style={{ height: "auto" }}
               />
               <ButtonUnderline link={"/about"}>About Me</ButtonUnderline>
             </div>

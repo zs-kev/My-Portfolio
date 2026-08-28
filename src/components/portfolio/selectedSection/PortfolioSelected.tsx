@@ -16,7 +16,10 @@ const projection = `{
     slug,
     client -> {
       title,
-      altLogo,
+      altLogo {
+        ...,
+        "dimensions": asset->metadata.dimensions
+      },
       clientColorPrimary
     }
   }`;
@@ -28,6 +31,9 @@ const query = groq`
   featuredThree-> ${projection},
   featuredFour-> ${projection},
   featuredFive-> ${projection},
+  testimonialQuote,
+  testimonialName,
+  testimonialRole,
 }
 `;
 
@@ -64,7 +70,8 @@ const PortfolioSelected = async () => {
     ] as FeaturedProject | undefined;
 
     const slug = project?.slug?.current;
-    const logoAsset = project?.client?.altLogo?.asset;
+    const logo = project?.client?.altLogo;
+    const logoAsset = logo?.asset;
 
     // An empty slot, or one pointing at a deleted project, renders nothing at
     // all. It used to render a grey block that looked clickable and reloaded
@@ -84,9 +91,13 @@ const PortfolioSelected = async () => {
           {logoAsset && (
             <Image
               src={urlFor(logoAsset).url()}
-              alt={project.client?.altLogo?.alt ?? `${clientName} logo`}
-              width="0"
-              height="0"
+              alt={logo?.alt ?? `${clientName} logo`}
+              // Sanity's own upload metadata, so the ratio is the file's
+              // rather than 0x0. The square fallback only applies to assets
+              // uploaded before Sanity recorded dimensions; CSS sizes the
+              // logo either way.
+              width={logo?.dimensions?.width ?? 400}
+              height={logo?.dimensions?.height ?? 400}
               sizes="(max-width: 48rem) 100vw, 33vw"
               className={styles.image}
             />
@@ -112,17 +123,29 @@ const PortfolioSelected = async () => {
 
           {SLOTS.map(({ key, className }) => renderTile(key, className))}
 
-          <div className={styles.fifthItem}>
-            <div className={styles.testimonial}>
-              <h3>What they&apos;re saying</h3>
-              <p className={styles.quote}>
-                &quot;Great person to work with! Did the job faster than the
-                initial due date, great service and great communication. Thank
-                You!&quot;
-              </p>
-              <p>Mabel Jones</p>
+          {/* Comes from the Featured document now. An empty quote renders
+              nothing rather than a placeholder, the same as an unfilled
+              project slot. */}
+          {featured?.testimonialQuote && (
+            <div className={styles.fifthItem}>
+              <figure className={styles.testimonial}>
+                <h3>What they&apos;re saying</h3>
+                <blockquote className={styles.quote}>
+                  <p>&ldquo;{featured.testimonialQuote}&rdquo;</p>
+                </blockquote>
+                {featured.testimonialName && (
+                  <figcaption>
+                    {featured.testimonialName}
+                    {featured.testimonialRole && (
+                      <span className={styles.testimonialRole}>
+                        {featured.testimonialRole}
+                      </span>
+                    )}
+                  </figcaption>
+                )}
+              </figure>
             </div>
-          </div>
+          )}
 
           <div className={styles.eightItem}>
             <ButtonUnderline link={"/portfolio"}>

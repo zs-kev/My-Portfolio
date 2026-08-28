@@ -5,9 +5,16 @@ export type FeaturedProject = {
   };
   client?: {
     title?: string;
-    altLogo?: Image;
+    altLogo?: Image & { dimensions?: ImageDimensions };
     clientColorPrimary?: Color;
   };
+};
+
+// Sanity records these on upload. They are projected alongside the logo so
+// <Image> can be given a real aspect ratio instead of 0x0.
+export type ImageDimensions = {
+  width?: number;
+  height?: number;
 };
 
 // Every level is optional on purpose. A Featured document can be saved with a
@@ -16,6 +23,9 @@ export type FeaturedProject = {
 // unguarded access typecheck and then throw at runtime.
 export type FeaturedPostType = {
   _id: string;
+  testimonialQuote?: string;
+  testimonialName?: string;
+  testimonialRole?: string;
   featuredOne?: FeaturedProject;
   featuredTwo?: FeaturedProject;
   featuredThree?: FeaturedProject;
