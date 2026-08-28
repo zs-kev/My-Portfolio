@@ -2,14 +2,13 @@
   padding: 6rem 0;
 }
 
-/* The tall runway and the sticky stage only exist once JS has taken over. If
-   the script never runs the section keeps its natural height and the laptop
-   sits open, because the closed state is applied by GSAP and nothing else. */
+/* The laptop itself never moves — the screenshot travels inside it. The sticky
+   stage and its runway exist only for that, and only once JS has measured how
+   far the screenshot can actually go. Without JS the section keeps its natural
+   height and the screenshot simply sits at the top of the screen. */
 .section[data-scroll-effect="on"] {
   padding: 0;
-  /* 100vh of sticky viewing, plus the swing open, plus however far the
-     screenshot can travel — measured and set from JS. */
-  height: calc(100vh + 75vh + var(--scroll-runway, 0px));
+  height: calc(100vh + var(--scroll-runway, 0px));
 }
 
 .section[data-scroll-effect="on"] .sticky {
@@ -25,18 +24,12 @@
   max-width: 76.125rem;
   margin: 0 auto;
   padding: 0 3rem;
-  /* The scene. perspective-origin sits above centre so we look slightly down
-     on the machine — without that the deck has no visible depth and a lid
-     rotating against it reads as a floating panel tilting, not a lid opening. */
-  perspective: 1500px;
-  perspective-origin: 50% 22%;
 }
 
 .laptop {
   margin: 0 auto;
   max-width: 58rem;
   filter: drop-shadow(0 1.6rem 2.6rem hsla(0, 0%, 0%, 0.22));
-  transform-style: preserve-3d;
 }
 
 /* The lid: one dark rounded body with the screen inset inside it, rather than
@@ -51,24 +44,6 @@
   background-color: #1d1d1f;
   border-radius: 1rem 1rem 0.2rem 0.2rem;
   padding: 1.15rem 0.95rem 1.35rem;
-  /* The hinge: the lid pivots on the edge where it meets the deck. Closed is
-     the lid lying flat on the deck — the same plane, hence the same angle. */
-  transform-origin: center bottom;
-  transform: rotateX(var(--lid-angle, 0deg));
-  transform-style: preserve-3d;
-}
-
-/* The outside of the lid. Closed, the screen faces down onto the deck and what
-   you see is this — without it the "closed" laptop showed its own display,
-   which is the one thing a closed laptop never does. */
-.lid::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(170deg, #232326 0%, #1a1a1d 60%, #141416 100%);
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
 }
 
 /* The camera. Small, but its absence is most of why a dark rectangle does not
@@ -92,8 +67,8 @@
 }
 
 .screenInner {
-  /* Not height:100% — the screenshot is allowed to be taller than the screen
-     so there is something to travel through. .screen clips it. */
+  /* Deliberately not height:100% — a tall screenshot is allowed to overflow so
+     there is something to travel through. .screen clips it. */
   will-change: transform;
 }
 
@@ -103,45 +78,24 @@
   display: block;
 }
 
-/* The deck. This is the piece that was wrong: it used to be a thin vertical
-   bar, so nothing ever receded and the lid had nothing to hinge against. It is
-   now a real plane, laid down and away from the viewer, which is what makes
-   the lid read as opening off it. */
+/* The base overhangs the lid on both sides — the single strongest cue that
+   this is a laptop seen head-on rather than a framed picture. */
 .base {
   position: relative;
   width: 100%;
-  /* Deep, then foreshortened by the rotation below into a shallow band. */
-  aspect-ratio: 16 / 4.6;
-  transform-origin: center top;
-  transform: rotateX(var(--deck-angle, 74deg));
-  background: linear-gradient(180deg, #26262a 0%, #1b1b1e 55%, #121214 100%);
-  border-radius: 0.2rem 0.2rem 0.9rem 0.9rem;
-  box-shadow: 0 -0.05rem 0 hsla(0, 0%, 100%, 0.09) inset;
+  height: 0.95rem;
+  background: linear-gradient(180deg, #29292c 0%, #1d1d1f 45%, #0f0f10 100%);
+  border-radius: 0 0 0.75rem 0.75rem;
 }
 
-/* A hint of trackpad. Cheap, but it is the detail that stops the deck reading
-   as a plain dark wedge. */
-.base::before {
-  content: "";
-  position: absolute;
-  top: 34%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 26%;
-  height: 42%;
-  border-radius: 0.25rem;
-  background: hsla(0, 0%, 100%, 0.045);
-  box-shadow: 0 0 0 1px hsla(0, 0%, 100%, 0.05);
-}
-
-/* The lip you hook a finger into to open it, on the deck's near edge. */
+/* The lip you hook a finger into to open it, centred on the bottom edge. */
 .notch {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 11%;
-  height: 4%;
+  height: 0.3rem;
   background-color: #0a0a0b;
   border-radius: 0.3rem 0.3rem 0 0;
 }
@@ -149,7 +103,8 @@
 @media (width < 48rem) {
   .section,
   .section[data-scroll-effect="on"] {
-    /* Phones get the open-on-enter version, so no runway and no sticky. */
+    /* Phones show the screenshot from the top, static. Pinning a viewport and
+       scrubbing inside a small screen is more irritating than it is worth. */
     height: auto;
     padding: 3.5rem 0;
   }
