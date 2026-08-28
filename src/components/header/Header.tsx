@@ -2,7 +2,7 @@
 
 import { useIntroFinished } from "@/lib/providers/LoaderProvider/ProviderLoader";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "../logo/Logo";
 import styles from "./Header.module.css";
 import Navigation from "./navigation/Navigation";
@@ -72,15 +72,82 @@ const variantsBurger = {
   },
 };
 
+// Anything that can hold focus inside the panel. Nav links and the theme
+// toggle today; querying by role rather than listing components means the trap
+// keeps working if the panel gains something new.
+const FOCUSABLE =
+  'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 const Header: React.FC<HeaderProps> = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   // Both default to isNavOpen=true, so on desktop they animate in on mount —
   // which now means behind the loader. Hold them until the intro is done.
   const introFinished = useIntroFinished();
 
+  const panelRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+
   const handleNavClick = () => {
     setIsNavOpen((isOpen) => !isOpen);
   };
+
+  // Dismissing the menu without choosing a destination returns focus to the
+  // control that opened it. Following a link does not — focus belongs with the
+  // page you asked for.
+  const dismissNav = () => {
+    setIsNavOpen(false);
+    hamburgerRef.current?.focus();
+  };
+
+  // The open menu is a full-screen overlay, so it has to behave like one:
+  // Escape closes it, Tab cycles within it instead of walking the page behind
+  // it, and the page behind it does not scroll. Without this, tabbing from the
+  // menu moved focus to links the visitor could not see.
+  useEffect(() => {
+    if (!isNavOpen) return;
+
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    const focusable = () =>
+      Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE));
+
+    focusable()[0]?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        dismissNav();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const items = focusable();
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      // Only the two edges need handling; everything between them is the
+      // browser's own tab order.
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isNavOpen]);
 
   return (
     <>
@@ -101,6 +168,7 @@ const Header: React.FC<HeaderProps> = () => {
           <button
             type="button"
             className={styles.hamburger}
+            ref={hamburgerRef}
             onClick={handleNavClick}
             aria-label={isNavOpen ? "Close menu" : "Open menu"}
             aria-expanded={isNavOpen}
@@ -130,12 +198,12 @@ const Header: React.FC<HeaderProps> = () => {
           </button>
           <AnimatePresence>
             {isNavOpen && (
-              <div className={styles.nav} id="mobile-nav">
+              <div className={styles.nav} id="mobile-nav" ref={panelRef}>
                 <div
                   className={`${styles.navWrapper} ${styles.navWrapperMobile}`}
                 >
                   <Navigation
-                    handleNavClick={handleNavClick}
+                    handleNavClick={() => setIsNavOpen(false)}
                     isNavOpen={isNavOpen}
                   />
                 </div>
