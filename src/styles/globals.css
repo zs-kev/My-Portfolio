@@ -19,6 +19,12 @@ body,
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  /* The page never painted a background of its own — it relied on the browser
+     canvas. In light that happens to be #fff, which matches. In dark, the
+     canvas is Chromium's #121212 rather than the #000 --white-black resolves
+     to, so the whole site sat 18/255 lighter than the design and than every
+     token computed against it. */
+  background-color: var(--white-black);
 }
 img,
 picture,
