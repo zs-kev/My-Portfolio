@@ -300,8 +300,13 @@
 }
 
 .aboutContainer img {
-  height: 100%;
   width: 10.125rem;
+  /* height:auto keeps the signature proportional to the width above, but auto
+     is also a stretchable cross-size, so as a flex item it grew to the row's
+     30px and the artwork letterboxed lower than it used to sit. flex-start
+     opts it out of the stretch and restores the 19.75px box. */
+  height: auto;
+  align-self: flex-start;
 }
 
 .aboutContainer a {

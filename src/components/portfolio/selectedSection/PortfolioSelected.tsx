@@ -37,6 +37,18 @@ const query = groq`
 }
 `;
 
+// The grid places this slot explicitly (rows 5-7), so an empty testimonial
+// leaves a ~500px band of dead space rather than the layout closing up. Until
+// the Studio field is filled this keeps the quote that used to be hardcoded
+// here, so the page never renders a hole. Once the CMS carries one, this stops
+// being reachable and can be deleted.
+const FALLBACK_TESTIMONIAL = {
+  quote:
+    "Great person to work with! Did the job faster than the initial due date, great service and great communication. Thank You!",
+  name: "Mabel Jones",
+  role: undefined as string | undefined,
+};
+
 // The grid places each slot by hand, so the slot order is also the layout.
 const SLOTS = [
   { key: "featuredOne", className: styles.secondItem },
@@ -63,6 +75,17 @@ const PortfolioSelected = async () => {
       error
     );
   }
+
+  // The quote and its attribution travel together: taking the name from the CMS
+  // while the quote came from the fallback would put one person's name on
+  // another person's words.
+  const testimonial = featured?.testimonialQuote
+    ? {
+        quote: featured.testimonialQuote,
+        name: featured.testimonialName,
+        role: featured.testimonialRole,
+      }
+    : FALLBACK_TESTIMONIAL;
 
   const renderTile = (slotKey: string, className: string) => {
     const project: FeaturedProject | undefined = featured?.[
@@ -123,29 +146,24 @@ const PortfolioSelected = async () => {
 
           {SLOTS.map(({ key, className }) => renderTile(key, className))}
 
-          {/* Comes from the Featured document now. An empty quote renders
-              nothing rather than a placeholder, the same as an unfilled
-              project slot. */}
-          {featured?.testimonialQuote && (
-            <div className={styles.fifthItem}>
-              <figure className={styles.testimonial}>
-                <h3>What they&apos;re saying</h3>
-                <blockquote className={styles.quote}>
-                  <p>&ldquo;{featured.testimonialQuote}&rdquo;</p>
-                </blockquote>
-                {featured.testimonialName && (
-                  <figcaption>
-                    {featured.testimonialName}
-                    {featured.testimonialRole && (
-                      <span className={styles.testimonialRole}>
-                        {featured.testimonialRole}
-                      </span>
-                    )}
-                  </figcaption>
-                )}
-              </figure>
-            </div>
-          )}
+          <div className={styles.fifthItem}>
+            <figure className={styles.testimonial}>
+              <h3>What they&apos;re saying</h3>
+              <blockquote className={styles.quote}>
+                <p>&ldquo;{testimonial.quote}&rdquo;</p>
+              </blockquote>
+              {testimonial.name && (
+                <figcaption>
+                  {testimonial.name}
+                  {testimonial.role && (
+                    <span className={styles.testimonialRole}>
+                      {testimonial.role}
+                    </span>
+                  )}
+                </figcaption>
+              )}
+            </figure>
+          </div>
 
           <div className={styles.eightItem}>
             <ButtonUnderline link={"/portfolio"}>
