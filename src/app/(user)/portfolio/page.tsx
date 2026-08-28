@@ -30,8 +30,43 @@ export const metadata = {
   openGraph: { url: "/portfolio", title: "Portfolio" },
 };
 
-export default async function Portfolio() {
+type Props = {
+  // Next 16: search params are async, same as route params.
+  searchParams: Promise<{ category?: string | string[] }>;
+};
+
+export default async function Portfolio({ searchParams }: Props) {
+  const { category } = await searchParams;
   const portfolioItems = await client.fetch(query);
+
+  // Derived from what is actually published rather than fetched separately, so
+  // a category nothing uses never shows up as a filter that leads to an empty
+  // page. A reference to a deleted category dereferences to null, hence the
+  // guards.
+  const categories: string[] = Array.from(
+    new Set(
+      (portfolioItems ?? []).flatMap((item: any) =>
+        (item.categories ?? [])
+          .map((entry: any) => entry?.title)
+          .filter(Boolean)
+      )
+    )
+  ).sort() as string[];
+
+  const requested = Array.isArray(category) ? category[0] : category;
+
+  // A hand-typed or stale ?category= shows everything rather than an empty
+  // page that looks like the portfolio is bare.
+  const activeCategory =
+    requested && categories.includes(requested) ? requested : null;
+
+  const visibleItems = activeCategory
+    ? portfolioItems.filter((item: any) =>
+        (item.categories ?? []).some(
+          (entry: any) => entry?.title === activeCategory
+        )
+      )
+    : portfolioItems;
 
   return (
     <>
@@ -42,7 +77,37 @@ export default async function Portfolio() {
           mine. And, I do everything with my core values of honesty, hard work,
           and trust.
         </p>
-        <PortfolioList portfolioItems={portfolioItems} />
+        {/* Plain links, so filtering works without JS, survives a page reload
+            and can be shared or linked to. This lives with the content rather
+            than in the sidebar because .sideBar is display:none below 64rem —
+            filters there would have been desktop-only. */}
+        {categories.length > 0 && (
+          <nav
+            className={styles.filters}
+            aria-label="Filter projects by category"
+          >
+            <Link
+              href="/portfolio"
+              className={styles.filter}
+              aria-current={activeCategory ? undefined : "page"}
+            >
+              All Projects
+              <div />
+            </Link>
+            {categories.map((title) => (
+              <Link
+                key={title}
+                href={`/portfolio?category=${encodeURIComponent(title)}`}
+                className={styles.filter}
+                aria-current={activeCategory === title ? "page" : undefined}
+              >
+                {title}
+                <div />
+              </Link>
+            ))}
+          </nav>
+        )}
+        <PortfolioList portfolioItems={visibleItems} />
       </section>
       <section className={styles.sideBar}>
         <div>
@@ -50,7 +115,11 @@ export default async function Portfolio() {
             All the projects that I have worked on, from design to development.
           </p>
           <div className={styles.line} />
-          <Link className={styles.link} href="#">
+          <Link
+            className={styles.link}
+            href="/portfolio"
+            aria-current={activeCategory ? undefined : "page"}
+          >
             All Projects
             <div />
           </Link>

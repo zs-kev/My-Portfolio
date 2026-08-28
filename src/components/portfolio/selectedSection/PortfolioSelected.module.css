@@ -35,7 +35,7 @@
 }
 
 .introText h2 {
-  font-family: var(--sansProSemiBold);
+  font-family: var(--font-sansProSemiBold);
   font-size: var(--text-xs);
   color: var(--gray);
   text-transform: uppercase;
@@ -83,21 +83,36 @@
   margin-left: auto;
 }
 
-.testimonial p {
+/* These were `.testimonial p` and `.testimonial p:last-child`. The quote is
+   now a <blockquote> and the attribution a <figcaption>, so a positional
+   selector would have put the name's bold styling on the quote. Addressed by
+   name instead; the rendering is unchanged. */
+.quote {
   margin-top: 2rem;
   letter-spacing: 0;
   text-transform: uppercase;
-}
-
-.quote {
-  letter-spacing: 0;
   color: var(--gray);
   font-family: var(--font-sansProMediumItalic);
 }
 
-.testimonial p:last-child {
+.testimonial figcaption {
+  /* globals.css applies this to p and h1-h6 only. The attribution used to be a
+     <p> and inherited it; as a <figcaption> in a ~207px cell it would other-
+     wise let a long name or company overflow the tile. */
+  overflow-wrap: break-word;
+  margin-top: 2rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
   font-family: var(--font-sansProBold);
   font-size: var(--text-s);
+}
+
+/* Optional second line, so it reads quieter than the name above it. */
+.testimonialRole {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--gray);
+  font-family: var(--font-sansProRegular);
 }
 
 .sixthItem {

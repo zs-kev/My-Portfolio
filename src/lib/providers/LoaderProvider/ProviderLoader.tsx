@@ -67,6 +67,9 @@ export function ProviderLoader({ children }: { children: React.ReactNode }) {
   return (
     <IntroFinishedContext.Provider value={intro === "done"}>
       {children}
+      {/* The overlay is dismissed by JS, so with scripting off it would sit
+          over the page forever. That is already handled once, in the (user)
+          layout, which hides [data-loader-overlay] inside <noscript>. */}
       {intro !== "done" && <Loader onFinish={handleFinish} />}
     </IntroFinishedContext.Provider>
   );

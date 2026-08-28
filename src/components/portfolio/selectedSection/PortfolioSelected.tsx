@@ -16,7 +16,10 @@ const projection = `{
     slug,
     client -> {
       title,
-      altLogo,
+      altLogo {
+        ...,
+        "dimensions": asset->metadata.dimensions
+      },
       clientColorPrimary
     }
   }`;
@@ -28,8 +31,23 @@ const query = groq`
   featuredThree-> ${projection},
   featuredFour-> ${projection},
   featuredFive-> ${projection},
+  testimonialQuote,
+  testimonialName,
+  testimonialRole,
 }
 `;
+
+// The grid places this slot explicitly (rows 5-7), so an empty testimonial
+// leaves a ~500px band of dead space rather than the layout closing up. Until
+// the Studio field is filled this keeps the quote that used to be hardcoded
+// here, so the page never renders a hole. Once the CMS carries one, this stops
+// being reachable and can be deleted.
+const FALLBACK_TESTIMONIAL = {
+  quote:
+    "Great person to work with! Did the job faster than the initial due date, great service and great communication. Thank You!",
+  name: "Mabel Jones",
+  role: undefined as string | undefined,
+};
 
 // The grid places each slot by hand, so the slot order is also the layout.
 const SLOTS = [
@@ -58,13 +76,25 @@ const PortfolioSelected = async () => {
     );
   }
 
+  // The quote and its attribution travel together: taking the name from the CMS
+  // while the quote came from the fallback would put one person's name on
+  // another person's words.
+  const testimonial = featured?.testimonialQuote
+    ? {
+        quote: featured.testimonialQuote,
+        name: featured.testimonialName,
+        role: featured.testimonialRole,
+      }
+    : FALLBACK_TESTIMONIAL;
+
   const renderTile = (slotKey: string, className: string) => {
     const project: FeaturedProject | undefined = featured?.[
       slotKey as keyof FeaturedPostType
     ] as FeaturedProject | undefined;
 
     const slug = project?.slug?.current;
-    const logoAsset = project?.client?.altLogo?.asset;
+    const logo = project?.client?.altLogo;
+    const logoAsset = logo?.asset;
 
     // An empty slot, or one pointing at a deleted project, renders nothing at
     // all. It used to render a grey block that looked clickable and reloaded
@@ -84,9 +114,13 @@ const PortfolioSelected = async () => {
           {logoAsset && (
             <Image
               src={urlFor(logoAsset).url()}
-              alt={project.client?.altLogo?.alt ?? `${clientName} logo`}
-              width="0"
-              height="0"
+              alt={logo?.alt ?? `${clientName} logo`}
+              // Sanity's own upload metadata, so the ratio is the file's
+              // rather than 0x0. The square fallback only applies to assets
+              // uploaded before Sanity recorded dimensions; CSS sizes the
+              // logo either way.
+              width={logo?.dimensions?.width ?? 400}
+              height={logo?.dimensions?.height ?? 400}
               sizes="(max-width: 48rem) 100vw, 33vw"
               className={styles.image}
             />
@@ -113,15 +147,22 @@ const PortfolioSelected = async () => {
           {SLOTS.map(({ key, className }) => renderTile(key, className))}
 
           <div className={styles.fifthItem}>
-            <div className={styles.testimonial}>
+            <figure className={styles.testimonial}>
               <h3>What they&apos;re saying</h3>
-              <p className={styles.quote}>
-                &quot;Great person to work with! Did the job faster than the
-                initial due date, great service and great communication. Thank
-                You!&quot;
-              </p>
-              <p>Mabel Jones</p>
-            </div>
+              <blockquote className={styles.quote}>
+                <p>&ldquo;{testimonial.quote}&rdquo;</p>
+              </blockquote>
+              {testimonial.name && (
+                <figcaption>
+                  {testimonial.name}
+                  {testimonial.role && (
+                    <span className={styles.testimonialRole}>
+                      {testimonial.role}
+                    </span>
+                  )}
+                </figcaption>
+              )}
+            </figure>
           </div>
 
           <div className={styles.eightItem}>

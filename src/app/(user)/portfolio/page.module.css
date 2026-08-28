@@ -12,10 +12,66 @@
 
 .introText {
   padding-top: 1.85rem;
+  /* The full gap to the grid, for when nothing follows this. */
   padding-bottom: 96px;
   max-width: 40rem;
   font-size: var(--text-l);
   color: var(--gray);
+}
+
+/* The filters are only rendered when there are categories, so the gap cannot
+   live on them alone — with none, the copy ended up 40px from the grid. It
+   tightens here only when the filters are actually there to carry the rest. */
+.introText:has(+ .filters) {
+  padding-bottom: 2.5rem;
+}
+
+/* The gap to the grid moved here from .introText so the filters sit with the
+   copy rather than floating between two large gaps. */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  padding-bottom: 96px;
+}
+
+.filter {
+  display: inline-block;
+  color: var(--gray);
+  font-family: var(--font-sansProBold);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.125rem;
+}
+
+/* The site's link convention: the gradient underline that grows on hover,
+   matching ButtonUnderline. */
+.filter div {
+  width: 0;
+  height: 0.125rem;
+  background: linear-gradient(90deg, var(--pink) 0%, var(--pumpkin) 100%);
+  transition: width 0.3s cubic-bezier(1, 0.01, 0.63, 0.9);
+}
+
+.filter:hover div,
+.filter:focus-visible div {
+  width: 100%;
+}
+
+/* The filter you are looking at keeps its underline and full contrast, so the
+   current view is readable without relying on colour alone. */
+.filter[aria-current="page"] {
+  color: var(--black-white);
+}
+
+.filter[aria-current="page"] div {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter div {
+    transition: none;
+  }
 }
 
 .sideBar {
@@ -40,6 +96,25 @@
   margin-bottom: 1.5rem;
 }
 
+.link div {
+  width: 0;
+  height: 0.125rem;
+  background: linear-gradient(90deg, var(--pink) 0%, var(--pumpkin) 100%);
+  transition: width 0.3s cubic-bezier(1, 0.01, 0.63, 0.9);
+}
+
+.link:hover div,
+.link:focus-visible div,
+.link[aria-current="page"] div {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link div {
+    transition: none;
+  }
+}
+
 .socials {
   display: flex;
   gap: 1.5rem;
@@ -56,7 +131,12 @@
   .portfolioSection {
     padding-left: 284px;
   }
+  /* Steps down with .filters. The :has() rule above is more specific, so the
+     tightened value still wins whenever the filters are actually there. */
   .introText {
+    padding-bottom: 64px;
+  }
+  .filters {
     padding-bottom: 64px;
   }
 }

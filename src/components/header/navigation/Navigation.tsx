@@ -57,8 +57,18 @@ const Navigation: React.FC<NavigationProps> = ({
       animate={isNavOpen ? "open" : "closed"}
       exit={"closed"}
     >
+      {/* framer-motion renders the "closed" variant into the server HTML, so
+          the links ship at opacity 0, translated down, and are only revealed
+          by the entrance animation. With scripting off that never runs and the
+          site has no visible navigation at all. Inert whenever scripting is
+          on. !important because the hidden state is an inline style. */}
+      <noscript
+        dangerouslySetInnerHTML={{
+          __html: `<style>[data-nav-item]{opacity:1!important;transform:none!important}</style>`,
+        }}
+      />
       {pagesArr.map(({ page, path }) => (
-        <motion.div key={page} variants={variantsItems}>
+        <motion.div key={page} variants={variantsItems} data-nav-item>
           <Link
             onClick={handleNavClick}
             href={path}

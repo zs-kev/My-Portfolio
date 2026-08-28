@@ -2,7 +2,7 @@
 
 import { useIntroFinished } from "@/lib/providers/LoaderProvider/ProviderLoader";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "../logo/Logo";
 import styles from "./Header.module.css";
 import Navigation from "./navigation/Navigation";
@@ -72,15 +72,119 @@ const variantsBurger = {
   },
 };
 
+// Anything that can hold focus inside the panel. Nav links and the theme
+// toggle today; querying by role rather than listing components means the trap
+// keeps working if the panel gains something new.
+const FOCUSABLE =
+  'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 const Header: React.FC<HeaderProps> = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   // Both default to isNavOpen=true, so on desktop they animate in on mount —
   // which now means behind the loader. Hold them until the intro is done.
   const introFinished = useIntroFinished();
 
+  const panelRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+
   const handleNavClick = () => {
     setIsNavOpen((isOpen) => !isOpen);
   };
+
+  // Dismissing the menu without choosing a destination returns focus to the
+  // control that opened it. Following a link does not — focus belongs with the
+  // page you asked for.
+  const dismissNav = () => {
+    setIsNavOpen(false);
+    hamburgerRef.current?.focus();
+  };
+
+  // The open menu is a full-screen overlay, so it has to behave like one:
+  // Escape closes it, Tab cycles within it instead of walking the page behind
+  // it, and the page behind it does not scroll. Without this, tabbing from the
+  // menu moved focus to links the visitor could not see.
+  useEffect(() => {
+    if (!isNavOpen) return;
+
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    const panelItems = () =>
+      Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE));
+
+    // The hamburger is this panel's Close button — it is what carries
+    // aria-label="Close menu" — but it sits outside the panel in the DOM, so
+    // querying the panel alone trapped focus in a cycle that could never reach
+    // it. Keyboard users could open the menu and never tab to the control that
+    // closes it.
+    const cycle = () => {
+      const burger = hamburgerRef.current;
+      const items = panelItems();
+      return burger ? [burger, ...items] : items;
+    };
+
+    // Focus still starts on the first link rather than the Close button: the
+    // point of opening the menu is to choose a destination.
+    panelItems()[0]?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        dismissNav();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const items = cycle();
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      // Only the two edges need handling; everything between them is the
+      // browser's own tab order.
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    // The panel is hidden by CSS at 62rem and up, but isNavOpen is React state
+    // and knows nothing about that. Crossing the breakpoint with the menu open
+    // therefore left the body scroll-locked with no visible menu to close —
+    // the page simply stopped scrolling. Closing on the change keeps the two
+    // in step.
+    const desktop = window.matchMedia("(min-width: 62rem)");
+    const onBreakpointChange = () => {
+      if (desktop.matches) dismissNav();
+    };
+    onBreakpointChange();
+    desktop.addEventListener("change", onBreakpointChange);
+
+    // Locking the body removes the scrollbar gutter, and on platforms with
+    // classic space-consuming scrollbars that shifts the whole page sideways
+    // as the menu opens and back again as it closes. Nothing sets overflow on
+    // <html>, so the propagation to the viewport is real here. Holding the
+    // gutter open as padding keeps the page still.
+    const gutter = window.innerWidth - document.documentElement.clientWidth;
+    const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+
+    document.body.style.overflow = "hidden";
+    if (gutter > 0) document.body.style.paddingRight = `${gutter}px`;
+
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      desktop.removeEventListener("change", onBreakpointChange);
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
+    };
+  }, [isNavOpen]);
 
   return (
     <>
@@ -101,6 +205,7 @@ const Header: React.FC<HeaderProps> = () => {
           <button
             type="button"
             className={styles.hamburger}
+            ref={hamburgerRef}
             onClick={handleNavClick}
             aria-label={isNavOpen ? "Close menu" : "Open menu"}
             aria-expanded={isNavOpen}
@@ -130,12 +235,12 @@ const Header: React.FC<HeaderProps> = () => {
           </button>
           <AnimatePresence>
             {isNavOpen && (
-              <div className={styles.nav} id="mobile-nav">
+              <div className={styles.nav} id="mobile-nav" ref={panelRef}>
                 <div
                   className={`${styles.navWrapper} ${styles.navWrapperMobile}`}
                 >
                   <Navigation
-                    handleNavClick={handleNavClick}
+                    handleNavClick={() => setIsNavOpen(false)}
                     isNavOpen={isNavOpen}
                   />
                 </div>

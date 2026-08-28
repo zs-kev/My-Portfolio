@@ -1,4 +1,5 @@
 import ButtonUnderline from "@/components/buttons/underlineButton/ButtonUnderLine";
+import ScrollCue from "@/components/scrollCue/ScrollCue";
 import { client } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
 import Image from "next/image";
@@ -138,6 +139,8 @@ export default async function PortfolioPiece({ params }: Props) {
               </ButtonUnderline>
             )}
           </div>
+          {/* Centred under the hero links, with the mouse, as in the design. */}
+          <ScrollCue className={styles.scrollCue} mouse />
         </div>
       </section>
       <section>

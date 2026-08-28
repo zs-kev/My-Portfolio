@@ -202,11 +202,16 @@ For a site whose entire purpose is being found by recruiters and clients, this i
 
 ## 5. Accessibility
 
-> **Status: mostly done (Phase 3).** Keyboard-operable mobile nav, visible
+> **Status: done (Phase 3 + Phase 5).** Keyboard-operable mobile nav, visible
 > focus indicators, AA contrast, aria-current, carousel semantics, accessible
 > names on the toggle and carousel buttons, and accessible text preserved
-> through SplitType. Still open: the hero ships opacity:0 and is revealed only
-> by JS, and the mobile menu has no focus trap or Escape handler.
+> through SplitType. Phase 5 closed the last two: the mobile menu now traps
+> focus, closes on Escape, returns focus to the hamburger and locks the page
+> behind it; and the site renders with JavaScript disabled — which turned out
+> to be three layers, not one. The hero was the known case, but the loader
+> overlay sat over _every_ page permanently (fixed, opaque, z-index 9999,
+> dismissed only by its own timeline), and framer-motion serialises its hidden
+> variant into the HTML so the nav links shipped invisible too.
 
 18 confirmed issues. The two that are genuinely serious:
 
@@ -230,10 +235,14 @@ Also confirmed:
 
 ## 6. Performance
 
-> **Status: largely done (Phase 3).** Fonts 1.89 MiB -> 0.39 MiB (woff2, 79%
+> **Status: done (Phase 3 + Phase 5).** Fonts 1.89 MiB -> 0.39 MiB (woff2, 79%
 > smaller); the Selected Projects grid is server-rendered rather than fetched
-> on the client; /portfolio and [slug] revalidate every 60s. Still open: the
-> next/image width="0" call sites.
+> on the client; /portfolio and [slug] revalidate every 60s. Phase 5 gave the
+> three remaining width="0" call sites real dimensions — the hero portrait
+> (533x704, and its sizes="100vw" dropped), the signature (164x20) and the
+> client logo (from Sanity's own upload metadata). Note /portfolio now renders
+> per request rather than being prerendered, because the category filter reads
+> searchParams; the Sanity read is still cached by revalidate = 60.
 
 - **1.89 MiB of fonts, all preloaded on every route.** Nine unsubsetted `.ttf` faces. I confirmed all nine are emitted to `.next/static/media/` with the `-s.p.ttf` (preload) marker, so every route pays for all of them. Converting to `woff2` and subsetting to Latin typically cuts this by ~70% → ~500KB. This is the single biggest performance win available and it's mechanical work.
 - **Hero LCP image is a 533×704 PNG** (181KB) declared `width="0" height="0" sizes="100vw"`. The `sizes` value overstates its rendered width considerably, so the browser fetches a larger candidate than needed.
@@ -256,11 +265,11 @@ Zero images appear on a project page. `featureImage` only shows on the index.
 
 - `featuredTwo`–`featuredFive` authored but never queried (root cause of B6)
 - Client schema: `mainLogo`, `description`, and two of three brand colours never rendered
-- `/portfolio` "All Projects" link is `href="#"` — reads as a filter control, does nothing
-- Testimonial is hardcoded, unattributed, unsourced; heading reads "What they saying"
+- ~~`/portfolio` "All Projects" link is `href="#"` — reads as a filter control, does nothing~~ **Fixed (Phase 5)** — it is now a real category filter, driven by `?category=` so it works without JS and can be shared
+- ~~Testimonial is hardcoded, unattributed, unsourced; heading reads "What they saying"~~ **Fixed (Phase 5)** — now three fields on the Featured document, with the name required whenever there is a quote
 - Social links hardcoded in **three** separate places (`page.tsx`, `portfolio/page.tsx`, `Socials.tsx`) — two are copy-paste identical
 - Experience section has one entry, ending 2021
-- `var(--sansProSemiBold)` in `PortfolioSelected.module.css:38` is missing the `font-` prefix → undefined variable, silently falls back
+- ~~`var(--sansProSemiBold)` in `PortfolioSelected.module.css:38` is missing the `font-` prefix → undefined variable, silently falls back~~ **Fixed (Phase 5)**
 
 ---
 

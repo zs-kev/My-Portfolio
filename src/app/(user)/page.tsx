@@ -39,8 +39,9 @@ export default function Home() {
               <Image
                 src="/assets/images/kevin-simon-sig.svg"
                 alt="Kevin Simon"
-                width="0"
-                height="0"
+                // Matches the SVG's own viewBox. Was 0x0 with no sizes at all.
+                width={164}
+                height={20}
               />
               <ButtonUnderline link={"/about"}>About Me</ButtonUnderline>
             </div>
