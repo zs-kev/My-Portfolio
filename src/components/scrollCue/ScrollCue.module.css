@@ -6,11 +6,6 @@
   width: fit-content;
 }
 
-.mouse {
-  display: block;
-  color: var(--gray);
-}
-
 .label {
   /* Reads down the rail, the direction it is asking you to go. */
   writing-mode: vertical-rl;
@@ -21,16 +16,63 @@
   color: var(--gray);
 }
 
-.track {
+/* The rail is the mouse's runway: the line spans its full height and the mouse
+   rides on top of it. Wide enough for the mouse, since the mouse is the widest
+   thing in it. */
+.rail {
   position: relative;
+  width: 20px;
+  height: 7rem;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
   width: 1px;
-  height: 4.5rem;
+  transform: translateX(-50%);
   background-color: var(--gray-soft);
-  /* Clips the highlight at both ends so it reads as travelling through the
-     rule rather than appearing beside it. */
+  /* Clips the highlight to the rule on the variant that uses it. */
   overflow: hidden;
 }
 
+.mouse {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+  color: var(--gray);
+  /* The mouse sits over the line, so it needs the page behind it — the outline
+     is stroke-only and the rule would otherwise run straight through the body
+     of it. The radius matches the icon's own rx so the mask is invisible. */
+  background-color: var(--white-black);
+  border-radius: 10px;
+  animation: scrollCueMouse 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* Without this the svg is inline, so the span picks up line-height below it and
+   the mask eats a few pixels of rule under the mouse — reading as a break in
+   the line rather than something sitting on it. */
+.mouse svg {
+  display: block;
+}
+
+/* Down and back, the way you would actually push a mouse to scroll. The
+   translateX is carried through every frame because it is what centres the
+   mouse on the line. */
+@keyframes scrollCueMouse {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 3rem);
+  }
+}
+
+/* The home rail has no mouse — the design gives it the label and the rule
+   alone — so its motion is a highlight travelling down the rule instead. */
 .travel {
   position: absolute;
   left: 0;
@@ -45,18 +87,23 @@
   0% {
     transform: translateY(-100%);
   }
-  /* The track is 4.5rem and the bar is 45% of it, so 222% is exactly the
-     distance that carries the bar from just above the track to just past its
-     bottom edge. Overshooting left the rule bare for the tail of every cycle,
-     and the ease-out end made it linger there. */
+  /* The bar is 45% of the rule, so 222% is exactly the distance that carries it
+     from just above the rule to just past its bottom edge. Overshooting left
+     the rule bare for the tail of every cycle. */
   100% {
     transform: translateY(222%);
   }
 }
 
-/* Still a marked rule, just not a moving one. The highlight rests at the top of
-   the track rather than vanishing, so the cue does not become a bare line. */
+/* Both animations stop, and both rest in their visible state: the mouse at the
+   top of its runway, the highlight at the top of the rule. Neither cue
+   collapses to a bare line. */
 @media (prefers-reduced-motion: reduce) {
+  .mouse {
+    animation: none;
+    transform: translate(-50%, 0);
+  }
+
   .travel {
     animation: none;
   }
