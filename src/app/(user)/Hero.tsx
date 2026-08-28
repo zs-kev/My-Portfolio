@@ -43,6 +43,29 @@ export default function Hero() {
 
   return (
     <section className={styles.heroSection} ref={heroRef}>
+      {/* Everything the intro reveals ships hidden — the headings, intro copy,
+          portrait and glow at opacity 0, and "Hello, I am" translated out of
+          an overflow-hidden parent. With JS off nothing ever reveals it, so
+          the hero was blank apart from the button and the social bar.
+
+          This overrides that to the animation's own end state, and only when
+          scripting is off: <noscript> content is inert in a scripting browser,
+          so the JS path is untouched and there is no flash. It keys off the
+          same data attributes the timeline animates rather than the CSS module
+          class names, which are hashed at build time and cannot be targeted
+          from here. */}
+      <noscript
+        dangerouslySetInnerHTML={{
+          __html: `<style>
+            [data-hello], [data-i], [data-am] { transform: none !important; }
+            [data-kevin], [data-simon], [data-intro-text] { opacity: 1 !important; }
+            [data-hero-image] { opacity: 1 !important; transform: none !important; }
+            /* Keeps the centring translate — this one is translateX(-50%) scale(0.8),
+               so transform:none would shunt the glow half its width off centre. */
+            [data-image-shadow] { opacity: 1 !important; transform: translateX(-50%) !important; }
+          </style>`,
+        }}
+      />
       <div className={styles.gridContainer}>
         <p className={styles.hello}>
           <span data-hello>Hello,</span> <span data-i>I</span>{" "}
@@ -79,9 +102,14 @@ export default function Hero() {
             src={"/assets/images/kevin-simon.png"}
             alt={"Kevin Simon Portrait"}
             priority
-            width="0"
-            height="0"
-            sizes="100vw"
+            // The portrait is 533x704. It used to declare width/height 0,
+            // which removes the aspect-ratio box so no space is reserved
+            // until it loads, and sizes="100vw" told the browser to fetch a
+            // candidate sized for the full viewport width. CSS still drives
+            // the rendered size (height: 85vh, width: auto); these only
+            // supply the ratio.
+            width={533}
+            height={704}
             className={styles.image}
             data-hero-image
           />
