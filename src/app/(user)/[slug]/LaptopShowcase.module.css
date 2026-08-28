@@ -2,7 +2,25 @@
   padding: 6rem 0;
 }
 
+/* The laptop itself never moves — the screenshot travels inside it. The sticky
+   stage and its runway exist only for that, and only once JS has measured how
+   far the screenshot can actually go. Without JS the section keeps its natural
+   height and the screenshot simply sits at the top of the screen. */
+.section[data-scroll-effect="on"] {
+  padding: 0;
+  height: calc(100vh + var(--scroll-runway, 0px));
+}
+
+.section[data-scroll-effect="on"] .sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
 .stage {
+  width: 100%;
   max-width: 76.125rem;
   margin: 0 auto;
   padding: 0 3rem;
@@ -49,8 +67,9 @@
 }
 
 .screenInner {
-  height: 100%;
-  overflow: hidden;
+  /* Deliberately not height:100% — a tall screenshot is allowed to overflow so
+     there is something to travel through. .screen clips it. */
+  will-change: transform;
 }
 
 .shot {
@@ -82,8 +101,18 @@
 }
 
 @media (width < 48rem) {
-  .section {
+  .section,
+  .section[data-scroll-effect="on"] {
+    /* Phones show the screenshot from the top, static. Pinning a viewport and
+       scrubbing inside a small screen is more irritating than it is worth. */
+    height: auto;
     padding: 3.5rem 0;
+  }
+
+  .section[data-scroll-effect="on"] .sticky {
+    position: static;
+    height: auto;
+    display: block;
   }
 
   .stage {
