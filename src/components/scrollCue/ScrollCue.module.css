@@ -16,43 +16,51 @@
   color: var(--gray);
 }
 
+/* The rule and the highlight that travels it are both backgrounds on this one
+   element. They used to be two: a 1px-wide box clipping a child whose transform
+   was animated. WebKit promotes such a child to its own compositing layer and
+   applies the ancestor's overflow clip to it, and at the fractional x-position
+   a centred cue lands on, a 1px clip rounds away — so Safari painted the rule
+   (a plain background, never composited) but never the highlight. Chromium
+   composited it happily, which is why it only showed up in one browser.
+   Animating background-position is painted rather than composited, so there is
+   no layer to lose, and on a 1px x 112px box the repaint is free.
+
+   The three lengths below are coupled: the bar is 3.15rem, the rule 7rem, and
+   the keyframe carries the bar from one bar-height above the rule to the rule's
+   full height below it — the whole length, with no bare stretch at either end.
+   They are literals rather than custom properties because var() inside
+   @keyframes has a patchy history in the browser this is meant to fix, and it
+   is the one browser not testable here. Change one, change all three. */
 .track {
-  position: relative;
   width: 1px;
   height: 7rem;
   background-color: var(--gray-soft);
-  /* Clips the highlight at both ends so it reads as travelling through the rule
-     rather than appearing beside it. */
-  overflow: hidden;
-}
-
-.travel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 45%;
-  background: linear-gradient(180deg, var(--pink) 0%, var(--pumpkin) 100%);
+  background-image: linear-gradient(
+    180deg,
+    var(--pink) 0%,
+    var(--pumpkin) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 3.15rem;
+  background-position: 0 0;
   animation: scrollCueTravel 2.4s cubic-bezier(0.6, 0, 0.4, 1) infinite;
 }
 
 @keyframes scrollCueTravel {
   0% {
-    transform: translateY(-100%);
+    background-position: 0 -3.15rem;
   }
-  /* The bar is 45% of the rule, so 222% is exactly the distance that carries it
-     from just above the rule to just past its bottom edge — the full length,
-     with no stretch of bare rule at either end. Expressed as a percentage of
-     the bar, so it stays right if the track is resized. */
   100% {
-    transform: translateY(222%);
+    background-position: 0 7rem;
   }
 }
 
 /* Still a marked rule, just not a moving one. The highlight rests at the top of
-   the track rather than vanishing, so the cue does not become a bare line. */
+   the rule — the base background-position — rather than vanishing, so the cue
+   does not become a bare line. */
 @media (prefers-reduced-motion: reduce) {
-  .travel {
+  .track {
     animation: none;
   }
 }

@@ -6,7 +6,8 @@ export interface ScrollCueProps {
 }
 
 // The scroll prompt from both heroes: a small rotated label above a vertical
-// rule, with a highlight travelling down the rule.
+// rule, with a highlight travelling down the rule. The rule and the highlight
+// are one element — see the module for why that matters in Safari.
 //
 // It is decorative and aria-hidden. The page scrolls identically without it, so
 // announcing "Scroll down" to a screen reader would be an instruction the
@@ -23,9 +24,7 @@ const ScrollCue: React.FC<ScrollCueProps> = ({
       aria-hidden="true"
     >
       <span className={styles.label}>{label}</span>
-      <span className={styles.track}>
-        <span className={styles.travel} />
-      </span>
+      <span className={styles.track} />
     </div>
   );
 };
