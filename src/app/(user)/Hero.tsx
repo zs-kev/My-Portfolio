@@ -124,7 +124,7 @@ export default function Hero() {
           offset was a number derived from how many social links there happen
           to be. */}
       <div className={styles.leftRail}>
-        <ScrollCue label="Scroll down" />
+        <ScrollCue />
         <SocialIconLinks className={styles.leftBar} />
       </div>
     </section>

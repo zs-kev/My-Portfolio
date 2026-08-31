@@ -1,4 +1,5 @@
 .heroWrapper {
+  position: relative;
   padding-top: 12.5rem;
   min-height: 100vh;
 }
@@ -66,8 +67,22 @@
   padding-top: 4rem;
 }
 
+/* Pinned to the first screen rather than to the end of the hero's content.
+   The hero's content runs to about 1300px, so a cue placed after the links sat
+   at 983-1224 — below the fold at every common viewport. You had to scroll to
+   find the thing telling you to scroll, and the rule the highlight travels was
+   off screen entirely, which is why the gradient looked missing here but not on
+   the home page (whose cue is absolutely positioned in a 100vh hero). */
 .scrollCue {
-  margin: 3.5rem auto 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Sits in the gutter between the two hero columns, pinned to the bottom of
+     the first screen. The 38rem floor is the headline's baseline: the headline
+     is max-width 50%, so its right edge runs down the same centre line the cue
+     is on, and on a short viewport the pin would otherwise lift the cue into
+     it. Below that floor the gutter is clear all the way down. */
+  top: max(38rem, calc(100vh - 16rem));
 }
 
 .heroLinksWrapper a {
