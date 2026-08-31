@@ -115,14 +115,10 @@ export default async function Portfolio({ searchParams }: Props) {
             All the projects that I have worked on, from design to development.
           </p>
           <div className={styles.line} />
-          <Link
-            className={styles.link}
-            href="/portfolio"
-            aria-current={activeCategory ? undefined : "page"}
-          >
-            All Projects
-            <div />
-          </Link>
+          {/* "All Projects" used to sit here too. It is the filter row's job —
+              that one actually filters, and it is visible below 64rem where
+              this sidebar is not. Two controls with the same label, one of
+              which only resets, was the confusing half. */}
           <Link className={styles.link} href="/contact">
             Get In Touch
             <div />
