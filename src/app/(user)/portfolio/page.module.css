@@ -92,6 +92,9 @@
 
 .link {
   display: block;
+  /* Without this the link fills the 12rem sidebar column, so the underline —
+     which is width:100% of the link — ran well past the end of the words. */
+  width: fit-content;
   color: var(--black-white);
   margin-bottom: 1.5rem;
 }
